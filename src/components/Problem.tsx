@@ -41,32 +41,32 @@ const stats = [
 
 export default function Problem() {
   return (
-    <section className="py-32 md:py-40 px-6 bg-white">
+    <section className="py-32 md:py-40 px-6 bg-[color:var(--color-bg-subtle)]">
       <div className="max-w-6xl mx-auto">
         <FadeUp>
-          <p className="text-xs font-medium tracking-[0.15em] uppercase text-[#A1A1AA] mb-6">
+          <p className="text-xs font-medium tracking-[0.15em] uppercase text-[color:var(--color-text-tertiary)] mb-6">
             The Reality
           </p>
         </FadeUp>
         <FadeUp delay={0.06}>
           <h2
-            className="font-bold text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.1] tracking-tight text-[#18181B] max-w-2xl mb-20"
+            className="font-serif text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.1] tracking-tight text-[color:var(--color-text-primary)] max-w-2xl mb-20"
             style={{ textWrap: "balance" }}
           >
             Companies are busy adopting AI.{" "}
-            <span className="text-[#A1A1AA]">
+            <span className="text-[color:var(--color-text-tertiary)]">
               Few are getting value from it.
             </span>
           </h2>
         </FadeUp>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 border-t border-[#E4E4E7] pt-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 border-t border-[color:var(--color-border-default)] pt-16">
           {stats.map((item, i) => (
             <FadeUp key={i} delay={0.12 + i * 0.1}>
-              <div className="font-bold text-[clamp(3rem,6vw,5rem)] leading-none text-[#18181B] mb-5">
+              <div className="font-serif text-[clamp(3rem,6vw,5rem)] leading-none text-[color:var(--color-text-primary)] mb-5">
                 {item.stat}
               </div>
-              <p className="text-[#71717A] text-base leading-relaxed">
+              <p className="text-[color:var(--color-text-secondary)] text-base leading-relaxed">
                 {item.text}
               </p>
             </FadeUp>

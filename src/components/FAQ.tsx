@@ -53,24 +53,24 @@ function FAQItem({
     >
       <button
         onClick={onToggle}
-        className="w-full flex items-start justify-between gap-6 py-7 text-left cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#18181B] focus-visible:ring-offset-2 rounded"
+        className="w-full flex items-start justify-between gap-6 py-7 text-left cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-text-primary)] focus-visible:ring-offset-2 rounded"
         aria-expanded={isOpen}
       >
-        <span className="font-semibold text-base md:text-lg text-[#18181B] group-hover:text-[#18181B] transition-colors duration-200 leading-snug">
+        <span className="font-serif text-base md:text-lg text-[color:var(--color-text-primary)] group-hover:text-[color:var(--color-text-primary)] transition-colors duration-200 leading-snug">
           {item.q}
         </span>
         <span
           className={`flex-shrink-0 mt-0.5 w-6 h-6 rounded-full border flex items-center justify-center transition-all duration-200 ${
             isOpen
-              ? "border-[#18181B] bg-[#18181B] rotate-45"
-              : "border-[#E4E4E7] bg-white"
+              ? "border-[color:var(--color-accent)] bg-[color:var(--color-accent)] rotate-45"
+              : "border-[color:var(--color-border-default)] bg-[color:var(--color-bg-subtle)]"
           }`}
           aria-hidden="true"
         >
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
             <path
               d="M5 2v6M2 5h6"
-              stroke={isOpen ? "white" : "#A1A1AA"}
+              stroke={isOpen ? "white" : "var(--color-text-tertiary)"}
               strokeWidth="1.5"
               strokeLinecap="round"
             />
@@ -87,7 +87,7 @@ function FAQItem({
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <p className="pb-7 text-[#71717A] text-base leading-relaxed">
+            <p className="pb-7 text-[color:var(--color-text-secondary)] text-base leading-relaxed">
               {item.a}
             </p>
           </motion.div>
@@ -103,14 +103,14 @@ export default function FAQ() {
   const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
 
   return (
-    <section id="faq" className="py-32 md:py-40 px-6 bg-[#FAFAFA]">
+    <section id="faq" className="py-32 md:py-40 px-6 bg-[color:var(--color-bg-subtle)]">
       <div className="max-w-6xl mx-auto">
         <div ref={headerRef}>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-xs font-medium tracking-[0.15em] uppercase text-[#A1A1AA] mb-6"
+            className="text-xs font-medium tracking-[0.15em] uppercase text-[color:var(--color-text-tertiary)] mb-6"
           >
             FAQ
           </motion.p>
@@ -118,14 +118,14 @@ export default function FAQ() {
             initial={{ opacity: 0, y: 20 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.06 }}
-            className="font-bold text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.1] tracking-tight text-[#18181B] mb-14"
+            className="font-serif text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.1] tracking-tight text-[color:var(--color-text-primary)] mb-14"
             style={{ textWrap: "balance" }}
           >
             Common questions.
           </motion.h2>
         </div>
 
-        <div className="max-w-3xl divide-y divide-[#E4E4E7]">
+        <div className="max-w-3xl divide-y divide-[color:var(--color-border-default)]">
           {faqs.map((item, i) => (
             <FAQItem
               key={i}

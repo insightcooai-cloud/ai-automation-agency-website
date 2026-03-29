@@ -42,7 +42,7 @@ const services = [
   },
 ];
 
-function ServiceRow({
+function ServiceCard({
   service,
   index,
 }: {
@@ -55,39 +55,20 @@ function ServiceRow({
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: (index % 3) * 0.07 }}
-      className="group flex flex-col sm:flex-row gap-6 py-8 border-b border-[#E4E4E7] hover:border-[#A1A1AA] transition-colors duration-200 cursor-default"
+      transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
+      className="group p-7 rounded-2xl border border-[color:var(--color-border-default)] bg-[color:var(--color-bg-subtle)] hover:bg-[color:var(--color-bg-surface)] hover:shadow-sm transition-all duration-200 cursor-default"
     >
-      <div className="sm:w-10 text-xs text-[#A1A1AA] pt-1 flex-shrink-0 tabular-nums">
+      <div className="text-xs text-[color:var(--color-text-tertiary)] tabular-nums mb-5">
         {service.n}
       </div>
-      <div className="flex-1 min-w-0">
-        <h3 className="font-semibold text-xl md:text-2xl text-[#18181B] mb-2.5 group-hover:text-[#18181B] transition-colors duration-200">
-          {service.title}
-        </h3>
-        <p className="text-[#71717A] text-base leading-relaxed max-w-2xl">
-          {service.description}
-        </p>
-      </div>
-      <div className="hidden sm:flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[#A1A1AA] flex-shrink-0">
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M4 10h12M10 4l6 6-6 6"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </div>
+      <h3 className="font-serif text-xl md:text-[1.4rem] text-[color:var(--color-text-primary)] mb-3 leading-snug">
+        {service.title}
+      </h3>
+      <p className="text-[color:var(--color-text-secondary)] text-sm leading-relaxed">
+        {service.description}
+      </p>
     </motion.div>
   );
 }
@@ -97,7 +78,7 @@ export default function Services() {
   const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
 
   return (
-    <section id="services" className="py-32 md:py-40 px-6 bg-[#FAFAFA]">
+    <section id="services" className="py-32 md:py-40 px-6 bg-[color:var(--color-bg-canvas)]">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div ref={headerRef}>
@@ -105,7 +86,7 @@ export default function Services() {
             initial={{ opacity: 0, y: 12 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-xs font-medium tracking-[0.15em] uppercase text-[#A1A1AA] mb-6"
+            className="text-xs font-medium tracking-[0.15em] uppercase text-[color:var(--color-text-tertiary)] mb-6"
           >
             Services
           </motion.p>
@@ -113,17 +94,17 @@ export default function Services() {
             initial={{ opacity: 0, y: 20 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.06 }}
-            className="font-bold text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.1] tracking-tight text-[#18181B] max-w-xl mb-16"
+            className="font-serif text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.1] tracking-tight text-[color:var(--color-text-primary)] max-w-xl mb-16"
             style={{ textWrap: "balance" }}
           >
             Everything you need to make AI work.
           </motion.h2>
         </div>
 
-        {/* Service list */}
-        <div className="border-t border-[#E4E4E7]">
+        {/* Service card grid — 2×3 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {services.map((s, i) => (
-            <ServiceRow key={s.n} service={s} index={i} />
+            <ServiceCard key={s.n} service={s} index={i} />
           ))}
         </div>
       </div>

@@ -57,7 +57,7 @@ function AnimatedWorkflowDiagram() {
           y1="80"
           x2="700"
           y2="80"
-          stroke="#E4E4E7"
+          stroke="var(--color-border-default)"
           strokeWidth="2"
         />
 
@@ -67,10 +67,10 @@ function AnimatedWorkflowDiagram() {
           y1="80"
           x2="700"
           y2="80"
-          stroke="#18181B"
+          stroke="var(--color-accent)"
           strokeWidth="2"
           strokeLinecap="round"
-          strokeOpacity="0.2"
+          strokeOpacity="0.3"
           initial={{ scaleX: 0 }}
           animate={inView ? { scaleX: 1 } : {}}
           style={{ transformOrigin: "100px 80px" }}
@@ -85,13 +85,13 @@ function AnimatedWorkflowDiagram() {
             y1={80}
             x2={nodes[i + 1].x - 34}
             y2={80}
-            stroke="#E4E4E7"
+            stroke="var(--color-border-default)"
             strokeWidth="1.5"
             strokeDasharray="5 4"
             strokeLinecap="round"
-            initial={{ opacity: 0, stroke: "#E4E4E7" }}
+            initial={{ opacity: 0, stroke: "var(--color-border-default)" }}
             animate={
-              inView ? { opacity: 1, stroke: "#18181B" } : {}
+              inView ? { opacity: 1, stroke: "var(--color-accent)" } : {}
             }
             transition={{ duration: 0.6, delay: 0.8 + i * 0.25 }}
           />
@@ -106,7 +106,7 @@ function AnimatedWorkflowDiagram() {
               cy={node.y}
               r={32}
               fill="none"
-              stroke="#E4E4E7"
+              stroke="var(--color-border-soft)"
               strokeWidth="1"
               initial={{ scale: 0, opacity: 0 }}
               animate={inView ? { scale: 1, opacity: 1 } : {}}
@@ -124,8 +124,8 @@ function AnimatedWorkflowDiagram() {
               cx={node.x}
               cy={node.y}
               r={20}
-              fill="white"
-              stroke="#E4E4E7"
+              fill="var(--color-bg-canvas)"
+              stroke="var(--color-border-default)"
               strokeWidth="1.5"
               initial={{ scale: 0, opacity: 0 }}
               animate={inView ? { scale: 1, opacity: 1 } : {}}
@@ -143,7 +143,7 @@ function AnimatedWorkflowDiagram() {
               cx={node.x}
               cy={node.y}
               r={4}
-              fill="#18181B"
+              fill="var(--color-accent)"
               initial={{ scale: 0, opacity: 0 }}
               animate={inView ? { scale: 1, opacity: 1 } : {}}
               style={{
@@ -160,7 +160,7 @@ function AnimatedWorkflowDiagram() {
               x={node.x}
               y={node.y + 48}
               textAnchor="middle"
-              fill="#18181B"
+              fill="var(--color-text-primary)"
               fontSize="13"
               fontWeight="600"
               fontFamily="var(--font-inter), system-ui, sans-serif"
@@ -175,7 +175,7 @@ function AnimatedWorkflowDiagram() {
               x={node.x}
               y={node.y + 63}
               textAnchor="middle"
-              fill="#A1A1AA"
+              fill="var(--color-text-tertiary)"
               fontSize="10"
               fontFamily="var(--font-inter), system-ui, sans-serif"
               initial={{ opacity: 0 }}
@@ -207,13 +207,13 @@ function PhaseCard({
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.08 }}
-      className="p-6 rounded-2xl border border-[#E4E4E7] bg-white hover:shadow-sm transition-all duration-200"
+      className="p-6 rounded-2xl border border-[color:var(--color-border-default)] bg-[color:var(--color-bg-subtle)] hover:shadow-sm transition-all duration-200"
     >
-      <div className="inline-flex px-2.5 py-1 rounded-full text-xs font-medium mb-4 bg-[#F4F4F5] text-[#71717A]">
+      <div className="inline-flex px-2.5 py-1 rounded-full text-xs font-medium mb-4 bg-[color:var(--color-accent-soft)] text-[color:var(--color-accent)]">
         {phase.sub}
       </div>
-      <h3 className="font-bold text-lg text-[#18181B] mb-2.5">{phase.title}</h3>
-      <p className="text-sm text-[#71717A] leading-relaxed">{phase.desc}</p>
+      <h3 className="font-serif text-lg text-[color:var(--color-text-primary)] mb-2.5">{phase.title}</h3>
+      <p className="text-sm text-[color:var(--color-text-secondary)] leading-relaxed">{phase.desc}</p>
     </motion.div>
   );
 }
@@ -223,7 +223,7 @@ export default function HowIWork() {
   const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
 
   return (
-    <section id="how-i-work" className="py-32 md:py-40 px-6 bg-white">
+    <section id="how-i-work" className="py-32 md:py-40 px-6 bg-[color:var(--color-bg-canvas)]">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div ref={headerRef}>
@@ -231,7 +231,7 @@ export default function HowIWork() {
             initial={{ opacity: 0, y: 12 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-xs font-medium tracking-[0.15em] uppercase text-[#A1A1AA] mb-6"
+            className="text-xs font-medium tracking-[0.15em] uppercase text-[color:var(--color-text-tertiary)] mb-6"
           >
             Process
           </motion.p>
@@ -239,7 +239,7 @@ export default function HowIWork() {
             initial={{ opacity: 0, y: 20 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.06 }}
-            className="font-bold text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.1] tracking-tight text-[#18181B] max-w-xl mb-5"
+            className="font-serif text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.1] tracking-tight text-[color:var(--color-text-primary)] max-w-xl mb-5"
             style={{ textWrap: "balance" }}
           >
             Diagnosis before prescription.
@@ -248,7 +248,7 @@ export default function HowIWork() {
             initial={{ opacity: 0, y: 16 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.12 }}
-            className="text-lg text-[#71717A] max-w-lg leading-relaxed mb-16"
+            className="text-lg text-[color:var(--color-text-secondary)] max-w-lg leading-relaxed mb-16"
           >
             Every engagement starts with understanding — not selling. I
             won&apos;t recommend a solution until I understand your problem.
@@ -260,7 +260,7 @@ export default function HowIWork() {
           initial={{ opacity: 0, y: 24 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="mb-16 px-8 md:px-16 py-12 rounded-2xl bg-[#F4F4F5] border border-[#E4E4E7]"
+          className="mb-16 px-8 md:px-16 py-12 rounded-2xl bg-[color:var(--color-bg-surface)] border border-[color:var(--color-border-default)]"
         >
           <AnimatedWorkflowDiagram />
         </motion.div>

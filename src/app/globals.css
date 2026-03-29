@@ -2,6 +2,33 @@
 
 @theme {
   --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), "Georgia", serif;
+
+  /* — Sage Editorial Palette — */
+  /* Backgrounds */
+  --color-bg-canvas: #F4F2EC;
+  --color-bg-surface: #EAE7DE;
+  --color-bg-subtle: #EFEDE6;
+  --color-bg-inverse: #2A332E;
+
+  /* Text */
+  --color-text-primary: #2A332E;
+  --color-text-secondary: #556259;
+  --color-text-tertiary: #8A9189;
+  --color-text-inverse: #F4F2EC;
+
+  /* Borders */
+  --color-border-default: #D4D0C6;
+  --color-border-soft: #E3DFD5;
+
+  /* Accent — Muted Sage */
+  --color-accent: #6F8A72;
+  --color-accent-soft: #D6E2D7;
+  --color-accent-hover: #5C7760;
+
+  /* Semantic */
+  --color-focus: #2C84DB;
+  --color-error: #BF4D43;
 }
 
 @layer base {
@@ -19,18 +46,20 @@
   }
 
   body {
-    background-color: #FAFAFA;
-    color: #18181B;
+    background-color: var(--color-bg-canvas);
+    color: var(--color-text-primary);
     line-height: 1.65;
     font-family: var(--font-inter), system-ui, sans-serif;
   }
 
+  /* Custom scrollbar */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: #E4E4E7; border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: #A1A1AA; }
-  ::selection { background: #18181B; color: white; }
+  ::-webkit-scrollbar-thumb { background: var(--color-border-default); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-text-tertiary); }
+  ::selection { background: var(--color-bg-inverse); color: var(--color-text-inverse); }
 
+  /* Accessibility */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
@@ -40,6 +69,7 @@
   }
 }
 
+/* Animations */
 @keyframes slow-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
