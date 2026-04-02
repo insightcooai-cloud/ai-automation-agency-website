@@ -4,22 +4,24 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 
 const credentials = [
-  { label: "Business Intelligence", desc: "BI systems, dashboards, data storytelling across operations", width: 95 },
-  { label: "Program Management",    desc: "Cross-functional execution at scale, Amazon",                 width: 90 },
-  { label: "Business Operations",   desc: "Workflow design, systems thinking, operational efficiency",    width: 92 },
-  { label: "AI Enablement",         desc: "Assessment, training, adoption strategy, and ongoing support", width: 88 },
+  { label: "Business Intelligence", desc: "BI systems, dashboards, data storytelling across operations", width: 98, years: "12+ yrs" },
+  { label: "Program Management",    desc: "Amazon Sr. PM — data, ops, and product at scale",             width: 90, years: "10+ yrs" },
+  { label: "Business Operations",   desc: "Workflow design, systems thinking, operational efficiency",    width: 88, years: "10+ yrs" },
+  { label: "AI Enablement",         desc: "Assessment, training, adoption strategy, and ongoing support", width: 65, years: "4+ yrs"  },
 ];
 
 function SkillBar({
   label,
   desc,
   width,
+  years,
   delay,
   inView,
 }: {
   label: string;
   desc: string;
   width: number;
+  years: string;
   delay: number;
   inView: boolean;
 }) {
@@ -38,7 +40,7 @@ function SkillBar({
           {label}
         </span>
         <span className="font-sans font-600 text-[12px]" style={{ color: "var(--amber-400)", fontWeight: 600 }}>
-          10+ yrs
+          {years}
         </span>
       </div>
       <p className="font-sans font-light text-[12px] leading-snug mb-3" style={{ color: "var(--ink-400)" }}>
@@ -49,7 +51,7 @@ function SkillBar({
         <div
           className="h-full rounded-full transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
           style={{
-            background: "var(--sage-500)",
+            background: label === "AI Enablement" ? "var(--amber-400)" : "var(--sage-500)",
             width: animated ? `${width}%` : "0%",
             transitionDelay: "0ms",
           }}
@@ -174,6 +176,7 @@ export default function About() {
                   label={c.label}
                   desc={c.desc}
                   width={c.width}
+                  years={c.years}
                   delay={i * 100 + 200}
                   inView={inView}
                 />

@@ -51,7 +51,7 @@ export default function Contact() {
   const labelStyle = { color: "var(--sand-200)" };
 
   return (
-    <section id="contact" className="py-24 md:py-32 px-6 relative z-10">
+    <section id="contact" className="pt-24 md:pt-32 px-6 relative z-10" style={{ background: "var(--charcoal)", paddingBottom: "120px" }}>
       <div className="max-w-[1200px] mx-auto" ref={ref}>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 xl:gap-24">
           {/* Left */}

@@ -3,101 +3,209 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-/* ── Inline SVG diagrams ── */
-const RadarSVG = () => (
-  <svg width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="Radar chart showing AI readiness across 5 dimensions" fill="none">
+/* ── Workflow diagram SVGs ── */
+
+// 01 ASSESS — horizontal pipeline
+const AssessSVG = () => (
+  <svg width="180" viewBox="0 0 180 58" fill="none" role="img" aria-label="AI Readiness Audit pipeline">
+    {/* Trigger node */}
+    <rect x="1" y="6" width="52" height="22" rx="6" fill="var(--sand-200)" stroke="var(--ink-700)" strokeWidth="1.2" />
+    {/* AI/processing node */}
+    <rect x="65" y="6" width="52" height="22" rx="6" fill="var(--amber-400)" fillOpacity="0.15" stroke="var(--amber-400)" strokeWidth="1.2" />
+    {/* Output node */}
+    <rect x="127" y="6" width="52" height="22" rx="6" fill="var(--sage-500)" fillOpacity="0.15" stroke="var(--sage-500)" strokeWidth="1.2" />
+
+    {/* Arrow 1 */}
+    <line x1="53" y1="17" x2="62" y2="17" stroke="var(--ink-400)" strokeWidth="1" />
+    <path d="M58,14 L62,17 L58,20" fill="none" stroke="var(--ink-400)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+    {/* Arrow 2 */}
+    <line x1="117" y1="17" x2="126" y2="17" stroke="var(--ink-400)" strokeWidth="1" />
+    <path d="M122,14 L126,17 L122,20" fill="none" stroke="var(--ink-400)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+
+    {/* Node labels */}
+    <text x="27" y="20" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">Current State</text>
+    <text x="91" y="20" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">Gap Analysis</text>
+    <text x="153" y="16" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">Readiness</text>
+    <text x="153" y="26" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">Score</text>
+
+    {/* Sub-labels */}
+    <text x="27" y="42" textAnchor="middle" fontSize="7.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui">tools + workflows</text>
+    <text x="91" y="42" textAnchor="middle" fontSize="7.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui">vs. target state</text>
+    <text x="153" y="42" textAnchor="middle" fontSize="7.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui">with roadmap</text>
+  </svg>
+);
+
+// 02 EDUCATE — branching diagram
+const EducateSVG = () => (
+  <svg width="180" viewBox="0 0 180 102" fill="none" role="img" aria-label="Team training branching into role-specific tracks">
+    {/* Input node */}
+    <rect x="65" y="2" width="50" height="22" rx="6" fill="var(--sand-200)" stroke="var(--ink-700)" strokeWidth="1.2" />
+    <text x="90" y="16" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">Your Workflows</text>
+
+    {/* Vertical stem from input */}
+    <line x1="90" y1="24" x2="90" y2="46" stroke="var(--ink-400)" strokeWidth="1" />
+
+    {/* "Role-specific paths" label above branch */}
+    <text x="90" y="41" textAnchor="middle" fontSize="7" fill="var(--ink-400)" fontFamily="DM Sans, system-ui">Role-specific paths</text>
+
+    {/* Horizontal branch */}
+    <line x1="26" y1="46" x2="154" y2="46" stroke="var(--ink-400)" strokeWidth="1" />
+
+    {/* Verticals to outputs with arrowheads */}
+    <line x1="26" y1="46" x2="26" y2="70" stroke="var(--ink-400)" strokeWidth="1" />
+    <path d="M23,66 L26,70 L29,66" fill="none" stroke="var(--ink-400)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+
+    <line x1="90" y1="46" x2="90" y2="70" stroke="var(--ink-400)" strokeWidth="1" />
+    <path d="M87,66 L90,70 L93,66" fill="none" stroke="var(--ink-400)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+
+    <line x1="154" y1="46" x2="154" y2="70" stroke="var(--ink-400)" strokeWidth="1" />
+    <path d="M151,66 L154,70 L157,66" fill="none" stroke="var(--ink-400)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+
+    {/* Output nodes */}
+    <rect x="3" y="70" width="46" height="22" rx="6" fill="var(--sage-500)" fillOpacity="0.15" stroke="var(--sage-500)" strokeWidth="1.2" />
+    <text x="26" y="84" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">Leadership</text>
+
+    <rect x="67" y="70" width="46" height="22" rx="6" fill="var(--sage-500)" fillOpacity="0.15" stroke="var(--sage-500)" strokeWidth="1.2" />
+    <text x="90" y="84" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">Managers</text>
+
+    <rect x="131" y="70" width="46" height="22" rx="6" fill="var(--sage-500)" fillOpacity="0.15" stroke="var(--sage-500)" strokeWidth="1.2" />
+    <text x="154" y="84" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">Staff</text>
+  </svg>
+);
+
+// 03 GUIDE — 2x2 priority matrix
+const GuideSVG = () => (
+  <svg width="180" viewBox="0 0 180 162" fill="none" role="img" aria-label="Use-case prioritization matrix: impact vs feasibility">
+    {/* Quadrant fills */}
+    <rect x="28" y="8" width="72" height="64" fill="var(--sand-200)" fillOpacity="0.55" />
+    <rect x="100" y="8" width="72" height="64" fill="var(--amber-400)" fillOpacity="0.15" />
+    <rect x="28" y="72" width="72" height="64" fill="var(--sand-200)" fillOpacity="0.25" />
+    <rect x="100" y="72" width="72" height="64" fill="var(--sage-500)" fillOpacity="0.15" />
+
+    {/* Outer border */}
+    <rect x="28" y="8" width="144" height="128" stroke="var(--ink-700)" strokeWidth="0.8" />
+
+    {/* Axis lines */}
+    <line x1="28" y1="72" x2="174" y2="72" stroke="var(--ink-700)" strokeWidth="1" />
+    <line x1="100" y1="6" x2="100" y2="136" stroke="var(--ink-700)" strokeWidth="1" />
+
+    {/* Arrowheads */}
+    <path d="M170,69 L174,72 L170,75" fill="none" stroke="var(--ink-700)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M97,10 L100,6 L103,10" fill="none" stroke="var(--ink-700)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+
+    {/* Quadrant labels */}
+    <text x="136" y="38" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">Start here</text>
+    <text x="64" y="38" textAnchor="middle" fontSize="8" fill="var(--ink-400)" fontFamily="DM Sans, system-ui" fontWeight="500">Plan for later</text>
+    <text x="136" y="106" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">Quick wins</text>
+    <text x="64" y="106" textAnchor="middle" fontSize="8" fill="var(--ink-400)" fontFamily="DM Sans, system-ui" fontWeight="500">Skip</text>
+
+    {/* 3 dots in top-right */}
+    <circle cx="118" cy="28" r="3" fill="var(--amber-400)" fillOpacity="0.85" />
+    <circle cx="144" cy="44" r="3" fill="var(--amber-400)" fillOpacity="0.85" />
+    <circle cx="128" cy="56" r="3" fill="var(--amber-400)" fillOpacity="0.85" />
+
+    {/* Axis labels */}
+    <text x="102" y="152" textAnchor="middle" fontSize="7.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui">Feasibility →</text>
+    <text x="10" y="72" textAnchor="middle" fontSize="7.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui" transform="rotate(-90, 10, 72)">↑ Impact</text>
+  </svg>
+);
+
+// 04 BUILD — n8n-style workflow
+const BuildSVG = () => (
+  <svg width="180" viewBox="0 0 180 146" fill="none" role="img" aria-label="Order processing automation: trigger → AI classifier → auto-process or flag for review">
+    {/* Row 1: Trigger */}
+    <rect x="63" y="2" width="54" height="24" rx="6" fill="var(--sand-200)" stroke="var(--ink-700)" strokeWidth="1.2" />
+    <text x="90" y="12" textAnchor="middle" fontSize="6.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui" fontWeight="500" letterSpacing="0.08em">TRIGGER</text>
+    <text x="90" y="22" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">New Order</text>
+
+    {/* Arrow: Trigger → AI */}
+    <line x1="90" y1="26" x2="90" y2="40" stroke="var(--ink-400)" strokeWidth="1" />
+    <path d="M87,36 L90,40 L93,36" fill="none" stroke="var(--ink-400)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+
+    {/* Row 2: AI Classifier (amber) */}
+    <rect x="63" y="40" width="54" height="22" rx="6" fill="var(--amber-400)" fillOpacity="0.15" stroke="var(--amber-400)" strokeWidth="1.2" />
+    <text x="90" y="54" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">AI Classifier</text>
+
+    {/* Branch from AI to junction */}
+    <line x1="90" y1="62" x2="90" y2="74" stroke="var(--ink-400)" strokeWidth="1" />
+    <line x1="38" y1="74" x2="142" y2="74" stroke="var(--ink-400)" strokeWidth="1" />
+
+    {/* Left branch down */}
+    <line x1="38" y1="74" x2="38" y2="82" stroke="var(--ink-400)" strokeWidth="1" />
+    <path d="M35,78 L38,82 L41,78" fill="none" stroke="var(--ink-400)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+
+    {/* Right branch down */}
+    <line x1="142" y1="74" x2="142" y2="82" stroke="var(--ink-400)" strokeWidth="1" />
+    <path d="M139,78 L142,82 L145,78" fill="none" stroke="var(--ink-400)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+
+    {/* Row 3: Auto-Process | Flag for Review */}
+    <rect x="4" y="82" width="68" height="22" rx="6" fill="var(--sand-200)" stroke="var(--ink-700)" strokeWidth="1.2" />
+    <text x="38" y="96" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">Auto-Process</text>
+
+    <rect x="108" y="82" width="68" height="22" rx="6" fill="var(--sand-200)" stroke="var(--ink-700)" strokeWidth="1.2" />
+    <text x="142" y="92" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">Flag for</text>
+    <text x="142" y="102" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">Review</text>
+
+    {/* Arrows to row 4 */}
+    <line x1="38" y1="104" x2="38" y2="118" stroke="var(--ink-400)" strokeWidth="1" />
+    <path d="M35,114 L38,118 L41,114" fill="none" stroke="var(--ink-400)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+
+    <line x1="142" y1="104" x2="142" y2="118" stroke="var(--ink-400)" strokeWidth="1" />
+    <path d="M139,114 L142,118 L145,114" fill="none" stroke="var(--ink-400)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+
+    {/* Row 4: ERP System | Slack Alert (output) */}
+    <rect x="4" y="118" width="68" height="22" rx="6" fill="var(--sage-500)" fillOpacity="0.15" stroke="var(--sage-500)" strokeWidth="1.2" />
+    <text x="38" y="132" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">ERP System</text>
+
+    <rect x="108" y="118" width="68" height="22" rx="6" fill="var(--sage-500)" fillOpacity="0.15" stroke="var(--sage-500)" strokeWidth="1.2" />
+    <text x="142" y="132" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">Slack Alert</text>
+  </svg>
+);
+
+// 05 ENABLE — adoption curve line chart
+const EnableSVG = () => (
+  <svg width="180" viewBox="0 0 180 104" fill="none" role="img" aria-label="Team adoption curve: Blueprint Labs reaches 80% by week 24, industry average plateaus at 30%">
     {/* Axes */}
-    {[0,72,144,216,288].map((deg, i) => {
-      const r = (deg * Math.PI) / 180;
-      const x2 = 60 + 48 * Math.sin(r);
-      const y2 = 60 - 48 * Math.cos(r);
-      return <line key={i} x1="60" y1="60" x2={x2.toFixed(1)} y2={y2.toFixed(1)} stroke="#B8B2A4" strokeWidth="1" />;
-    })}
-    {/* Filled polygon (~40% fill) */}
-    <polygon
-      points="60,36 78,52 72,72 48,72 42,52"
-      fill="rgba(200,146,42,0.18)"
-      stroke="#C8922A"
-      strokeWidth="1.5"
-    />
-    {/* Labels */}
-    {[
-      { label: "Tools", x: 60, y: 12 },
-      { label: "Data",  x: 108, y: 50 },
-      { label: "Goals", x: 90, y: 102 },
-      { label: "Team",  x: 28, y: 102 },
-      { label: "Flows", x: 8, y: 50 },
-    ].map((l) => (
-      <text key={l.label} x={l.x} y={l.y} textAnchor="middle" fontSize="9" fill="#7A7568" fontFamily="DM Sans, system-ui" fontWeight="500">
-        {l.label}
-      </text>
-    ))}
+    <line x1="32" y1="10" x2="32" y2="80" stroke="var(--ink-700)" strokeWidth="0.8" />
+    <line x1="32" y1="80" x2="172" y2="80" stroke="var(--ink-700)" strokeWidth="0.8" />
+
+    {/* Grid lines */}
+    <line x1="32" y1="59" x2="172" y2="59" stroke="var(--ink-400)" strokeWidth="0.4" strokeDasharray="2 3" />
+    <line x1="32" y1="38" x2="172" y2="38" stroke="var(--ink-400)" strokeWidth="0.4" strokeDasharray="2 3" />
+
+    {/* Y-axis tick labels */}
+    <text x="28" y="62" textAnchor="end" fontSize="6.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui">30%</text>
+    <text x="28" y="41" textAnchor="end" fontSize="6.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui">60%</text>
+
+    {/* Industry average — dashed */}
+    <polyline points="48,69 87,62 126,59 165,59" stroke="var(--ink-400)" strokeWidth="1" strokeDasharray="3 3" strokeLinecap="round" />
+
+    {/* Blueprint Labs line */}
+    <polyline points="48,69 87,52 126,35 165,24" stroke="var(--sage-500)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+
+    {/* Terminal dot — amber */}
+    <circle cx="165" cy="24" r="3.5" fill="var(--amber-400)" />
+
+    {/* X-axis labels */}
+    <text x="48" y="90" textAnchor="middle" fontSize="6.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui">Week 1</text>
+    <text x="87" y="90" textAnchor="middle" fontSize="6.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui">Week 4</text>
+    <text x="126" y="90" textAnchor="middle" fontSize="6.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui">Week 12</text>
+    <text x="165" y="90" textAnchor="middle" fontSize="6.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui">Week 24</text>
+
+    {/* Y-axis label */}
+    <text x="9" y="50" textAnchor="middle" fontSize="7" fill="var(--ink-400)" fontFamily="DM Sans, system-ui" transform="rotate(-90, 9, 50)">Adoption %</text>
+
+    {/* Legend */}
+    <line x1="34" y1="16" x2="50" y2="16" stroke="var(--sage-500)" strokeWidth="1.5" strokeLinecap="round" />
+    <circle cx="50" cy="16" r="2.5" fill="var(--amber-400)" />
+    <text x="54" y="19" fontSize="6.5" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">With Blueprint Labs</text>
+
+    <line x1="34" y1="26" x2="50" y2="26" stroke="var(--ink-400)" strokeWidth="1" strokeDasharray="3 3" strokeLinecap="round" />
+    <text x="54" y="29" fontSize="6.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui">Without support</text>
   </svg>
 );
 
-const SkillBarsSVG = () => (
-  <svg width="120" height="72" viewBox="0 0 120 72" role="img" aria-label="Skill bar chart showing three training levels at 40, 65, and 85 percent">
-    {[
-      { y: 10, w: 48, label: "40%" },
-      { y: 30, w: 78, label: "65%" },
-      { y: 50, w: 102, label: "85%" },
-    ].map((b, i) => (
-      <g key={i}>
-        <rect x="0" y={b.y} width="110" height="12" rx="1" fill="#EDE6D6" />
-        <rect x="0" y={b.y} width={b.w} height="12" rx="1" fill="#6B7C6A" />
-        <text x={b.w + 4} y={b.y + 9} fontSize="8" fill="#7A7568" fontFamily="DM Sans, system-ui">{b.label}</text>
-      </g>
-    ))}
-  </svg>
-);
-
-const RoadmapSVG = () => (
-  <svg width="150" height="44" viewBox="0 0 150 44" role="img" aria-label="Roadmap showing 4 phases connected by dashed line">
-    <line x1="20" y1="22" x2="130" y2="22" stroke="#B8B2A4" strokeWidth="1.5" strokeDasharray="4 3" />
-    <path d="M130 18l8 4-8 4" fill="none" stroke="#C8922A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    {[20, 56, 92, 128].map((cx, i) => (
-      <circle key={i} cx={cx} cy="22" r="8" fill={i === 0 ? "#C8922A" : "#F7F2E8"} stroke={i === 0 ? "#C8922A" : "#B8B2A4"} strokeWidth="1.5" />
-    ))}
-    {[20, 56, 92, 128].map((cx, i) => (
-      <text key={i} x={cx} y="26" textAnchor="middle" fontSize="8" fill={i === 0 ? "#FDFAF5" : "#7A7568"} fontFamily="DM Sans, system-ui" fontWeight="500">{i + 1}</text>
-    ))}
-  </svg>
-);
-
-const FlowchartSVG = () => (
-  <svg width="100" height="120" viewBox="0 0 100 120" role="img" aria-label="AI flowchart showing Input, AI Agent, and Output stages">
-    {[
-      { y: 4,  label: "Input" },
-      { y: 46, label: "AI Agent" },
-      { y: 88, label: "Output" },
-    ].map((b, i) => (
-      <g key={i}>
-        <rect x="8" y={b.y} width="84" height="28" rx="3" fill="none" stroke="#3D3A34" strokeWidth="1.2" />
-        <text x="50" y={b.y + 17} textAnchor="middle" fontSize="9" fill="#1A1814" fontFamily="DM Sans, system-ui" fontWeight="500">{b.label}</text>
-        {i < 2 && (
-          <path d={`M50 ${b.y + 28}v6l-4-4m4 4l4-4`} fill="none" stroke="#C8922A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        )}
-      </g>
-    ))}
-  </svg>
-);
-
-const SparklineSVG = () => (
-  <svg width="120" height="60" viewBox="0 0 120 60" role="img" aria-label="Upward trend sparkline showing AI adoption growth">
-    {/* Grid */}
-    {[10, 30, 50].map((y) => (
-      <line key={y} x1="10" y1={y} x2="110" y2={y} stroke="#EDE6D6" strokeWidth="0.5" />
-    ))}
-    {/* Line */}
-    <polyline points="20,46 60,28 100,12" fill="none" stroke="#6B7C6A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    {/* Dots */}
-    {[[20,46],[60,28],[100,12]].map(([cx, cy], i) => (
-      <circle key={i} cx={cx} cy={cy} r="4" fill="#C8922A" stroke="white" strokeWidth="1.5" />
-    ))}
-  </svg>
-);
-
-const serviceSVGs = [RadarSVG, SkillBarsSVG, RoadmapSVG, FlowchartSVG, SparklineSVG];
+const serviceSVGs = [AssessSVG, EducateSVG, GuideSVG, BuildSVG, EnableSVG];
 
 const services = [
   {
