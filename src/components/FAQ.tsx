@@ -1,94 +1,82 @@
 "use client";
 
-import { useState, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
 
 const faqs = [
   {
-    q: "Who is Blueprint Labs for?",
-    a: "Small to mid-sized businesses that want to use AI strategically \u2014 not just adopt the latest tools. If you\u2019re under pressure to \u2018do AI\u2019 but aren\u2019t sure where to start, or if you\u2019ve tried tools that didn\u2019t stick, that\u2019s exactly who I work with.",
+    q: "Who is this for?",
+    a: "Companies that have invested in AI tools but aren't seeing real adoption. If your team has ChatGPT licenses, Copilot seats, or other AI tools collecting dust — or if leadership keeps saying 'use AI' without a plan for how — that's exactly where we come in. Particularly strong fit for mid-size businesses (10–500 employees) where every workflow improvement is felt immediately.",
   },
   {
-    q: "What does the AI readiness audit include?",
-    a: "The audit covers your current data infrastructure, existing workflows, team capabilities, and business goals. The output is a report that tells you where you are on the AI maturity scale, which gaps to address first, and a prioritized roadmap of where AI will actually move the needle.",
-  },
-  {
-    q: "Do I need technical staff to work with you?",
-    a: "No. I bridge the gap between technical capability and business need. I work directly with owners and operators \u2014 not just IT teams \u2014 and translate everything into plain business language.",
-  },
-  {
-    q: "What tools and platforms do you work with?",
-    a: "n8n, Make, Zapier, OpenAI, Anthropic, and custom API integrations. I\u2019m platform-agnostic \u2014 the right tool depends on your workflow, not what\u2019s trending.",
+    q: "What does the free AI readiness audit include?",
+    a: "A focused diagnostic covering your current AI usage, data readiness, workflow pain points, and team capabilities. You'll walk away with a clear picture of where you stand and the 2–3 highest-impact opportunities specific to your business — not a generic report, but an honest assessment of what's realistic for your team.",
   },
   {
     q: "How long does a typical engagement take?",
-    a: "An AI audit takes 1\u20132 weeks. A full engagement \u2014 audit, design, and deployment \u2014 runs 6\u201312 weeks. I also offer ongoing advisory retainers for consistent strategic partnership.",
+    a: "The readiness audit takes 1–2 weeks. A full assess → guide → build → enable engagement typically runs 6–12 weeks, depending on scope. We work in focused sprints so you see results quickly — not months of consulting before anything happens.",
   },
   {
-    q: "How does it start?",
-    a: "A free discovery call. No pitch deck, no sales script. We talk about where you are and what\u2019s not working. If there\u2019s a fit, I\u2019ll propose a scope. If there isn\u2019t, I\u2019ll say so honestly.",
+    q: "How is this different from an AI consulting firm?",
+    a: "Most firms sell strategy decks or deploy tools without context. We do both — we assess, educate, build, and train. You get one partner from assessment through adoption, not a chain of handoffs between strategists and developers. And we don't disappear after the slide deck. We stay until your team is actually using the tools independently.",
+  },
+  {
+    q: "Do you work with our existing tools?",
+    a: "Absolutely. We start by evaluating what you already have — most teams don't need new tools, they need their current tools configured properly and their workflows redesigned to actually use them. We optimize what exists before recommending anything new.",
+  },
+  {
+    q: "What if we don't know where to start?",
+    a: "That's exactly what the readiness audit is designed for. You don't need to have an AI strategy before reaching out. We'll assess your current state, show you what's possible, and help you prioritize by impact and feasibility. No commitment required — just an honest conversation about where AI can realistically help your business.",
+  },
+  {
+    q: "What happens after handoff?",
+    a: "We don't disappear. Every engagement includes team training, documentation, and SOPs. For ongoing support, we offer monthly advisory retainers — adoption monitoring, optimization, and scaling guidance as your AI maturity grows.",
   },
 ];
 
-function FAQItem({
-  item,
-  index,
-  isOpen,
-  onToggle,
-}: {
-  item: (typeof faqs)[0];
-  index: number;
-  isOpen: boolean;
-  onToggle: () => void;
-}) {
+function FAQItem({ faq, index }: { faq: (typeof faqs)[0]; index: number }) {
+  const [open, setOpen] = useState(false);
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.45, delay: index * 0.05 }}
+      transition={{ duration: 0.5, delay: index * 0.06 }}
+      className="mb-2"
     >
       <button
-        onClick={onToggle}
-        className="w-full flex items-start justify-between gap-6 py-7 text-left cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-text-primary)] focus-visible:ring-offset-2 rounded"
-        aria-expanded={isOpen}
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-start justify-between gap-6 py-7 text-left cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-text-primary)] rounded-sm"
+        aria-expanded={open}
       >
-        <span className="font-serif text-base md:text-lg text-[color:var(--color-text-primary)] group-hover:text-[color:var(--color-text-primary)] transition-colors duration-200 leading-snug">
-          {item.q}
+        <span className="font-serif text-lg md:text-xl text-[color:var(--color-text-primary)] leading-snug group-hover:text-[color:var(--color-accent)] transition-colors duration-300">
+          {faq.q}
         </span>
         <span
-          className={`flex-shrink-0 mt-0.5 w-6 h-6 rounded-full border flex items-center justify-center transition-all duration-200 ${
-            isOpen
-              ? "border-[color:var(--color-accent)] bg-[color:var(--color-accent)] rotate-45"
-              : "border-[color:var(--color-border-default)] bg-[color:var(--color-bg-subtle)]"
+          className={`flex-shrink-0 mt-1 w-5 h-5 flex items-center justify-center text-[color:var(--color-text-tertiary)] transition-transform duration-300 ${
+            open ? "rotate-45" : ""
           }`}
-          aria-hidden="true"
         >
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-            <path
-              d="M5 2v6M2 5h6"
-              stroke={isOpen ? "white" : "var(--color-text-tertiary)"}
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
+          <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
         </span>
       </button>
 
       <AnimatePresence>
-        {isOpen && (
+        {open && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden"
           >
-            <p className="pb-7 text-[color:var(--color-text-secondary)] text-base leading-relaxed">
-              {item.a}
+            <p className="text-[15px] text-[color:var(--color-text-secondary)] leading-relaxed pb-7 max-w-2xl">
+              {faq.a}
             </p>
           </motion.div>
         )}
@@ -98,42 +86,38 @@ function FAQItem({
 }
 
 export default function FAQ() {
-  const [open, setOpen] = useState<number | null>(0);
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
 
   return (
-    <section id="faq" className="py-32 md:py-40 px-6 bg-[color:var(--color-bg-subtle)]">
-      <div className="max-w-6xl mx-auto">
+    <section id="faq" className="py-32 md:py-44 px-6 relative">
+      <div className="max-w-[1200px] mx-auto relative z-10">
         <div ref={headerRef}>
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={headerInView ? { opacity: 1, y: 0 } : {}}
+          {/* Structural label */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={headerInView ? { opacity: 1 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-xs font-medium tracking-[0.15em] uppercase text-[color:var(--color-text-tertiary)] mb-6"
+            className="mb-12"
           >
-            FAQ
-          </motion.p>
+            <span className="text-[12px] font-medium tracking-[0.1em] uppercase text-[color:var(--color-text-tertiary)]">
+              05 — FAQ
+            </span>
+          </motion.div>
+
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.06 }}
-            className="font-serif text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.1] tracking-tight text-[color:var(--color-text-primary)] mb-14"
-            style={{ textWrap: "balance" }}
+            className="font-serif text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.05] tracking-[-0.03em] text-[color:var(--color-text-primary)] mb-16"
           >
             Common questions.
           </motion.h2>
         </div>
 
-        <div className="max-w-3xl divide-y divide-[color:var(--color-border-default)]">
-          {faqs.map((item, i) => (
-            <FAQItem
-              key={i}
-              item={item}
-              index={i}
-              isOpen={open === i}
-              onToggle={() => setOpen(open === i ? null : i)}
-            />
+        <div>
+          {faqs.map((faq, i) => (
+            <FAQItem key={i} faq={faq} index={i} />
           ))}
         </div>
       </div>

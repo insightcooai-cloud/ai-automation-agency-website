@@ -4,31 +4,35 @@
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-serif: var(--font-instrument-serif), "Georgia", serif;
 
-  /* — Sage Editorial Palette — */
+  /* — New Genre–inspired warm neutral palette — */
   /* Backgrounds */
-  --color-bg-canvas: #F4F2EC;
-  --color-bg-surface: #EAE7DE;
-  --color-bg-subtle: #EFEDE6;
-  --color-bg-inverse: #2A332E;
+  --color-bg-canvas: #F5F3ED;
+  --color-bg-surface: #ECEAE2;
+  --color-bg-subtle: #F0EEE6;
+  --color-bg-inverse: #0C1018;
 
   /* Text */
-  --color-text-primary: #2A332E;
-  --color-text-secondary: #556259;
-  --color-text-tertiary: #8A9189;
-  --color-text-inverse: #F4F2EC;
+  --color-text-primary: #0C1018;
+  --color-text-secondary: #3D3D3A;
+  --color-text-tertiary: #8A8A82;
+  --color-text-inverse: #F9FAFB;
 
   /* Borders */
-  --color-border-default: #D4D0C6;
-  --color-border-soft: #E3DFD5;
+  --color-border-default: #E0DED6;
+  --color-border-soft: #ECEAE2;
 
-  /* Accent — Muted Sage */
-  --color-accent: #6F8A72;
-  --color-accent-soft: #D6E2D7;
-  --color-accent-hover: #5C7760;
+  /* Accent — Warm Clay */
+  --color-accent: #B8845C;
+  --color-accent-soft: #F0E6DB;
+  --color-accent-hover: #A0714A;
 
   /* Semantic */
-  --color-focus: #2C84DB;
+  --color-focus: #B8845C;
   --color-error: #BF4D43;
+
+  /* Shadows — very subtle */
+  --shadow-card: rgba(12, 16, 24, 0.06) 0px 8px 32px 0px, rgba(12, 16, 24, 0.03) 0px 2px 8px 0px;
+  --shadow-soft: rgba(12, 16, 24, 0.04) 0px 4px 16px 0px, rgba(12, 16, 24, 0.02) 0px 1px 4px 0px;
 }
 
 @layer base {
@@ -42,15 +46,19 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 17px;
+    font-size: 16px;
   }
 
   body {
-    background-color: var(--color-bg-canvas);
+    background-color: transparent;
     color: var(--color-text-primary);
-    line-height: 1.65;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
     font-family: var(--font-inter), system-ui, sans-serif;
   }
+
+  /* Tight tracking for small text like New Genre */
+  .text-xs, .text-sm { letter-spacing: -0.01em; }
 
   /* Custom scrollbar */
   ::-webkit-scrollbar { width: 6px; }
@@ -74,3 +82,11 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+@keyframes mesh-drift {
+  0% { transform: translate(0%, 0%) scale(1); }
+  33% { transform: translate(3%, -2%) scale(1.02); }
+  66% { transform: translate(-2%, 3%) scale(0.98); }
+  100% { transform: translate(1%, -1%) scale(1.01); }
+}
+

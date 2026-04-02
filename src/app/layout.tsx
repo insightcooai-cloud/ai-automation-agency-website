@@ -16,20 +16,22 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Blueprint Labs — AI Strategy & Automation",
+  title: "Blueprint Labs — AI Enablement Partner | Austin, TX",
   description:
-    "Steve Jun helps businesses build the right AI foundation — starting with diagnosis, not tools. AI readiness audits, workflow automation, and data-driven strategy.",
+    "Your team has AI tools. Blueprint Labs makes sure they actually use them. AI readiness audits, team training, strategy, and adoption support for businesses ready to make AI work.",
   keywords: [
-    "AI automation",
-    "AI consulting",
+    "AI enablement",
+    "AI adoption",
+    "AI readiness audit",
+    "AI training",
+    "AI consulting Austin",
+    "AI transformation",
     "workflow automation",
-    "business intelligence",
-    "AI strategy",
-    "AI audit",
+    "AI team training",
   ],
   openGraph: {
-    title: "Blueprint Labs — AI Strategy & Automation",
-    description: "Build your AI foundation the right way.",
+    title: "Blueprint Labs — AI Enablement Partner",
+    description: "Your team has AI tools. We make sure they actually use them.",
     type: "website",
   },
 };

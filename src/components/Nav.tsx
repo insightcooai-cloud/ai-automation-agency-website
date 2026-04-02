@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 
 const links = [
   { href: "#services", label: "Services" },
-  { href: "#how-i-work", label: "Process" },
+  { href: "#blueprint-method", label: "Approach" },
   { href: "#about", label: "About" },
-  { href: "#faq", label: "FAQ" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export default function Nav() {
@@ -15,90 +15,63 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40);
+    const handleScroll = () => setScrolled(window.scrollY > 80);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Hero is dark (bg-inverse). Before scroll: white text. After scroll: dark text.
+  const onDark = !scrolled;
+
   return (
     <motion.header
-      initial={{ opacity: 0, y: -12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
-      className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8, delay: 0.3 }}
+      className="fixed top-0 left-0 right-0 z-50"
     >
       <div
-        className={`w-full max-w-[700px] rounded-full transition-all duration-500 ${
-          scrolled
-            ? "bg-[color:var(--color-bg-canvas)]/85 backdrop-blur-[12px] border border-[color:var(--color-border-soft)]/50 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
-            : "bg-[color:var(--color-bg-canvas)]/60 backdrop-blur-[8px] border border-[color:var(--color-border-soft)]/30"
-        }`}
+        className={`transition-all duration-500 bg-transparent mix-blend-difference`}
       >
-        <div className="h-14 px-6 flex items-center justify-between">
-          {/* Logo */}
+        <div className="max-w-[1400px] mx-auto h-16 px-6 flex items-center justify-between text-white/90">
+          {/* Wordmark */}
           <a
             href="#"
-            className="flex items-center gap-2.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-text-primary)] focus-visible:ring-offset-2 rounded-md"
+            className="text-[13px] font-medium tracking-[0.12em] uppercase cursor-pointer focus-visible:outline-none focus-visible:ring-2 rounded-sm transition-colors duration-500 text-white hover:text-white/70"
             aria-label="Blueprint Labs home"
           >
-            <div className="w-7 h-7 rounded-lg bg-[color:var(--color-bg-inverse)] grid grid-cols-2 gap-[3.5px] p-[5.5px]">
-              <div className="bg-[color:var(--color-text-inverse)] rounded-[1.5px]" />
-              <div className="bg-[color:var(--color-text-inverse)]/35 rounded-[1.5px]" />
-              <div className="bg-[color:var(--color-text-inverse)]/35 rounded-[1.5px]" />
-              <div className="bg-[color:var(--color-text-inverse)] rounded-[1.5px]" />
-            </div>
-            <span className="font-serif text-base text-[color:var(--color-text-primary)] tracking-tight">
-              Blueprint Labs
-            </span>
+            Blueprint Labs
           </a>
 
-          {/* Desktop nav */}
-          <nav
-            className="hidden md:flex items-center gap-7"
-            aria-label="Main navigation"
-          >
+          <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
             {links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="relative text-sm text-[color:var(--color-text-tertiary)] hover:text-[color:var(--color-text-primary)] transition-colors duration-200 cursor-pointer py-1 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-text-primary)] focus-visible:ring-offset-2 rounded-sm"
+                className="text-[13px] transition-colors duration-500 cursor-pointer focus-visible:outline-none focus-visible:ring-2 rounded-sm text-white/70 hover:text-white"
               >
                 {link.label}
-                <span className="absolute left-0 -bottom-0.5 w-0 h-px bg-[color:var(--color-text-primary)] transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
+            <a
+              href="#contact"
+              className="text-[13px] font-medium px-5 py-2.5 rounded-[90px] transition-all duration-500 cursor-pointer min-h-[40px] flex items-center focus-visible:outline-none focus-visible:ring-2 border border-white/30 hover:bg-white hover:text-black"
+            >
+              Work with us
+            </a>
           </nav>
-
-          <a
-            href="#contact"
-            className="hidden md:inline-flex items-center text-sm font-medium px-5 py-2 rounded-full bg-[color:var(--color-bg-inverse)] text-[color:var(--color-text-inverse)] hover:bg-[color:var(--color-accent-hover)] transition-colors duration-200 cursor-pointer min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-text-primary)] focus-visible:ring-offset-2"
-          >
-            Get in touch
-          </a>
 
           {/* Mobile menu toggle */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
-            className="md:hidden p-2 text-[color:var(--color-text-primary)] cursor-pointer min-w-[44px] min-h-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-text-primary)] rounded-md"
+            className="md:hidden p-2 cursor-pointer min-w-[44px] min-h-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 rounded-md transition-colors duration-500 text-white"
           >
             <div className="w-5 flex flex-col gap-1.5">
-              <span
-                className={`block h-0.5 bg-current rounded transition-all duration-300 ${
-                  menuOpen ? "rotate-45 translate-y-2" : ""
-                }`}
-              />
-              <span
-                className={`block h-0.5 bg-current rounded transition-all duration-300 ${
-                  menuOpen ? "opacity-0" : ""
-                }`}
-              />
-              <span
-                className={`block h-0.5 bg-current rounded transition-all duration-300 ${
-                  menuOpen ? "-rotate-45 -translate-y-2" : ""
-                }`}
-              />
+              <span className={`block h-[1.5px] bg-current rounded transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+              <span className={`block h-[1.5px] bg-current rounded transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+              <span className={`block h-[1.5px] bg-current rounded transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
             </div>
           </button>
         </div>
@@ -109,14 +82,14 @@ export default function Nav() {
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="absolute top-[calc(100%+8px)] left-4 right-4 md:hidden bg-[color:var(--color-bg-canvas)]/95 backdrop-blur-[12px] border border-[color:var(--color-border-soft)]/50 rounded-2xl px-6 py-5 flex flex-col gap-4 shadow-lg"
+          className="absolute top-full left-0 right-0 md:hidden bg-[color:var(--color-bg-canvas)]/95 backdrop-blur-[12px] px-6 py-6 flex flex-col gap-5 border-none"
         >
           {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="text-base text-[color:var(--color-text-tertiary)] hover:text-[color:var(--color-text-primary)] transition-colors cursor-pointer min-h-[44px] flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-text-primary)] rounded-sm"
+              className="text-base text-[color:var(--color-text-tertiary)] hover:text-[color:var(--color-text-primary)] transition-colors cursor-pointer min-h-[44px] flex items-center"
             >
               {link.label}
             </a>
@@ -124,9 +97,9 @@ export default function Nav() {
           <a
             href="#contact"
             onClick={() => setMenuOpen(false)}
-            className="text-sm font-medium px-5 py-3 rounded-full bg-[color:var(--color-bg-inverse)] text-[color:var(--color-text-inverse)] text-center cursor-pointer min-h-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-text-primary)] focus-visible:ring-offset-2"
+            className="text-[13px] font-medium px-5 py-3.5 rounded-[90px] bg-[color:var(--color-bg-inverse)] text-[color:var(--color-text-inverse)] text-center cursor-pointer min-h-[44px] flex items-center justify-center"
           >
-            Get in touch
+            Work with us
           </a>
         </motion.div>
       )}

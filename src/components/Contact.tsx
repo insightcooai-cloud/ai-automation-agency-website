@@ -1,112 +1,78 @@
 "use client";
 
+import { useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 export default function Contact() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [submitted, setSubmitted] = useState(false);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    company: "",
+    role: "",
+    message: "",
+  });
   const [sending, setSending] = useState(false);
-  const [error, setError] = useState("");
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!form.name || !form.email) return;
     setSending(true);
-    setError("");
-
     try {
-      const res = await fetch("/api/contact", {
+      await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-
-      if (res.ok) {
-        setSubmitted(true);
-      } else {
-        setError("Something went wrong. Please try again.");
-      }
+      setSubmitted(true);
     } catch {
-      setError("Something went wrong. Please try again.");
+      alert("Something went wrong. Please try again.");
     } finally {
       setSending(false);
     }
   };
 
   return (
-    <section
-      id="contact"
-      className="py-32 md:py-40 px-6 bg-[color:var(--color-bg-canvas)] relative overflow-hidden"
-    >
-      <div className="relative max-w-6xl mx-auto" ref={ref}>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-start">
-          {/* Left */}
+    <section id="contact" className="py-24 md:py-32 px-6 relative z-10">
+      <div className="max-w-[1200px] mx-auto" ref={ref}>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 xl:gap-24">
+          {/* Left — CTA statement */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 28 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5"
           >
-            <p className="text-xs font-medium tracking-[0.15em] uppercase text-[color:var(--color-text-tertiary)] mb-6">
+            <p className="text-[13px] font-medium tracking-[0.08em] uppercase text-[color:var(--color-text-tertiary)] mb-10">
               Get in Touch
             </p>
-            <h2
-              className="font-serif text-[clamp(2rem,4vw,3.5rem)] leading-[1.1] tracking-tight text-[color:var(--color-text-primary)] mb-6"
-              style={{ textWrap: "balance" }}
-            >
-              Let&apos;s start with a conversation.
+            <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] leading-[1.08] tracking-[-0.02em] text-[color:var(--color-text-primary)] mb-6">
+              Let&apos;s start with an honest conversation.
             </h2>
-            <p className="text-[color:var(--color-text-secondary)] text-lg leading-relaxed mb-10 max-w-sm">
-              No pitch. No pressure. Tell me what you&apos;re working on and
-              we&apos;ll figure out if there&apos;s a fit.
+            <p className="text-[15px] text-[color:var(--color-text-secondary)] leading-relaxed">
+              Tell us about your business and where you&apos;re stuck with AI.
+              We&apos;ll follow up within 24 hours with honest feedback on
+              whether we&apos;re a fit — no pressure, no sales pitch.
             </p>
-
-            {/* Trust signals */}
-            <div className="flex flex-col gap-4">
-              {[
-                "Free initial discovery call",
-                "Response within 24 hours",
-                "Honest assessment \u2014 no hard sell",
-              ].map((text) => (
-                <div key={text} className="flex items-center gap-3">
-                  <span className="w-5 h-5 rounded-full bg-[color:var(--color-accent-soft)] flex items-center justify-center flex-shrink-0">
-                    <svg
-                      className="w-3 h-3 text-[color:var(--color-accent)]"
-                      viewBox="0 0 12 12"
-                      fill="none"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M2.5 6l2.5 2.5 4.5-5"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                  <span className="text-sm text-[color:var(--color-text-secondary)]">{text}</span>
-                </div>
-              ))}
-            </div>
           </motion.div>
 
-          {/* Right - form */}
+          {/* Right — Form */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 28 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{
               duration: 0.7,
-              delay: 0.14,
+              delay: 0.1,
               ease: [0.16, 1, 0.3, 1],
             }}
             className="lg:col-span-7"
           >
             {submitted ? (
-              <div className="p-12 rounded-2xl bg-[color:var(--color-bg-surface)] border border-[color:var(--color-border-default)] text-center">
-                <div className="w-12 h-12 rounded-full bg-[color:var(--color-accent-soft)] border border-[color:var(--color-border-default)] flex items-center justify-center mx-auto mb-4">
+              <div className="py-12 text-center">
+                <div className="w-12 h-12 rounded-full border border-[color:var(--color-border-default)] flex items-center justify-center mx-auto mb-4">
                   <svg
                     className="w-5 h-5 text-[color:var(--color-accent)]"
                     viewBox="0 0 20 20"
@@ -114,35 +80,37 @@ export default function Contact() {
                     aria-hidden="true"
                   >
                     <path
-                      d="M4 10l4 4 8-8"
+                      d="M5 10l3 3 7-7"
                       stroke="currentColor"
-                      strokeWidth="2"
+                      strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                   </svg>
                 </div>
-                <h3 className="font-serif text-xl text-[color:var(--color-text-primary)] mb-2">
-                  Message received.
-                </h3>
-                <p className="text-[color:var(--color-text-secondary)] text-sm">
-                  I&apos;ll get back to you within 24 hours.
+                <p className="font-serif text-xl text-[color:var(--color-text-primary)] mb-2">
+                  Message sent.
+                </p>
+                <p className="text-[15px] text-[color:var(--color-text-secondary)]">
+                  We&apos;ll be in touch within 24 hours.
                 </p>
               </div>
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="p-8 rounded-2xl bg-[color:var(--color-bg-surface)] border border-[color:var(--color-border-default)] flex flex-col gap-5"
+                className="flex flex-col gap-5"
                 noValidate
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label
                       htmlFor="contact-name"
-                      className="block text-xs font-medium text-[color:var(--color-text-secondary)] mb-2"
+                      className="block text-[13px] font-medium text-[color:var(--color-text-secondary)] mb-2"
                     >
                       Name{" "}
-                      <span className="text-[color:var(--color-text-tertiary)]">(required)</span>
+                      <span className="text-[color:var(--color-text-tertiary)]">
+                        (required)
+                      </span>
                     </label>
                     <input
                       id="contact-name"
@@ -152,17 +120,19 @@ export default function Contact() {
                       onChange={(e) =>
                         setForm({ ...form, name: e.target.value })
                       }
-                      className="w-full px-4 py-3 rounded-lg border border-[color:var(--color-border-default)] bg-[color:var(--color-bg-canvas)] text-base text-[color:var(--color-text-primary)] placeholder-[color:var(--color-text-tertiary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-accent)] focus-visible:border-transparent transition-all duration-200 min-h-[48px]"
+                      className="w-full px-4 py-3 bg-[color:var(--color-text-primary)]/[0.04] rounded-lg text-base text-[color:var(--color-text-primary)] placeholder-[color:var(--color-text-tertiary)] outline-none border-none ring-0 focus:bg-[color:var(--color-text-primary)]/[0.08] transition-all duration-200 min-h-[48px]"
                       placeholder="Your name"
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="contact-email"
-                      className="block text-xs font-medium text-[color:var(--color-text-secondary)] mb-2"
+                      className="block text-[13px] font-medium text-[color:var(--color-text-secondary)] mb-2"
                     >
                       Email{" "}
-                      <span className="text-[color:var(--color-text-tertiary)]">(required)</span>
+                      <span className="text-[color:var(--color-text-tertiary)]">
+                        (required)
+                      </span>
                     </label>
                     <input
                       id="contact-email"
@@ -172,37 +142,73 @@ export default function Contact() {
                       onChange={(e) =>
                         setForm({ ...form, email: e.target.value })
                       }
-                      className="w-full px-4 py-3 rounded-lg border border-[color:var(--color-border-default)] bg-[color:var(--color-bg-canvas)] text-base text-[color:var(--color-text-primary)] placeholder-[color:var(--color-text-tertiary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-accent)] focus-visible:border-transparent transition-all duration-200 min-h-[48px]"
+                      className="w-full px-4 py-3 bg-[color:var(--color-text-primary)]/[0.04] rounded-lg text-base text-[color:var(--color-text-primary)] placeholder-[color:var(--color-text-tertiary)] outline-none border-none ring-0 focus:bg-[color:var(--color-text-primary)]/[0.08] transition-all duration-200 min-h-[48px]"
                       placeholder="you@company.com"
                     />
                   </div>
                 </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label
+                      htmlFor="contact-company"
+                      className="block text-[13px] font-medium text-[color:var(--color-text-secondary)] mb-2"
+                    >
+                      Company
+                    </label>
+                    <input
+                      id="contact-company"
+                      type="text"
+                      value={form.company}
+                      onChange={(e) =>
+                        setForm({ ...form, company: e.target.value })
+                      }
+                      className="w-full px-4 py-3 bg-[color:var(--color-text-primary)]/[0.04] rounded-lg text-base text-[color:var(--color-text-primary)] placeholder-[color:var(--color-text-tertiary)] outline-none border-none ring-0 focus:bg-[color:var(--color-text-primary)]/[0.08] transition-all duration-200 min-h-[48px]"
+                      placeholder="Company name"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="contact-role"
+                      className="block text-[13px] font-medium text-[color:var(--color-text-secondary)] mb-2"
+                    >
+                      Role
+                    </label>
+                    <input
+                      id="contact-role"
+                      type="text"
+                      value={form.role}
+                      onChange={(e) =>
+                        setForm({ ...form, role: e.target.value })
+                      }
+                      className="w-full px-4 py-3 bg-[color:var(--color-text-primary)]/[0.04] rounded-lg text-base text-[color:var(--color-text-primary)] placeholder-[color:var(--color-text-tertiary)] outline-none border-none ring-0 focus:bg-[color:var(--color-text-primary)]/[0.08] transition-all duration-200 min-h-[48px]"
+                      placeholder="Your role"
+                    />
+                  </div>
+                </div>
+
                 <div>
                   <label
                     htmlFor="contact-message"
-                    className="block text-xs font-medium text-[color:var(--color-text-secondary)] mb-2"
+                    className="block text-[13px] font-medium text-[color:var(--color-text-secondary)] mb-2"
                   >
                     What are you working on?
                   </label>
                   <textarea
                     id="contact-message"
-                    required
                     rows={5}
                     value={form.message}
                     onChange={(e) =>
                       setForm({ ...form, message: e.target.value })
                     }
-                    className="w-full px-4 py-3 rounded-lg border border-[color:var(--color-border-default)] bg-[color:var(--color-bg-canvas)] text-base text-[color:var(--color-text-primary)] placeholder-[color:var(--color-text-tertiary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-accent)] focus-visible:border-transparent transition-all duration-200 resize-none"
-                    placeholder="Tell me about your business and what you're trying to solve..."
+                    className="w-full px-4 py-3 bg-[color:var(--color-text-primary)]/[0.04] rounded-lg text-base text-[color:var(--color-text-primary)] placeholder-[color:var(--color-text-tertiary)] outline-none border-none ring-0 focus:bg-[color:var(--color-text-primary)]/[0.08] transition-all duration-200 resize-none"
+                    placeholder="Tell us about your business and where you're stuck with AI adoption..."
                   />
                 </div>
-                {error && (
-                  <p className="text-sm text-[color:var(--color-error)]">{error}</p>
-                )}
                 <button
                   type="submit"
                   disabled={sending}
-                  className="w-full py-3.5 rounded-full bg-[color:var(--color-bg-inverse)] text-[color:var(--color-text-inverse)] text-sm font-medium hover:bg-[color:var(--color-accent-hover)] transition-colors duration-200 cursor-pointer min-h-[48px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-text-primary)] focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="self-start inline-flex items-center justify-center px-7 py-3.5 rounded-[90px] bg-[color:var(--color-bg-inverse)] text-[color:var(--color-text-inverse)] text-[15px] font-medium hover:bg-[color:var(--color-accent)] transition-colors duration-300 cursor-pointer min-h-[48px] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-text-primary)] focus-visible:ring-offset-2"
                 >
                   {sending ? "Sending..." : "Send message"}
                 </button>
