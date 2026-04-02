@@ -15,24 +15,23 @@ export default function SmoothScrollWrapper({
     offset: ["start start", "end end"],
   });
 
-  // Flowing gradient wash — all light tones, no dark sections.
-  // Inspired by newgenre.studio: one continuous color journey.
-  // Sky-blue → warm cream → soft lavender → peachy cream → sage → sky-blue → deep navy (footer only)
+  // Dark gradient journey — newgenre.studio style.
+  // Deep dark base with subtle atmospheric tints bleeding between sections.
+  // No section borders. Color variation comes from the tint shifts + blob overlays.
   const background = useTransform(
     scrollYProgress,
-    [0, 0.08, 0.18, 0.30, 0.42, 0.55, 0.68, 0.78, 0.88, 0.96, 1],
+    [0, 0.12, 0.25, 0.38, 0.50, 0.62, 0.74, 0.84, 0.92, 1],
     [
-      "#2E3D5A", // 0%   Hero — deep navy-blue for rich gradient feel
-      "#6A7FA0", // 8%   Hero → Problem transition — steel blue bridge
-      "#F0EBE3", // 18%  Problem / Stats — warm cream
-      "#E8E0EC", // 30%  SocialProof → Services — soft lavender
-      "#E2E8EE", // 42%  Services mid — blue-gray mist
-      "#EBE4DA", // 55%  Services → HowIWork — warm sand
-      "#DDE5E4", // 68%  HowIWork → About — sage mist
-      "#E8DFE8", // 78%  About — dusty rose
-      "#EDE8E0", // 88%  FAQ — warm parchment
-      "#E4E1EC", // 96%  Contact — light lilac
-      "#1A1D2B", // 100% Footer — deep navy (only dark section)
+      "#0A0A0B", // Hero — pure dark
+      "#09090F", // Hero → Problem — hint of deep indigo
+      "#080C12", // Problem — subtle blue
+      "#08100E", // Services — teal dark
+      "#0A0A0E", // HowIWork — back to pure
+      "#0D0A14", // Results — purple tint
+      "#090B14", // About — blue-indigo
+      "#0A0A0C", // FAQ — neutral dark
+      "#0C0A10", // Contact — faint purple
+      "#050505", // Footer — deepest
     ]
   );
 

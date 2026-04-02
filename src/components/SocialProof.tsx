@@ -6,13 +6,13 @@ import { useRef } from "react";
 const credentials = [
   {
     value: "10+",
-    unit: "years",
+    unit: "yrs",
     label: "Business intelligence & operations experience",
   },
   {
-    value: "Sr.",
-    unit: "PM",
-    label: "Currently at a Fortune 5 tech company",
+    value: "Sr. PM",
+    unit: "",
+    label: "Currently at Amazon",
   },
   {
     value: "1:1",

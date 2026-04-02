@@ -7,7 +7,7 @@
 ---
 
 **Project:** Blueprint Labs
-**Generated:** 2026-03-28 21:35:06
+**Generated:** 2026-04-01 21:49:21
 **Category:** Consulting Firm
 
 ---
@@ -20,22 +20,22 @@
 |------|-----|--------------|
 | Primary | `#0F172A` | `--color-primary` |
 | Secondary | `#334155` | `--color-secondary` |
-| CTA/Accent | `#0369A1` | `--color-cta` |
+| CTA/Accent | `#CA8A04` | `--color-cta` |
 | Background | `#F8FAFC` | `--color-background` |
 | Text | `#020617` | `--color-text` |
 
-**Color Notes:** Professional navy + blue CTA
+**Color Notes:** Authority navy + premium gold
 
 ### Typography
 
-- **Heading Font:** Poppins
-- **Body Font:** Open Sans
-- **Mood:** modern, professional, clean, corporate, friendly, approachable
-- **Google Fonts:** [Poppins + Open Sans](https://fonts.google.com/share?selection.family=Open+Sans:wght@300;400;500;600;700|Poppins:wght@400;500;600;700)
+- **Heading Font:** Playfair Display
+- **Body Font:** Inter
+- **Mood:** elegant, luxury, sophisticated, timeless, premium, editorial
+- **Google Fonts:** [Playfair Display + Inter](https://fonts.google.com/share?selection.family=Inter:wght@300;400;500;600;700|Playfair+Display:wght@400;500;600;700)
 
 **CSS Import:**
 ```css
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 ```
 
 ### Spacing Variables
@@ -68,7 +68,7 @@
 ```css
 /* Primary Button */
 .btn-primary {
-  background: #0369A1;
+  background: #CA8A04;
   color: white;
   padding: 12px 24px;
   border-radius: 8px;
@@ -163,10 +163,11 @@
 
 ### Page Pattern
 
-**Pattern Name:** Trust & Authority + Minimal
+**Pattern Name:** Minimal Single Column
 
-- **CTA Placement:** Above fold
-- **Section Order:** Hero > Features > CTA
+- **Conversion Strategy:** Single CTA focus. Large typography. Lots of whitespace. No nav clutter. Mobile-first.
+- **CTA Placement:** Center, large CTA button
+- **Section Order:** 1. Hero headline, 2. Short description, 3. Benefit bullets (3 max), 4. CTA, 5. Footer
 
 ---
 

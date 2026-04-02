@@ -5,14 +5,6 @@ import { useRef, useState } from "react";
 
 const faqs = [
   {
-    q: "Who is this for?",
-    a: "Companies that have invested in AI tools but aren't seeing real adoption. If your team has ChatGPT licenses, Copilot seats, or other AI tools collecting dust — or if leadership keeps saying 'use AI' without a plan for how — that's exactly where we come in. Particularly strong fit for mid-size businesses (10–500 employees) where every workflow improvement is felt immediately.",
-  },
-  {
-    q: "What does the free AI readiness audit include?",
-    a: "A focused diagnostic covering your current AI usage, data readiness, workflow pain points, and team capabilities. You'll walk away with a clear picture of where you stand and the 2–3 highest-impact opportunities specific to your business — not a generic report, but an honest assessment of what's realistic for your team.",
-  },
-  {
     q: "How long does a typical engagement take?",
     a: "The readiness audit takes 1–2 weeks. A full assess → guide → build → enable engagement typically runs 6–12 weeks, depending on scope. We work in focused sprints so you see results quickly — not months of consulting before anything happens.",
   },
@@ -32,6 +24,10 @@ const faqs = [
     q: "What happens after handoff?",
     a: "We don't disappear. Every engagement includes team training, documentation, and SOPs. For ongoing support, we offer monthly advisory retainers — adoption monitoring, optimization, and scaling guidance as your AI maturity grows.",
   },
+  {
+    q: "What does the free AI readiness audit include?",
+    a: "A focused diagnostic covering your current AI usage, data readiness, workflow pain points, and team capabilities. You'll walk away with a clear picture of where you stand and the 2–3 highest-impact opportunities specific to your business — not a generic report, but an honest assessment of what's realistic for your team.",
+  },
 ];
 
 function FAQItem({ faq, index }: { faq: (typeof faqs)[0]; index: number }) {
@@ -45,11 +41,11 @@ function FAQItem({ faq, index }: { faq: (typeof faqs)[0]; index: number }) {
       initial={{ opacity: 0, y: 16 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.06 }}
-      className="mb-2"
+      className="border-t border-[color:var(--color-border-default)]"
     >
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-start justify-between gap-6 py-7 text-left cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-text-primary)] rounded-sm"
+        className="w-full flex items-start justify-between gap-6 py-7 text-left cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-accent)]/30 rounded-sm"
         aria-expanded={open}
       >
         <span className="font-serif text-lg md:text-xl text-[color:var(--color-text-primary)] leading-snug group-hover:text-[color:var(--color-accent)] transition-colors duration-300">
@@ -93,7 +89,6 @@ export default function FAQ() {
     <section id="faq" className="py-32 md:py-44 px-6 relative">
       <div className="max-w-[1200px] mx-auto relative z-10">
         <div ref={headerRef}>
-          {/* Structural label */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={headerInView ? { opacity: 1 } : {}}
@@ -101,7 +96,7 @@ export default function FAQ() {
             className="mb-12"
           >
             <span className="text-[12px] font-medium tracking-[0.1em] uppercase text-[color:var(--color-text-tertiary)]">
-              05 — FAQ
+              FAQ
             </span>
           </motion.div>
 
@@ -109,11 +104,34 @@ export default function FAQ() {
             initial={{ opacity: 0, y: 20 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.06 }}
-            className="font-serif text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.05] tracking-[-0.03em] text-[color:var(--color-text-primary)] mb-16"
+            className="font-serif text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.05] tracking-[-0.03em] text-[color:var(--color-text-primary)] mb-6"
           >
             Common questions.
           </motion.h2>
         </div>
+
+        {/* Who is this for — always visible */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={headerInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.14 }}
+          className="mb-12 p-8 rounded-2xl border border-[color:var(--color-border-default)] bg-white/[0.02]"
+        >
+          <div className="text-[11px] font-medium tracking-[0.12em] uppercase text-[color:var(--color-accent)] mb-4">
+            Who is this for?
+          </div>
+          <p className="text-[16px] text-[color:var(--color-text-primary)] leading-[1.7] max-w-2xl">
+            Companies that have invested in AI tools but aren&apos;t seeing real
+            adoption. If your team has ChatGPT licenses, Copilot seats, or other
+            AI tools collecting dust — or if leadership keeps saying &ldquo;use
+            AI&rdquo; without a plan for how — that&apos;s exactly where we come
+            in.
+          </p>
+          <p className="text-[14px] text-[color:var(--color-text-secondary)] leading-[1.65] mt-4 max-w-2xl">
+            Particularly strong fit for mid-size businesses (10–500 employees)
+            where every workflow improvement is felt immediately across the whole team.
+          </p>
+        </motion.div>
 
         <div>
           {faqs.map((faq, i) => (

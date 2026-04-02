@@ -41,7 +41,7 @@ export default function About() {
               intersection of data, operations, and product — building BI
               systems, managing sales and business operations, and shipping
               products that had to work in the real world. Today, I&apos;m a
-              Senior Program Manager at a Fortune 5 tech company.
+              Senior Program Manager at Amazon.
             </p>
             <p className="text-[color:var(--color-text-secondary)] text-[15px] leading-[1.7] mb-6">
               I started Blueprint Labs because I kept seeing the same problem:
@@ -71,7 +71,7 @@ export default function About() {
               },
               {
                 label: "Program Management",
-                desc: "Cross-functional execution at scale, Fortune 5 environment",
+                desc: "Cross-functional execution at scale, Amazon",
               },
               {
                 label: "Business Operations",

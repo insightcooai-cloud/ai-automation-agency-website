@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), "Georgia", serif;
+
+  /* — New Genre–inspired warm neutral palette — */
+  /* Backgrounds */
+  --color-bg-canvas: #F5F3ED;
+  --color-bg-surface: #ECEAE2;
+  --color-bg-subtle: #F0EEE6;
+  --color-bg-inverse: #0C1018;
+
+  /* Text */
+  --color-text-primary: #0C1018;
+  --color-text-secondary: #3D3D3A;
+  --color-text-tertiary: #8A8A82;
+  --color-text-inverse: #F9FAFB;
+
+  /* Borders */
+  --color-border-default: #E0DED6;
+  --color-border-soft: #ECEAE2;
+
+  /* Accent — Warm Clay */
+  --color-accent: #B8845C;
+  --color-accent-soft: #F0E6DB;
+  --color-accent-hover: #A0714A;
+
+  /* Semantic */
+  --color-focus: #B8845C;
+  --color-error: #BF4D43;
+
+  /* Shadows — very subtle */
+  --shadow-card: rgba(12, 16, 24, 0.06) 0px 8px 32px 0px, rgba(12, 16, 24, 0.03) 0px 2px 8px 0px;
+  --shadow-soft: rgba(12, 16, 24, 0.04) 0px 4px 16px 0px, rgba(12, 16, 24, 0.02) 0px 1px 4px 0px;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+  }
+
+  body {
+    background-color: var(--color-bg-canvas);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+    font-family: var(--font-inter), system-ui, sans-serif;
+  }
+
+  /* Tight tracking for small text like New Genre */
+  .text-xs, .text-sm { letter-spacing: -0.01em; }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--color-border-default); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-text-tertiary); }
+  ::selection { background: var(--color-bg-inverse); color: var(--color-text-inverse); }
+
+  /* Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Animations */
+@keyframes slow-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Hero mesh gradient */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}

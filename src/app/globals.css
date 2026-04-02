@@ -4,35 +4,32 @@
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-serif: var(--font-instrument-serif), "Georgia", serif;
 
-  /* — New Genre–inspired warm neutral palette — */
-  /* Backgrounds */
-  --color-bg-canvas: #F5F3ED;
-  --color-bg-surface: #ECEAE2;
-  --color-bg-subtle: #F0EEE6;
-  --color-bg-inverse: #0C1018;
+  /* ── Dark Canvas ── */
+  --color-bg-canvas: #0A0A0B;
+  --color-bg-surface: #111113;
+  --color-bg-subtle: #17171A;
+  --color-bg-inverse: #F0F0F2;
 
-  /* Text */
-  --color-text-primary: #0C1018;
-  --color-text-secondary: #3D3D3A;
-  --color-text-tertiary: #8A8A82;
-  --color-text-inverse: #F9FAFB;
+  /* ── Text ── */
+  --color-text-primary: #F0F0F2;
+  --color-text-secondary: #9B9BA4;
+  --color-text-tertiary: #52525A;
+  --color-text-inverse: #0A0A0B;
 
-  /* Borders */
-  --color-border-default: #E0DED6;
-  --color-border-soft: #ECEAE2;
+  /* ── Borders ── */
+  --color-border-default: rgba(240, 240, 242, 0.08);
+  --color-border-soft: rgba(240, 240, 242, 0.04);
 
-  /* Accent — Warm Clay */
-  --color-accent: #B8845C;
-  --color-accent-soft: #F0E6DB;
-  --color-accent-hover: #A0714A;
+  /* ── Accent — teal ── */
+  --color-accent: #14B8A6;
+  --color-accent-soft: rgba(20, 184, 166, 0.12);
+  --color-accent-hover: #0D9488;
 
-  /* Semantic */
-  --color-focus: #B8845C;
-  --color-error: #BF4D43;
+  --color-focus: #14B8A6;
+  --color-error: #F87171;
 
-  /* Shadows — very subtle */
-  --shadow-card: rgba(12, 16, 24, 0.06) 0px 8px 32px 0px, rgba(12, 16, 24, 0.03) 0px 2px 8px 0px;
-  --shadow-soft: rgba(12, 16, 24, 0.04) 0px 4px 16px 0px, rgba(12, 16, 24, 0.02) 0px 1px 4px 0px;
+  --shadow-card: 0 0 0 1px rgba(240, 240, 242, 0.06), 0 8px 40px rgba(0, 0, 0, 0.6);
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 @layer base {
@@ -50,24 +47,21 @@
   }
 
   body {
-    background-color: transparent;
+    background-color: #0A0A0B;
     color: var(--color-text-primary);
     line-height: 1.6;
     letter-spacing: -0.01em;
     font-family: var(--font-inter), system-ui, sans-serif;
   }
 
-  /* Tight tracking for small text like New Genre */
   .text-xs, .text-sm { letter-spacing: -0.01em; }
 
-  /* Custom scrollbar */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--color-border-default); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--color-text-tertiary); }
-  ::selection { background: var(--color-bg-inverse); color: var(--color-text-inverse); }
+  ::-webkit-scrollbar-thumb { background: rgba(240, 240, 242, 0.10); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(240, 240, 242, 0.20); }
+  ::selection { background: var(--color-accent); color: #0A0A0B; }
 
-  /* Accessibility */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
@@ -77,16 +71,14 @@
   }
 }
 
-/* Animations */
 @keyframes slow-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
 @keyframes mesh-drift {
-  0% { transform: translate(0%, 0%) scale(1); }
-  33% { transform: translate(3%, -2%) scale(1.02); }
-  66% { transform: translate(-2%, 3%) scale(0.98); }
+  0%   { transform: translate(0%, 0%) scale(1); }
+  33%  { transform: translate(3%, -2%) scale(1.02); }
+  66%  { transform: translate(-2%, 3%) scale(0.98); }
   100% { transform: translate(1%, -1%) scale(1.01); }
 }
-

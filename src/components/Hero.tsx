@@ -18,77 +18,50 @@ export default function Hero() {
       ref={sectionRef}
       className="relative min-h-screen flex flex-col justify-end overflow-hidden"
     >
-      {/* ─── Bold Animated Gradient Background ─── */}
+      {/* ── Atmospheric gradient blobs ── */}
       <motion.div
         className="absolute inset-0 pointer-events-none overflow-hidden"
         style={{ opacity: textOpacity }}
         aria-hidden="true"
       >
-        {/* Large color blobs — newgenre-style bold gradient */}
         <div
           className="absolute inset-0 w-[200%] h-[200%] -left-[50%] -top-[50%]"
-          style={{
-            animation: "mesh-drift 20s ease-in-out infinite alternate",
-          }}
+          style={{ animation: "mesh-drift 20s ease-in-out infinite alternate" }}
         >
-          {/* Deep navy-blue — top left anchor */}
+          {/* Deep indigo — top left */}
           <div
             className="absolute rounded-full"
             style={{
-              width: "80%",
-              height: "80%",
-              top: "10%",
-              left: "5%",
-              background: "radial-gradient(circle, rgba(30, 50, 100, 0.9) 0%, transparent 70%)",
-              filter: "blur(80px)",
-            }}
-          />
-          {/* Rich indigo-purple — top right */}
-          <div
-            className="absolute rounded-full"
-            style={{
-              width: "70%",
-              height: "70%",
-              top: "5%",
-              right: "-10%",
-              background: "radial-gradient(circle, rgba(80, 50, 140, 0.7) 0%, transparent 65%)",
+              width: "80%", height: "80%", top: "10%", left: "5%",
+              background: "radial-gradient(circle, rgba(50, 40, 120, 0.7) 0%, transparent 70%)",
               filter: "blur(90px)",
             }}
           />
-          {/* Teal-cyan — bottom center */}
+          {/* Teal — top right */}
           <div
             className="absolute rounded-full"
             style={{
-              width: "90%",
-              height: "60%",
-              bottom: "5%",
-              left: "20%",
-              background: "radial-gradient(circle, rgba(30, 130, 160, 0.65) 0%, transparent 65%)",
+              width: "65%", height: "65%", top: "5%", right: "-5%",
+              background: "radial-gradient(circle, rgba(10, 120, 130, 0.5) 0%, transparent 65%)",
               filter: "blur(100px)",
             }}
           />
-          {/* Warm rose — bottom left accent */}
+          {/* Purple — center */}
           <div
             className="absolute rounded-full"
             style={{
-              width: "50%",
-              height: "50%",
-              bottom: "15%",
-              left: "-5%",
-              background: "radial-gradient(circle, rgba(140, 70, 100, 0.4) 0%, transparent 65%)",
-              filter: "blur(80px)",
+              width: "70%", height: "60%", top: "30%", left: "25%",
+              background: "radial-gradient(circle, rgba(80, 30, 130, 0.45) 0%, transparent 65%)",
+              filter: "blur(110px)",
             }}
           />
-          {/* Sky-blue highlight — center right */}
+          {/* Blue — bottom left bleed */}
           <div
             className="absolute rounded-full"
             style={{
-              width: "60%",
-              height: "55%",
-              top: "30%",
-              right: "5%",
-              background: "radial-gradient(circle, rgba(70, 140, 200, 0.5) 0%, transparent 60%)",
-              filter: "blur(70px)",
+              width: "55%", height: "55%", bottom: "10%", left: "-5%",
+              background: "radial-gradient(circle, rgba(20, 60, 160, 0.4) 0%, transparent 65%)",
+              filter: "blur(80px)",
             }}
           />
         </div>
@@ -98,14 +71,14 @@ export default function Hero() {
         style={{ opacity: textOpacity, y: textY }}
         className="relative z-10 max-w-[1400px] mx-auto w-full px-6 pt-48 pb-28"
       >
-        {/* Structural label */}
+        {/* Label */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-12"
         >
-          <span className="text-[12px] font-medium tracking-[0.12em] uppercase text-white/60">
+          <span className="text-[12px] font-medium tracking-[0.14em] uppercase text-white/40">
             AI Enablement Partner · Austin, TX
           </span>
         </motion.div>
@@ -120,24 +93,33 @@ export default function Hero() {
           Your team has AI tools. We make sure they actually use them.
         </motion.h1>
 
-        {/* Subtitle + CTA row */}
+        {/* Subtitle + CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col sm:flex-row items-start sm:items-end gap-8 max-w-4xl"
         >
-          <p className="text-[15px] text-white/70 max-w-md leading-[1.7]">
+          <p className="text-[15px] text-white/50 max-w-sm leading-[1.75]">
             We assess where you are, show your team what&apos;s possible, and
             build the systems that make AI adoption stick — as your extended
             partner, not a one-time vendor.
           </p>
-          <a
-            href="#contact"
-            className="flex-shrink-0 inline-flex items-center px-7 py-3.5 rounded-[90px] bg-white text-[#1a1d2b] text-[15px] font-medium hover:bg-white/90 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white min-h-[48px]"
-          >
-            Book a free AI readiness audit
-          </a>
+
+          <div className="flex flex-col sm:flex-row items-start gap-3 flex-shrink-0">
+            <a
+              href="#blueprint-method"
+              className="inline-flex items-center px-7 py-3.5 rounded-[90px] bg-white text-black text-[14px] font-medium hover:bg-white/90 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white min-h-[48px]"
+            >
+              See how it works
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center px-7 py-3.5 rounded-[90px] border border-white/20 text-white/70 text-[14px] font-medium hover:border-white/40 hover:text-white transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 min-h-[48px]"
+            >
+              Book a free intro call
+            </a>
+          </div>
         </motion.div>
       </motion.div>
     </section>
