@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import PullQuote from "./PullQuote";
 
 /* ── Workflow diagram SVGs ── */
 
@@ -365,6 +366,14 @@ export default function Services() {
           >
             From assessment to adoption — everything your team needs to make AI work.
           </motion.h2>
+        </div>
+
+        {/* Callout 2 */}
+        <div className="mb-16">
+          <PullQuote
+            quote="Generic one-size-fits-all AI training fails to deliver results because workforce needs and AI use cases are diverse and constantly evolving."
+            attribution="— Gartner CIO Perspectives, December 2025"
+          />
         </div>
 
         <div className="flex flex-col">

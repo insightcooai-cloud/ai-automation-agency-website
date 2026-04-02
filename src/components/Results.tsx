@@ -36,6 +36,103 @@ const scenarios = [
   },
 ];
 
+/* ── Hover-reveal diagrams ── */
+
+const Diagram1 = () => (
+  <svg
+    width="160"
+    height="96"
+    viewBox="0 0 160 96"
+    fill="none"
+    role="img"
+    aria-label="Before and after bar chart: 14 hours per week reduced to 2 hours per week, an 86% reduction"
+  >
+    {/* Before row */}
+    <text x="0" y="10" fontSize="7" fill="var(--ink-400)" fontFamily="DM Sans, system-ui" letterSpacing="0.08em">BEFORE</text>
+    <rect x="0" y="14" width="148" height="12" rx="2" fill="var(--sand-300)" />
+    <text x="0" y="38" fontSize="7.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui">14 hrs / week</text>
+
+    {/* Arrow */}
+    <line x1="74" y1="43" x2="74" y2="52" stroke="var(--amber-400)" strokeWidth="1.5" strokeLinecap="round" />
+    <path d="M70,49 L74,53 L78,49" fill="none" stroke="var(--amber-400)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+
+    {/* After row */}
+    <text x="0" y="64" fontSize="7" fill="var(--ink-400)" fontFamily="DM Sans, system-ui" letterSpacing="0.08em">AFTER</text>
+    <rect x="0" y="68" width="148" height="12" rx="2" fill="var(--sand-200)" />
+    <rect x="0" y="68" width="21" height="12" rx="2" fill="var(--sage-500)" />
+    <text x="24" y="78" fontSize="7.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui">2 hrs / week</text>
+
+    {/* Label */}
+    <text x="0" y="96" fontSize="13" fill="var(--amber-400)" fontFamily="Playfair Display, Georgia, serif" fontStyle="italic">86% reduction</text>
+  </svg>
+);
+
+const Diagram2 = () => (
+  <svg
+    width="160"
+    height="96"
+    viewBox="0 0 160 96"
+    fill="none"
+    role="img"
+    aria-label="Inbox visualization: before shows 6 emails taking 3 hours daily, after shows 1 email and checkmarks in 20 minutes"
+  >
+    {/* Before inbox */}
+    <text x="0" y="10" fontSize="7" fill="var(--ink-400)" fontFamily="DM Sans, system-ui" letterSpacing="0.08em">BEFORE</text>
+    <rect x="0" y="14" width="88" height="36" rx="2" stroke="var(--sand-300)" strokeWidth="1" />
+    {[20, 25, 30, 35, 40, 45].map((y, i) => (
+      <rect key={i} x="5" y={y} width="78" height="2.5" rx="1" fill="var(--sand-300)" />
+    ))}
+    <text x="94" y="28" fontSize="7.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui">3 hrs</text>
+    <text x="94" y="38" fontSize="7.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui">daily</text>
+
+    {/* Arrow */}
+    <line x1="44" y1="52" x2="44" y2="60" stroke="var(--amber-400)" strokeWidth="1.5" strokeLinecap="round" />
+    <path d="M40,57 L44,61 L48,57" fill="none" stroke="var(--amber-400)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+
+    {/* After inbox */}
+    <text x="0" y="72" fontSize="7" fill="var(--ink-400)" fontFamily="DM Sans, system-ui" letterSpacing="0.08em">AFTER</text>
+    <rect x="0" y="76" width="88" height="14" rx="2" stroke="var(--sage-500)" strokeWidth="1" strokeOpacity="0.5" />
+    <rect x="5" y="80" width="30" height="2.5" rx="1" fill="var(--sage-500)" fillOpacity="0.6" />
+    <path d="M44,80 L47,83 L53,77" stroke="var(--sage-500)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <text x="94" y="86" fontSize="7.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui">20 min</text>
+
+    {/* Label */}
+    <text x="0" y="96" fontSize="13" fill="var(--amber-400)" fontFamily="Playfair Display, Georgia, serif" fontStyle="italic">~90% reduction</text>
+  </svg>
+);
+
+const Diagram3 = () => (
+  <svg
+    width="160"
+    height="96"
+    viewBox="0 0 160 96"
+    fill="none"
+    role="img"
+    aria-label="Timeline comparison: before shows 4-hour spreadsheet rebuild on Monday morning, after shows auto-delivered report on Friday at 4pm"
+  >
+    {/* Before timeline */}
+    <text x="0" y="10" fontSize="7" fill="var(--ink-400)" fontFamily="DM Sans, system-ui" letterSpacing="0.08em">BEFORE · MON AM</text>
+    <rect x="0" y="14" width="148" height="10" rx="2" fill="var(--sand-200)" />
+    <rect x="0" y="14" width="55" height="10" rx="2" fill="var(--sand-300)" />
+    <text x="2" y="23" fontSize="6.5" fill="var(--ink-700)" fontFamily="DM Sans, system-ui">Spreadsheet rebuild</text>
+
+    {/* Arrow */}
+    <line x1="74" y1="26" x2="74" y2="36" stroke="var(--amber-400)" strokeWidth="1.5" strokeLinecap="round" />
+    <path d="M70,33 L74,37 L78,33" fill="none" stroke="var(--amber-400)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+
+    {/* After timeline */}
+    <text x="0" y="48" fontSize="7" fill="var(--ink-400)" fontFamily="DM Sans, system-ui" letterSpacing="0.08em">AFTER · MON AM</text>
+    <rect x="0" y="52" width="148" height="10" rx="2" fill="var(--sand-200)" />
+    <path d="M8,57 L11,60 L18,53" stroke="var(--sage-500)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <text x="24" y="60" fontSize="6.5" fill="var(--sage-500)" fontFamily="DM Sans, system-ui">Auto-delivered Fri 4pm</text>
+
+    {/* Label */}
+    <text x="0" y="96" fontSize="13" fill="var(--amber-400)" fontFamily="Playfair Display, Georgia, serif" fontStyle="italic">4+ hrs reclaimed</text>
+  </svg>
+);
+
+const diagrams = [Diagram1, Diagram2, Diagram3];
+
 function ScenarioItem({
   scenario,
   index,
@@ -45,6 +142,7 @@ function ScenarioItem({
 }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-8% 0px" });
+  const Diagram = diagrams[index];
 
   return (
     <motion.div
@@ -52,7 +150,7 @@ function ScenarioItem({
       initial={{ opacity: 0, y: 32 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
-      className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-14 md:py-16"
+      className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-14 md:py-16 group"
       style={{ borderTop: "1px solid var(--sand-300)" }}
     >
       {/* Number + industry */}
@@ -103,23 +201,31 @@ function ScenarioItem({
         </div>
       </div>
 
-      {/* Metric */}
-      <div className="md:col-span-3 flex flex-col justify-center">
-        <div
-          className="font-serif leading-none mb-2"
-          style={{
-            fontSize: "clamp(2rem, 3.5vw, 2.8rem)",
-            letterSpacing: "-0.02em",
-            color: "var(--amber-400)",
-          }}
-        >
-          {scenario.metric}
+      {/* Metric + hover diagram */}
+      <div className="md:col-span-3 flex flex-col justify-center relative" style={{ minHeight: 100 }}>
+        {/* Default metric */}
+        <div className="metric-default absolute inset-0 flex flex-col justify-center">
+          <div
+            className="font-serif leading-none mb-2"
+            style={{
+              fontSize: "clamp(2rem, 3.5vw, 2.8rem)",
+              letterSpacing: "-0.02em",
+              color: "var(--amber-400)",
+            }}
+          >
+            {scenario.metric}
+          </div>
+          <div
+            className="font-sans font-light text-[13px] leading-snug"
+            style={{ color: "var(--ink-400)" }}
+          >
+            {scenario.metricLabel}
+          </div>
         </div>
-        <div
-          className="font-sans font-light text-[13px] leading-snug"
-          style={{ color: "var(--ink-400)" }}
-        >
-          {scenario.metricLabel}
+
+        {/* Hover diagram */}
+        <div className="metric-diagram absolute inset-0 flex items-center">
+          <Diagram />
         </div>
       </div>
     </motion.div>

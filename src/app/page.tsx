@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
+import DataTicker from "@/components/DataTicker";
 import Problem from "@/components/Problem";
 import SocialProof from "@/components/SocialProof";
 import Services from "@/components/Services";
@@ -11,15 +12,18 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import SmoothScrollWrapper from "@/components/SmoothScrollWrapper";
 import CustomCursor from "@/components/CustomCursor";
+import ReadingProgress from "@/components/ReadingProgress";
 
 export default function Home() {
   return (
     <>
+      <ReadingProgress />
       <CustomCursor />
       <Nav />
       <main className="min-h-screen">
         <SmoothScrollWrapper>
           <Hero />
+          <DataTicker />
           <Problem />
           <SocialProof />
           <Services />

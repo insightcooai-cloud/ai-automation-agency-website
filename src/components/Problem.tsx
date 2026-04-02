@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
+import PullQuote from "./PullQuote";
 
 /* ── Easing ── */
 const easeOutExpo = (t: number) =>
@@ -96,10 +97,24 @@ function StatCard({
   );
 }
 
-/* ── Adoption Gap Chart ── */
+/* ── Adoption Gap Chart — two-state scrollytelling ── */
+const SEGMENTS = [
+  { label: "Tool, not workflow focus", pct: "33%", height: "35.9%", bg: "var(--sage-500)" },
+  { label: "Generic training",          pct: "28%", height: "30.4%", bg: "var(--sand-200)" },
+  { label: "No clear owner",            pct: "31%", height: "33.7%", bg: "var(--sand-300)" },
+];
+
 function AdoptionGapChart() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
+  const [chartState, setChartState] = useState<0 | 1>(0);
+
+  // Auto-transition to root-causes view ~1.5s after bars finish animating
+  useEffect(() => {
+    if (!inView) return;
+    const timer = setTimeout(() => setChartState(1), 2900);
+    return () => clearTimeout(timer);
+  }, [inView]);
 
   return (
     <motion.div
@@ -113,12 +128,26 @@ function AdoptionGapChart() {
         boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04)",
       }}
     >
-      <p
-        className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-6"
-        style={{ color: "var(--amber-400)" }}
-      >
-        The AI Adoption Gap
-      </p>
+      {/* Chart header — label animates between states */}
+      <div className="flex items-center justify-between mb-6">
+        <p
+          className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase"
+          style={{ color: "var(--amber-400)" }}
+        >
+          {chartState === 0 ? "The AI Adoption Gap" : "Where the gap comes from"}
+        </p>
+        {chartState === 1 && (
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 1.2 }}
+            className="font-sans text-[9px]"
+            style={{ color: "var(--ink-400)" }}
+          >
+            Source: Gartner CIO Survey 2025
+          </motion.p>
+        )}
+      </div>
 
       {/* Chart area */}
       <div className="flex items-end gap-10 justify-center" style={{ height: 180 }}>
@@ -129,19 +158,58 @@ function AdoptionGapChart() {
           ))}
         </div>
 
-        {/* Bar 1 — investing */}
+        {/* Bar 1 — investing / root causes */}
         <div className="flex flex-col items-center gap-2" style={{ flex: 1 }}>
-          <div className="w-full relative" style={{ height: 140, background: "var(--sand-100)", borderRadius: "2px 2px 0 0" }}>
-            <motion.div
-              initial={{ scaleY: 0 }}
-              animate={inView ? { scaleY: 1 } : {}}
-              transition={{ duration: 1.0, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute bottom-0 left-0 right-0 origin-bottom rounded-[2px]"
-              style={{ height: "92%", background: "var(--sand-300)" }}
-            />
+          <div
+            className="w-full relative"
+            style={{ height: 140, background: "var(--sand-100)", borderRadius: "2px 2px 0 0" }}
+          >
+            <AnimatePresence mode="wait">
+              {chartState === 0 ? (
+                <motion.div
+                  key="single"
+                  initial={{ scaleY: 0 }}
+                  animate={inView ? { scaleY: 1 } : { scaleY: 0 }}
+                  exit={{ opacity: 0, transition: { duration: 0.25 } }}
+                  transition={{ duration: 1.0, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                  className="absolute bottom-0 left-0 right-0 origin-bottom rounded-[2px]"
+                  style={{ height: "92%", background: "var(--sand-300)" }}
+                />
+              ) : (
+                <motion.div
+                  key="stacked"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute bottom-0 left-0 right-0 flex flex-col-reverse"
+                  style={{ height: "92%" }}
+                >
+                  {SEGMENTS.map((seg, i) => (
+                    <motion.div
+                      key={seg.label}
+                      initial={{ scaleY: 0 }}
+                      animate={{ scaleY: 1 }}
+                      transition={{ duration: 0.6, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                      className="origin-bottom relative flex items-center px-2 overflow-hidden"
+                      style={{ height: seg.height, background: seg.bg }}
+                    >
+                      <motion.span
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3, delay: i * 0.15 + 0.4 }}
+                        className="font-sans truncate"
+                        style={{ fontSize: 8, color: "var(--ink-700)", fontWeight: 500 }}
+                      >
+                        {seg.label} — {seg.pct}
+                      </motion.span>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
           <span className="font-sans font-light text-[10px] text-center leading-tight" style={{ color: "var(--ink-400)", maxWidth: 80 }}>
-            Investing in AI tools
+            {chartState === 0 ? "Investing in AI tools" : "Adoption barriers"}
           </span>
         </div>
 
@@ -152,7 +220,16 @@ function AdoptionGapChart() {
               78% gap
             </span>
             <svg width="16" height="20" viewBox="0 0 16 20" fill="none" aria-hidden="true">
-              <path d="M8 0v16M3 11l5 5 5-5" stroke="var(--amber-400)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <motion.path
+                d="M8 0v16M3 11l5 5 5-5"
+                stroke="var(--amber-400)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                initial={{ pathLength: 0 }}
+                animate={inView ? { pathLength: 1 } : { pathLength: 0 }}
+                transition={{ duration: 0.8, delay: 1.5, ease: "easeOut" }}
+              />
             </svg>
           </div>
         </div>
@@ -174,9 +251,38 @@ function AdoptionGapChart() {
         </div>
       </div>
 
-      <p className="font-sans font-light text-[10px] mt-4 text-right" style={{ color: "var(--ink-400)" }}>
-        Source: BCG, McKinsey
-      </p>
+      {/* State toggle controls */}
+      <div className="flex items-center justify-center gap-3 mt-5 pt-4" style={{ borderTop: "1px solid var(--sand-200)" }}>
+        <button
+          onClick={() => setChartState(0)}
+          className="font-sans cursor-pointer transition-colors duration-200"
+          style={{
+            fontSize: 10,
+            color: chartState === 0 ? "var(--amber-400)" : "var(--ink-400)",
+            background: "none",
+            border: "none",
+            letterSpacing: "0.04em",
+            padding: "4px 8px",
+          }}
+        >
+          ← Overview
+        </button>
+        <span style={{ color: "var(--sand-300)", fontSize: 10, userSelect: "none" }}>|</span>
+        <button
+          onClick={() => setChartState(1)}
+          className="font-sans cursor-pointer transition-colors duration-200"
+          style={{
+            fontSize: 10,
+            color: chartState === 1 ? "var(--amber-400)" : "var(--ink-400)",
+            background: "none",
+            border: "none",
+            letterSpacing: "0.04em",
+            padding: "4px 8px",
+          }}
+        >
+          Root causes →
+        </button>
+      </div>
     </motion.div>
   );
 }
@@ -208,7 +314,7 @@ export default function Problem() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="font-serif max-w-5xl mb-20"
+          className="font-serif max-w-5xl mb-12"
           style={{
             fontSize: "clamp(2.2rem, 5.5vw, 4.5rem)",
             lineHeight: 1.08,
@@ -220,6 +326,14 @@ export default function Problem() {
           <em className="italic">how</em>. That&apos;s the real gap — and
           that&apos;s exactly where we come in.
         </motion.p>
+
+        {/* Callout 1 */}
+        <div className="mb-16">
+          <PullQuote
+            quote="74% of CFOs say AI saves time. Only 5% report actual cost savings."
+            attribution="— Gartner CFO Leadership Series, 2025"
+          />
+        </div>
 
         {/* Adoption Gap Chart */}
         <div className="mb-20">

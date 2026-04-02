@@ -181,6 +181,49 @@ body.body--dark #cursor-dot { background: var(--sand-100); }
   from { stroke-dashoffset: 400; }
   to   { stroke-dashoffset: 0; }
 }
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Data ticker ── */
+.ticker-track {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: ticker 40s linear infinite;
+}
+#data-ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+@media (max-width: 767px) {
+  .ticker-track { animation-duration: 25s; }
+}
+
+/* ── Results: hover-reveal diagrams ── */
+.metric-default,
+.metric-diagram {
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.metric-diagram {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.group:hover .metric-default {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+.group:hover .metric-diagram {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Reading progress bar ── */
+.reading-progress-bar { height: 2px; }
+@media (max-width: 767px) {
+  .reading-progress-bar { height: 1.5px; }
+}
 
 /* ── Prefers reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
@@ -190,4 +233,7 @@ body.body--dark #cursor-dot { background: var(--sand-100); }
   }
   .reveal { opacity: 1 !important; transform: none !important; }
   .skill-bar-fill { width: var(--target-width, 90%) !important; }
+  .ticker-track { animation: none !important; }
+  .reading-progress-bar { display: none !important; }
+  .metric-default, .metric-diagram { transition: none !important; }
 }

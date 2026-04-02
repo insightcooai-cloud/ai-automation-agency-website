@@ -1,6 +1,26 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 export default function Footer() {
+  const [time, setTime] = useState<string>("");
+
+  useEffect(() => {
+    const update = () => {
+      setTime(
+        new Date().toLocaleTimeString("en-US", {
+          timeZone: "America/Chicago",
+          hour: "numeric",
+          minute: "2-digit",
+          hour12: true,
+        })
+      );
+    };
+    update();
+    const id = setInterval(update, 1000);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <footer
       className="relative z-10 px-6"
@@ -12,7 +32,7 @@ export default function Footer() {
     >
       <div
         className="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4"
-        style={{ minHeight: "72px", paddingTop: "0", paddingBottom: "0" }}
+        style={{ minHeight: "72px" }}
       >
         {/* Wordmark */}
         <span
@@ -20,6 +40,22 @@ export default function Footer() {
           style={{ color: "var(--ink-200)" }}
         >
           Blueprint Labs
+        </span>
+
+        {/* Location + live clock */}
+        <span
+          className="font-sans"
+          style={{
+            fontSize: 11,
+            color: "var(--ink-400)",
+            letterSpacing: "0.04em",
+            fontWeight: 300,
+          }}
+        >
+          Austin, TX
+          {time && (
+            <span className="hidden sm:inline"> · {time}</span>
+          )}
         </span>
 
         {/* Nav links */}

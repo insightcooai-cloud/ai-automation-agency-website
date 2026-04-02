@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
+import PullQuote from "./PullQuote";
 
 const credentials = [
   { label: "Business Intelligence", desc: "BI systems, dashboards, data storytelling across operations", width: 98, years: "12+ yrs" },
@@ -116,11 +117,20 @@ export default function About() {
               of teaching teams <em className="italic">how</em> to use them and
               redesigning workflows around them.
             </p>
-            <p className="font-sans font-light text-[15px] leading-[1.8]" style={{ color: "var(--ink-700)" }}>
+            <p className="font-sans font-light text-[15px] leading-[1.8] mb-8" style={{ color: "var(--ink-700)" }}>
               That&apos;s what I do. I assess where you are, educate your team
               on what&apos;s possible, and build the systems that make AI
               adoption stick — not just on day one, but on day 90.
             </p>
+
+            {/* Callout 3 */}
+            <div className="mb-10">
+              <PullQuote
+                quote="48% of CIOs report their employees are not ready to derive value from AI."
+                attribution="— Gartner CIO Talent Planning Survey, 2026"
+                subLine="This is the exact gap Blueprint Labs was built to close."
+              />
+            </div>
 
             {/* Quote block */}
             <motion.blockquote
