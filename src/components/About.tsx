@@ -117,10 +117,15 @@ export default function About() {
               of teaching teams <em className="italic">how</em> to use them and
               redesigning workflows around them.
             </p>
-            <p className="font-sans font-light text-[15px] leading-[1.8] mb-8" style={{ color: "var(--ink-700)" }}>
+            <p className="font-sans font-light text-[15px] leading-[1.8] mb-6" style={{ color: "var(--ink-700)" }}>
               That&apos;s what I do. I assess where you are, educate your team
               on what&apos;s possible, and build the systems that make AI
               adoption stick — not just on day one, but on day 90.
+            </p>
+            <p className="font-sans font-light text-[15px] leading-[1.8] mb-8" style={{ color: "var(--ink-700)" }}>
+              We work closely with Korean-owned businesses in Austin and Dallas
+              — and bring the same cultural fluency and operational depth to
+              every engagement.
             </p>
 
             {/* Callout 3 */}

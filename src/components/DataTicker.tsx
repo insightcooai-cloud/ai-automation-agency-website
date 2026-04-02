@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 
 const ITEMS = [
-  "73% of AI projects never reach production",
+  "74% of companies struggle to scale AI value — even after significant investment (BCG, 2024)",
+  "Only 5% of CFOs see actual cost savings from AI (Gartner, 2025)",
   "48% of employees are not ready to derive value from AI",
+  "AI adoption is employee-driven in 60% of SMBs — without a system",
+  "Well-scoped SMB automations typically pay back in 2–6 months",
   "51% of CIOs say AI skills gaps will impede 2026 objectives",
-  "Only 5% of AI investments produce actual cost savings",
-  "80% of leaders say value tracking is critical — fewer than 10% actually do it",
-  "Change fatigue is the #1 barrier to AI adoption",
+  "66% of AI-using SMBs save $500–$2,000 per month",
 ];
 
 export default function DataTicker() {

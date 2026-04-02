@@ -286,6 +286,67 @@ export default function Results() {
             <ScenarioItem key={s.n} scenario={s} index={i} />
           ))}
         </div>
+
+        {/* Research benchmark strip */}
+        <div
+          style={{
+            background: "var(--sand-100)",
+            borderTop: "1px solid var(--sand-300)",
+            padding: "20px 0",
+            marginTop: 32,
+          }}
+        >
+          <div className="flex items-start justify-around text-center gap-6 flex-wrap">
+            <div>
+              <div
+                className="font-serif leading-none mb-2"
+                style={{ fontSize: "clamp(28px, 3vw, 36px)", color: "var(--amber-400)" }}
+              >
+                66%
+              </div>
+              <div
+                className="font-sans font-light text-[12px] leading-snug"
+                style={{ color: "var(--ink-700)" }}
+              >
+                of AI-using SMBs<br />save $500–$2K/mo
+              </div>
+            </div>
+            <div>
+              <div
+                className="font-serif leading-none mb-2"
+                style={{ fontSize: "clamp(28px, 3vw, 36px)", color: "var(--amber-400)" }}
+              >
+                20+ hrs
+              </div>
+              <div
+                className="font-sans font-light text-[12px] leading-snug"
+                style={{ color: "var(--ink-700)" }}
+              >
+                saved per month<br />by 58% of SMBs
+              </div>
+            </div>
+            <div>
+              <div
+                className="font-serif leading-none mb-2"
+                style={{ fontSize: "clamp(28px, 3vw, 36px)", color: "var(--amber-400)" }}
+              >
+                2–6 months
+              </div>
+              <div
+                className="font-sans font-light text-[12px] leading-snug"
+                style={{ color: "var(--ink-700)" }}
+              >
+                typical payback<br />for focused automations
+              </div>
+            </div>
+          </div>
+          <p
+            className="text-center font-sans font-light text-[10px] mt-5"
+            style={{ color: "var(--ink-400)" }}
+          >
+            Industry benchmarks: Thryv AI &amp; Small Business Survey (500+ US SMBs, 2024–2025)
+          </p>
+        </div>
       </div>
     </section>
   );

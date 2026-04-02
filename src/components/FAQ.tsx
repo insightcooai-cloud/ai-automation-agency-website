@@ -10,7 +10,7 @@ const faqs = [
   },
   {
     q: "How is this different from an AI consulting firm?",
-    a: "Most firms sell strategy decks or deploy tools without context. We do both — we assess, educate, build, and train. You get one partner from assessment through adoption, not a chain of handoffs between strategists and developers. And we don't disappear after the slide deck. We stay until your team is actually using the tools independently.",
+    a: "Most AI consultants deliver strategy decks. The most common complaint SMBs have — backed by multiple independent surveys — is that engagements produce slide decks without working automations, and disappear after delivery without training or change management support.\n\nBlueprint Labs is built differently: we start with a free readiness audit, build working automations and agents (not presentations), train your team on how to use them, and stay as an ongoing partner through adoption. Every engagement is founder-led — you work with Steve directly, not handed off to a junior team.",
   },
   {
     q: "Do you work with our existing tools?",
@@ -26,7 +26,7 @@ const faqs = [
   },
   {
     q: "What does the free AI readiness audit include?",
-    a: "A focused diagnostic covering your current AI usage, data readiness, workflow pain points, and team capabilities. You'll walk away with a clear picture of where you stand and the 2–3 highest-impact opportunities specific to your business — not a generic report, but an honest assessment of what's realistic for your team.",
+    a: "A focused diagnostic covering your current AI usage, data readiness, workflow pain points, and team capabilities. You'll walk away with a clear picture of where you stand and the 2–3 highest-impact opportunities specific to your business — not a generic report, but an honest assessment of what's realistic for your team. Most importantly, you'll walk away knowing your top 2–3 highest-ROI workflow opportunities — the ones most likely to pay back within 90 days.",
   },
 ];
 
@@ -76,12 +76,17 @@ function FAQItem({ faq, index }: { faq: (typeof faqs)[0]; index: number }) {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden"
           >
-            <p
-              className="font-sans font-light text-[15px] leading-[1.8] pb-7 max-w-2xl"
-              style={{ color: "var(--ink-700)" }}
-            >
-              {faq.a}
-            </p>
+            <div className="pb-7 max-w-2xl flex flex-col gap-4">
+              {faq.a.split("\n\n").map((para, i) => (
+                <p
+                  key={i}
+                  className="font-sans font-light text-[15px] leading-[1.8]"
+                  style={{ color: "var(--ink-700)" }}
+                >
+                  {para}
+                </p>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
