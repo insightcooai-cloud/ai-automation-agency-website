@@ -1,49 +1,47 @@
 "use client";
 
-import { useScroll, useTransform, motion } from "framer-motion";
-import { useRef } from "react";
+import { useEffect } from "react";
+
+const sectionBgs: Record<string, string> = {
+  hero:             "#FDFAF5",
+  problem:          "#F7F2E8",
+  services:         "#F2EDE0",
+  "blueprint-method": "#EDE8D8",
+  results:          "#F5F0E8",
+  about:            "#F5F0E8",
+  faq:              "#F0EBE0",
+  contact:          "#1C1C1A",
+};
 
 export default function SmoothScrollWrapper({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const id = (entry.target as HTMLElement).id;
+          const bg = sectionBgs[id];
+          if (!bg) return;
+          document.body.style.backgroundColor = bg;
+          if (id === "contact") {
+            document.body.classList.add("body--dark");
+          } else {
+            document.body.classList.remove("body--dark");
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
+    const sections = document.querySelectorAll("section[id]");
+    sections.forEach((s) => observer.observe(s));
 
-  // Dark gradient journey — newgenre.studio style.
-  // Deep dark base with subtle atmospheric tints bleeding between sections.
-  // No section borders. Color variation comes from the tint shifts + blob overlays.
-  const background = useTransform(
-    scrollYProgress,
-    [0, 0.12, 0.25, 0.38, 0.50, 0.62, 0.74, 0.84, 0.92, 1],
-    [
-      "#0A0A0B", // Hero — pure dark
-      "#09090F", // Hero → Problem — hint of deep indigo
-      "#080C12", // Problem — subtle blue
-      "#08100E", // Services — teal dark
-      "#0A0A0E", // HowIWork — back to pure
-      "#0D0A14", // Results — purple tint
-      "#090B14", // About — blue-indigo
-      "#0A0A0C", // FAQ — neutral dark
-      "#0C0A10", // Contact — faint purple
-      "#050505", // Footer — deepest
-    ]
-  );
+    return () => observer.disconnect();
+  }, []);
 
-  return (
-    <div ref={containerRef} className="relative min-h-screen w-full">
-      <motion.div
-        className="fixed inset-0 w-full h-full -z-50 pointer-events-none"
-        style={{ background }}
-      />
-      <div className="relative z-10 w-full">
-        {children}
-      </div>
-    </div>
-  );
+  return <>{children}</>;
 }

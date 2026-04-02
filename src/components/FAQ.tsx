@@ -41,20 +41,25 @@ function FAQItem({ faq, index }: { faq: (typeof faqs)[0]; index: number }) {
       initial={{ opacity: 0, y: 16 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.06 }}
-      className="border-t border-[color:var(--color-border-default)]"
+      style={{ borderTop: "1px solid var(--sand-300)" }}
     >
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-start justify-between gap-6 py-7 text-left cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-accent)]/30 rounded-sm"
+        className="w-full flex items-start justify-between gap-6 py-7 text-left cursor-pointer group focus-visible:outline-none rounded-sm"
         aria-expanded={open}
       >
-        <span className="font-serif text-lg md:text-xl text-[color:var(--color-text-primary)] leading-snug group-hover:text-[color:var(--color-accent)] transition-colors duration-300">
+        <span
+          className="font-serif text-lg md:text-xl leading-snug transition-colors duration-300"
+          style={{ color: open ? "var(--amber-400)" : "var(--ink-900)" }}
+        >
           {faq.q}
         </span>
         <span
-          className={`flex-shrink-0 mt-1 w-5 h-5 flex items-center justify-center text-[color:var(--color-text-tertiary)] transition-transform duration-300 ${
-            open ? "rotate-45" : ""
-          }`}
+          className="flex-shrink-0 mt-1 w-5 h-5 flex items-center justify-center transition-all duration-300"
+          style={{
+            color: "var(--ink-400)",
+            transform: open ? "rotate(45deg)" : "rotate(0deg)",
+          }}
         >
           <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -71,7 +76,10 @@ function FAQItem({ faq, index }: { faq: (typeof faqs)[0]; index: number }) {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden"
           >
-            <p className="text-[15px] text-[color:var(--color-text-secondary)] leading-relaxed pb-7 max-w-2xl">
+            <p
+              className="font-sans font-light text-[15px] leading-[1.8] pb-7 max-w-2xl"
+              style={{ color: "var(--ink-700)" }}
+            >
               {faq.a}
             </p>
           </motion.div>
@@ -95,7 +103,10 @@ export default function FAQ() {
             transition={{ duration: 0.5 }}
             className="mb-12"
           >
-            <span className="text-[12px] font-medium tracking-[0.1em] uppercase text-[color:var(--color-text-tertiary)]">
+            <span
+              className="font-sans font-medium text-[11px] tracking-[0.15em] uppercase"
+              style={{ color: "var(--ink-400)" }}
+            >
               FAQ
             </span>
           </motion.div>
@@ -104,7 +115,13 @@ export default function FAQ() {
             initial={{ opacity: 0, y: 20 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.06 }}
-            className="font-serif text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.05] tracking-[-0.03em] text-[color:var(--color-text-primary)] mb-6"
+            className="font-serif mb-6"
+            style={{
+              fontSize: "clamp(2rem, 4.5vw, 3.5rem)",
+              lineHeight: 1.05,
+              letterSpacing: "-0.02em",
+              color: "var(--ink-900)",
+            }}
           >
             Common questions.
           </motion.h2>
@@ -115,19 +132,33 @@ export default function FAQ() {
           initial={{ opacity: 0, y: 20 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.14 }}
-          className="mb-12 p-8 rounded-2xl border border-[color:var(--color-border-default)] bg-white/[0.02]"
+          className="mb-12 p-8 rounded-[2px]"
+          style={{
+            background: "white",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04)",
+            borderTop: "2px solid var(--amber-400)",
+          }}
         >
-          <div className="text-[11px] font-medium tracking-[0.12em] uppercase text-[color:var(--color-accent)] mb-4">
+          <div
+            className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-4"
+            style={{ color: "var(--amber-400)" }}
+          >
             Who is this for?
           </div>
-          <p className="text-[16px] text-[color:var(--color-text-primary)] leading-[1.7] max-w-2xl">
+          <p
+            className="font-sans font-light text-[16px] leading-[1.8] max-w-2xl"
+            style={{ color: "var(--ink-900)" }}
+          >
             Companies that have invested in AI tools but aren&apos;t seeing real
             adoption. If your team has ChatGPT licenses, Copilot seats, or other
             AI tools collecting dust — or if leadership keeps saying &ldquo;use
             AI&rdquo; without a plan for how — that&apos;s exactly where we come
             in.
           </p>
-          <p className="text-[14px] text-[color:var(--color-text-secondary)] leading-[1.65] mt-4 max-w-2xl">
+          <p
+            className="font-sans font-light text-[14px] leading-[1.7] mt-4 max-w-2xl"
+            style={{ color: "var(--ink-700)" }}
+          >
             Particularly strong fit for mid-size businesses (10–500 employees)
             where every workflow improvement is felt immediately across the whole team.
           </p>

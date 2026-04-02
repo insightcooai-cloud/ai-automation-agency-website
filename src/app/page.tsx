@@ -10,10 +10,12 @@ import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import SmoothScrollWrapper from "@/components/SmoothScrollWrapper";
+import CustomCursor from "@/components/CustomCursor";
 
 export default function Home() {
   return (
-    <main>
+    <>
+      <CustomCursor />
       <Nav />
       <main className="min-h-screen">
         <SmoothScrollWrapper>
@@ -29,6 +31,6 @@ export default function Home() {
         </SmoothScrollWrapper>
       </main>
       <Footer />
-    </main>
+    </>
   );
 }
