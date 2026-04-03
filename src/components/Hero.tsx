@@ -110,34 +110,25 @@ export default function Hero() {
             <div className="flex flex-col sm:flex-row items-start gap-3 flex-shrink-0">
               <a
                 href="#blueprint-method"
-                className="inline-flex items-center gap-3 pl-7 pr-2 text-[11px] font-medium tracking-[0.08em] uppercase cursor-pointer focus-visible:outline-none min-h-[48px] transition-all duration-500 group/cta"
+                className="inline-flex items-center px-7 py-3.5 text-[11px] font-medium tracking-[0.08em] uppercase cursor-pointer focus-visible:outline-none min-h-[48px] transition-all duration-300"
                 style={{
                   background: "var(--ink-900)",
                   color: "var(--sand-50)",
-                  borderRadius: "9999px",
-                  transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+                  borderRadius: "2px",
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.background = "var(--amber-400)")}
                 onMouseLeave={(e) => (e.currentTarget.style.background = "var(--ink-900)")}
               >
                 See how it works
-                <span
-                  className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-500 group-hover/cta:translate-x-0.5"
-                  style={{ background: "rgba(255,255,255,0.12)", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
-                  aria-hidden="true"
-                >
-                  →
-                </span>
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-3 pl-7 pr-2 text-[11px] font-medium tracking-[0.08em] uppercase cursor-pointer focus-visible:outline-none min-h-[48px] transition-all duration-500 group/cta2"
+                className="inline-flex items-center px-7 py-3.5 text-[11px] font-medium tracking-[0.08em] uppercase cursor-pointer focus-visible:outline-none min-h-[48px] transition-all duration-300"
                 style={{
                   border: "1px solid var(--sand-300)",
                   color: "var(--ink-700)",
-                  borderRadius: "9999px",
+                  borderRadius: "2px",
                   background: "transparent",
-                  transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = "var(--ink-900)";
@@ -149,13 +140,6 @@ export default function Hero() {
                 }}
               >
                 Book a free intro call
-                <span
-                  className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-500 group-hover/cta2:translate-x-0.5"
-                  style={{ background: "rgba(26,24,20,0.06)", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
-                  aria-hidden="true"
-                >
-                  →
-                </span>
               </a>
             </div>
           </motion.div>

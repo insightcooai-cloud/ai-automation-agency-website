@@ -19,6 +19,7 @@ export default function Nav() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
+  // Convert hash-only links to absolute when not on home page
   const href = (h: string) => (isHome ? h : `/${h}`);
 
   useEffect(() => {
@@ -35,41 +36,37 @@ export default function Nav() {
     return () => obs.disconnect();
   }, []);
 
-  // Pill glass styles — always visible, intensify on scroll
-  const pillBg = dark
-    ? scrolled
-      ? "bg-[rgba(28,28,26,0.92)] backdrop-blur-[20px] border border-white/[0.1] shadow-[0_8px_32px_rgba(0,0,0,0.3)]"
-      : "bg-[rgba(28,28,26,0.6)] backdrop-blur-[12px] border border-white/[0.08]"
-    : scrolled
-      ? "bg-[rgba(253,250,245,0.92)] backdrop-blur-[20px] border border-[rgba(26,24,20,0.12)] shadow-[0_8px_32px_rgba(0,0,0,0.07)]"
-      : "bg-[rgba(253,250,245,0.7)] backdrop-blur-[12px] border border-[rgba(26,24,20,0.09)]";
+  const navBg = scrolled
+    ? dark
+      ? "bg-[rgba(28,28,26,0.88)] backdrop-blur-[16px] border-b border-white/[0.08]"
+      : "bg-[rgba(253,250,245,0.88)] backdrop-blur-[16px] border-b border-[rgba(26,24,20,0.07)]"
+    : "bg-transparent";
 
   const textColor = dark ? "text-[#F7F2E8]" : "text-[#3D3A34]";
   const linkColor = dark ? "text-[#EDE6D6]/70 hover:text-[#F7F2E8]" : "text-[#7A7568] hover:text-[#1A1814]";
-  const btnStyle = dark
+  const btnStyle  = dark
     ? "border-white/20 text-[#F7F2E8]/80 hover:bg-white hover:text-[#1A1814]"
     : "border-[rgba(26,24,20,0.2)] text-[#3D3A34] hover:bg-[#1A1814] hover:text-[#FDFAF5]";
 
   return (
     <motion.header
-      initial={{ opacity: 0, y: -16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed top-0 left-0 right-0 z-50 pt-4 px-4 md:px-6"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8, delay: 0.3 }}
+      className="fixed top-0 left-0 right-0 z-50"
     >
-      {/* Floating pill */}
-      <div className={`max-w-[1300px] mx-auto rounded-full transition-all duration-500 ${pillBg}`}>
-        <div className="h-14 px-6 flex items-center justify-between">
+      <div className={`transition-all duration-400 ${navBg}`}>
+        <div className="max-w-[1400px] mx-auto h-16 px-6 flex items-center justify-between">
           {/* Wordmark */}
           <a
             href={isHome ? "#" : "/"}
-            className={`text-[11px] font-medium tracking-[0.15em] uppercase cursor-pointer focus-visible:outline-none rounded-sm transition-colors duration-300 flex-shrink-0 ${textColor}`}
+            className={`text-[11px] font-medium tracking-[0.15em] uppercase cursor-pointer focus-visible:outline-none rounded-sm transition-colors duration-300 ${textColor}`}
             aria-label="Blueprint Labs home"
           >
             Blueprint Labs
           </a>
 
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8" aria-label="Main navigation">
+          <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
@@ -80,11 +77,13 @@ export default function Nav() {
               </a>
             ))}
 
-            {/* Free Assessment */}
+            {/* Free Assessment — primary CTA in nav */}
             <a
               href="/assessment"
               className={`nav-link flex items-center gap-1.5 text-[11px] font-medium tracking-[0.06em] uppercase transition-colors duration-300 cursor-pointer focus-visible:outline-none rounded-sm ${
-                pathname === "/assessment" ? "text-[#C8922A]" : linkColor
+                pathname === "/assessment"
+                  ? "text-[#C8922A]"
+                  : linkColor
               }`}
             >
               <span
@@ -99,7 +98,7 @@ export default function Nav() {
             <div className="flex items-center gap-1" role="group" aria-label="Language selection">
               <button
                 onClick={() => setLang("en")}
-                className={`text-[11px] font-medium tracking-[0.06em] px-2 py-1 rounded transition-all duration-200 cursor-pointer focus-visible:outline-none ${
+                className={`text-[11px] font-medium tracking-[0.06em] px-2.5 py-1 rounded transition-all duration-200 cursor-pointer focus-visible:outline-none ${
                   lang === "en"
                     ? dark ? "text-[#F7F2E8] bg-white/10" : "text-[#1A1814] bg-[#1A1814]/08"
                     : dark ? "text-white/30 hover:text-white/60" : "text-[#B8B2A4] hover:text-[#7A7568]"
@@ -112,7 +111,7 @@ export default function Nav() {
               <button
                 onClick={() => setLang("kr")}
                 title="한국어 버전 준비 중"
-                className={`text-[11px] font-medium tracking-[0.06em] px-2 py-1 rounded transition-all duration-200 cursor-pointer focus-visible:outline-none ${
+                className={`text-[11px] font-medium tracking-[0.06em] px-2.5 py-1 rounded transition-all duration-200 cursor-pointer focus-visible:outline-none ${
                   lang === "kr"
                     ? dark ? "text-[#F7F2E8] bg-white/10" : "text-[#1A1814] bg-[#1A1814]/08"
                     : dark ? "text-white/30 hover:text-white/60" : "text-[#B8B2A4] hover:text-[#7A7568]"
@@ -125,7 +124,7 @@ export default function Nav() {
 
             <a
               href={href("#contact")}
-              className={`text-[11px] font-medium tracking-[0.06em] uppercase px-5 py-2 rounded-full border transition-all duration-300 cursor-pointer min-h-[36px] flex items-center focus-visible:outline-none ${btnStyle}`}
+              className={`text-[11px] font-medium tracking-[0.06em] uppercase px-5 py-2.5 rounded-[2px] border transition-all duration-300 cursor-pointer min-h-[40px] flex items-center focus-visible:outline-none ml-1 ${btnStyle}`}
             >
               Work with us
             </a>
@@ -147,17 +146,15 @@ export default function Nav() {
         </div>
       </div>
 
-      {/* Mobile dropdown — floats below the pill */}
       {menuOpen && (
         <motion.div
-          initial={{ opacity: 0, y: -8, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className={`max-w-[1300px] mx-auto mt-2 rounded-[20px] md:hidden px-6 py-6 flex flex-col gap-5 ${
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className={`absolute top-full left-0 right-0 md:hidden backdrop-blur-[16px] px-6 py-6 flex flex-col gap-5 border-b ${
             dark
-              ? "bg-[rgba(28,28,26,0.96)] border border-white/[0.08] shadow-[0_16px_48px_rgba(0,0,0,0.4)]"
-              : "bg-[rgba(253,250,245,0.97)] border border-[rgba(26,24,20,0.07)] shadow-[0_16px_48px_rgba(0,0,0,0.12)]"
-          } backdrop-blur-[20px]`}
+              ? "bg-[rgba(28,28,26,0.95)] border-white/[0.08]"
+              : "bg-[rgba(253,250,245,0.97)] border-[rgba(26,24,20,0.06)]"
+          }`}
         >
           {NAV_LINKS.map((link) => (
             <a
@@ -185,7 +182,7 @@ export default function Nav() {
           <a
             href={href("#contact")}
             onClick={() => setMenuOpen(false)}
-            className={`text-[11px] font-medium tracking-[0.08em] uppercase px-5 py-3.5 rounded-full text-center cursor-pointer min-h-[44px] flex items-center justify-center ${
+            className={`text-[11px] font-medium tracking-[0.08em] uppercase px-5 py-3.5 rounded-[2px] text-center cursor-pointer min-h-[44px] flex items-center justify-center ${
               dark ? "bg-[#F7F2E8] text-[#1A1814]" : "bg-[#1A1814] text-[#FDFAF5]"
             }`}
           >
