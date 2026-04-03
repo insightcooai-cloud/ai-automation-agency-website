@@ -46,104 +46,266 @@ const phases = [
   },
 ];
 
-/* SVG vertical line with dash-draw animation */
-function TimelineLine({ drawn }: { drawn: boolean }) {
-  return (
-    <svg
-      className="absolute left-[5px] top-[12px]"
-      width="2"
-      height="calc(100% - 12px)"
-      style={{ height: "calc(100% - 12px)" }}
-      aria-hidden="true"
-    >
-      <line
-        x1="1" y1="0" x2="1" y2="100%"
-        stroke="var(--ink-200)"
-        strokeWidth="2"
-        strokeDasharray="400"
-        strokeDashoffset={drawn ? 0 : 400}
-        style={{ transition: "stroke-dashoffset 1.5s ease" }}
-      />
-    </svg>
-  );
-}
-
-function PhaseItem({
+function PhaseCard({
   phase,
   index,
-  lineDrawn,
 }: {
   phase: (typeof phases)[0];
   index: number;
-  lineDrawn: boolean;
 }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
+  const isLeft = index % 2 === 0;
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: 20 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.7, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
-      className="flex gap-8 pb-14 last:pb-0"
-    >
-      {/* Node */}
-      <div className="relative flex-shrink-0 mt-0.5" style={{ width: 12 }}>
-        <div
-          className="w-3 h-3 rounded-full border-2 transition-colors duration-500"
-          style={{
-            background: inView && lineDrawn ? "var(--amber-400)" : "var(--sand-50)",
-            borderColor: inView && lineDrawn ? "var(--amber-400)" : "var(--ink-700)",
-          }}
-        />
-      </div>
-
-      {/* Content */}
-      <div className="flex-1 -mt-1">
-        <div className="flex items-center gap-4 mb-4">
-          <span
-            className="font-sans font-medium text-[10px] tracking-[0.1em] uppercase"
-            style={{ color: "var(--amber-400)" }}
-          >
-            {phase.timeline}
-          </span>
-        </div>
-        <h3
-          className="font-sans font-600 mb-4"
-          style={{
-            fontSize: "clamp(1.2rem, 1.8vw, 1.5rem)",
-            color: "var(--ink-900)",
-          }}
-        >
-          {phase.title}
-        </h3>
-        <ul className="space-y-2">
-          {phase.points.map((point) => (
-            <li key={point} className="flex items-start gap-3">
-              <span
-                className="w-1 h-1 rounded-full mt-[10px] flex-shrink-0"
-                style={{ background: "var(--ink-400)" }}
-              />
-              <span
-                className="font-sans font-light text-[14px] leading-[1.7]"
-                style={{ color: "var(--ink-700)" }}
+    <>
+      {/* Desktop zigzag row */}
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0, x: isLeft ? -32 : 32, y: 12 }}
+        animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
+        transition={{
+          duration: 0.8,
+          delay: index * 0.1,
+          ease: [0.16, 1, 0.3, 1],
+        }}
+        className="hidden md:grid md:grid-cols-2 md:gap-16 items-center"
+      >
+        {/* Left column */}
+        {isLeft ? (
+          <div className="relative" style={{ padding: "32px 0" }}>
+            {/* Decorative large number */}
+            <span
+              className="absolute font-serif select-none pointer-events-none"
+              style={{
+                fontSize: "clamp(80px, 12vw, 140px)",
+                opacity: 0.07,
+                color: "var(--ink-900)",
+                top: "-20px",
+                left: "-8px",
+                lineHeight: 1,
+              }}
+              aria-hidden="true"
+            >
+              {phase.n}
+            </span>
+            <div className="relative z-10">
+              <div className="flex items-center gap-4 mb-4">
+                <div
+                  className="w-2 h-2 rounded-full"
+                  style={{ background: "var(--amber-400)" }}
+                />
+                <span
+                  className="font-sans font-medium text-[10px] tracking-[0.1em] uppercase"
+                  style={{ color: "var(--amber-400)" }}
+                >
+                  {phase.timeline}
+                </span>
+              </div>
+              <h3
+                className="font-sans font-semibold mb-4"
+                style={{
+                  fontSize: "clamp(1.2rem, 1.8vw, 1.5rem)",
+                  color: "var(--ink-900)",
+                }}
               >
-                {point}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </motion.div>
+                {phase.title}
+              </h3>
+              <ul className="space-y-2">
+                {phase.points.map((point) => (
+                  <li key={point} className="flex items-start gap-3">
+                    <span
+                      className="w-1 h-1 rounded-full mt-[10px] flex-shrink-0"
+                      style={{ background: "var(--ink-400)" }}
+                    />
+                    <span
+                      className="font-sans font-light text-[14px] leading-[1.7]"
+                      style={{ color: "var(--ink-700)" }}
+                    >
+                      {point}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center">
+            {/* Decorative number for empty side */}
+            <span
+              className="font-serif select-none"
+              style={{
+                fontSize: "clamp(80px, 12vw, 140px)",
+                opacity: 0.05,
+                color: "var(--ink-900)",
+                lineHeight: 1,
+              }}
+              aria-hidden="true"
+            >
+              {phase.n}
+            </span>
+          </div>
+        )}
+
+        {/* Right column */}
+        {isLeft ? (
+          <div className="flex items-center justify-center">
+            <span
+              className="font-serif select-none"
+              style={{
+                fontSize: "clamp(80px, 12vw, 140px)",
+                opacity: 0.05,
+                color: "var(--ink-900)",
+                lineHeight: 1,
+              }}
+              aria-hidden="true"
+            >
+              {phase.n}
+            </span>
+          </div>
+        ) : (
+          <div className="relative" style={{ padding: "32px 0" }}>
+            <span
+              className="absolute font-serif select-none pointer-events-none"
+              style={{
+                fontSize: "clamp(80px, 12vw, 140px)",
+                opacity: 0.07,
+                color: "var(--ink-900)",
+                top: "-20px",
+                right: "-8px",
+                lineHeight: 1,
+              }}
+              aria-hidden="true"
+            >
+              {phase.n}
+            </span>
+            <div className="relative z-10">
+              <div className="flex items-center gap-4 mb-4">
+                <div
+                  className="w-2 h-2 rounded-full"
+                  style={{ background: "var(--amber-400)" }}
+                />
+                <span
+                  className="font-sans font-medium text-[10px] tracking-[0.1em] uppercase"
+                  style={{ color: "var(--amber-400)" }}
+                >
+                  {phase.timeline}
+                </span>
+              </div>
+              <h3
+                className="font-sans font-semibold mb-4"
+                style={{
+                  fontSize: "clamp(1.2rem, 1.8vw, 1.5rem)",
+                  color: "var(--ink-900)",
+                }}
+              >
+                {phase.title}
+              </h3>
+              <ul className="space-y-2">
+                {phase.points.map((point) => (
+                  <li key={point} className="flex items-start gap-3">
+                    <span
+                      className="w-1 h-1 rounded-full mt-[10px] flex-shrink-0"
+                      style={{ background: "var(--ink-400)" }}
+                    />
+                    <span
+                      className="font-sans font-light text-[14px] leading-[1.7]"
+                      style={{ color: "var(--ink-700)" }}
+                    >
+                      {point}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
+      </motion.div>
+
+      {/* Horizontal connector line between columns (desktop only) */}
+      <div
+        className="hidden md:block mx-auto"
+        style={{
+          width: "1px",
+          height: "48px",
+          background: "var(--sand-300)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Mobile: simple stacked layout */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{
+          duration: 0.7,
+          delay: index * 0.12,
+          ease: [0.16, 1, 0.3, 1],
+        }}
+        className="md:hidden relative"
+        style={{ paddingBottom: 32 }}
+      >
+        <span
+          className="absolute font-serif select-none pointer-events-none"
+          style={{
+            fontSize: "80px",
+            opacity: 0.07,
+            color: "var(--ink-900)",
+            top: "-16px",
+            left: "-4px",
+            lineHeight: 1,
+          }}
+          aria-hidden="true"
+        >
+          {phase.n}
+        </span>
+        <div className="relative z-10">
+          <div className="flex items-center gap-4 mb-4">
+            <div
+              className="w-2 h-2 rounded-full"
+              style={{ background: "var(--amber-400)" }}
+            />
+            <span
+              className="font-sans font-medium text-[10px] tracking-[0.1em] uppercase"
+              style={{ color: "var(--amber-400)" }}
+            >
+              {phase.timeline}
+            </span>
+          </div>
+          <h3
+            className="font-sans font-semibold mb-4"
+            style={{
+              fontSize: "clamp(1.2rem, 1.8vw, 1.5rem)",
+              color: "var(--ink-900)",
+            }}
+          >
+            {phase.title}
+          </h3>
+          <ul className="space-y-2">
+            {phase.points.map((point) => (
+              <li key={point} className="flex items-start gap-3">
+                <span
+                  className="w-1 h-1 rounded-full mt-[10px] flex-shrink-0"
+                  style={{ background: "var(--ink-400)" }}
+                />
+                <span
+                  className="font-sans font-light text-[14px] leading-[1.7]"
+                  style={{ color: "var(--ink-700)" }}
+                >
+                  {point}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </motion.div>
+    </>
   );
 }
 
 export default function HowIWork() {
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-10% 0px" });
-  const timelineRef = useRef(null);
-  const timelineInView = useInView(timelineRef, { once: true, margin: "-60px" });
 
   return (
     <section id="blueprint-method" className="py-32 md:py-44 px-6 relative z-10 overflow-hidden">
@@ -179,14 +341,10 @@ export default function HowIWork() {
           </motion.h2>
         </div>
 
-        {/* Timeline */}
-        <div
-          ref={timelineRef}
-          className="relative max-w-[640px] pl-8"
-        >
-          <TimelineLine drawn={timelineInView} />
+        {/* Zigzag timeline */}
+        <div className="flex flex-col">
           {phases.map((phase, i) => (
-            <PhaseItem key={phase.n} phase={phase} index={i} lineDrawn={timelineInView} />
+            <PhaseCard key={phase.n} phase={phase} index={i} />
           ))}
         </div>
       </div>

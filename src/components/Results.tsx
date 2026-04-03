@@ -40,10 +40,10 @@ const scenarios = [
 
 const Diagram1 = () => (
   <svg
-    width="160"
-    height="96"
+    width="100%"
     viewBox="0 0 160 96"
     fill="none"
+    style={{ display: "block" }}
     role="img"
     aria-label="Before and after bar chart: 14 hours per week reduced to 2 hours per week, an 86% reduction"
   >
@@ -69,10 +69,10 @@ const Diagram1 = () => (
 
 const Diagram2 = () => (
   <svg
-    width="160"
-    height="96"
+    width="100%"
     viewBox="0 0 160 96"
     fill="none"
+    style={{ display: "block" }}
     role="img"
     aria-label="Inbox visualization: before shows 6 emails taking 3 hours daily, after shows 1 email and checkmarks in 20 minutes"
   >
@@ -103,10 +103,10 @@ const Diagram2 = () => (
 
 const Diagram3 = () => (
   <svg
-    width="160"
-    height="96"
+    width="100%"
     viewBox="0 0 160 96"
     fill="none"
+    style={{ display: "block" }}
     role="img"
     aria-label="Timeline comparison: before shows 4-hour spreadsheet rebuild on Monday morning, after shows auto-delivered report on Friday at 4pm"
   >
@@ -201,30 +201,25 @@ function ScenarioItem({
         </div>
       </div>
 
-      {/* Metric + hover diagram */}
-      <div className="md:col-span-3 flex flex-col justify-center relative" style={{ minHeight: 100 }}>
-        {/* Default metric */}
-        <div className="metric-default absolute inset-0 flex flex-col justify-center">
-          <div
-            className="font-serif leading-none mb-2"
-            style={{
-              fontSize: "clamp(2rem, 3.5vw, 2.8rem)",
-              letterSpacing: "-0.02em",
-              color: "var(--amber-400)",
-            }}
-          >
-            {scenario.metric}
-          </div>
-          <div
-            className="font-sans font-light text-[13px] leading-snug"
-            style={{ color: "var(--ink-400)" }}
-          >
-            {scenario.metricLabel}
-          </div>
+      {/* Metric + diagram — always visible, stacked */}
+      <div className="md:col-span-3 flex flex-col justify-center">
+        <div
+          className="font-serif leading-none mb-2"
+          style={{
+            fontSize: "clamp(2rem, 3.5vw, 2.8rem)",
+            letterSpacing: "-0.02em",
+            color: "var(--amber-400)",
+          }}
+        >
+          {scenario.metric}
         </div>
-
-        {/* Hover diagram */}
-        <div className="metric-diagram absolute inset-0 flex items-center">
+        <div
+          className="font-sans font-light text-[13px] leading-snug mb-4"
+          style={{ color: "var(--ink-400)" }}
+        >
+          {scenario.metricLabel}
+        </div>
+        <div style={{ maxWidth: 280, width: "100%" }}>
           <Diagram />
         </div>
       </div>

@@ -3,14 +3,14 @@
 import { useEffect } from "react";
 
 const sectionBgs: Record<string, string> = {
-  hero:             "#FDFAF5",
-  problem:          "#F7F2E8",
-  services:         "#F2EDE0",
-  "blueprint-method": "#EDE8D8",
-  results:          "#F5F0E8",
-  about:            "#F5F0E8",
-  faq:              "#F0EBE0",
-  contact:          "#1C1C1A",
+  hero:               "#FDFAF5",
+  problem:            "#EEE4CC",
+  services:           "#E8E0D0",
+  "blueprint-method": "#F0EAE0",
+  results:            "#EBE3D5",
+  about:              "#F4EDE5",
+  faq:                "#E9E2D8",
+  contact:            "#1C1C1A",
 };
 
 export default function SmoothScrollWrapper({

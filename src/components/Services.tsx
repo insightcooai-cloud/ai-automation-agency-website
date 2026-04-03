@@ -8,7 +8,7 @@ import PullQuote from "./PullQuote";
 
 // 01 ASSESS — horizontal pipeline
 const AssessSVG = () => (
-  <svg width="200" viewBox="0 0 180 58" fill="none" role="img" aria-label="AI Readiness Audit pipeline">
+  <svg width="100%" viewBox="0 0 180 58" fill="none" style={{ display: "block" }} role="img" aria-label="AI Readiness Audit pipeline">
     {/* Trigger node */}
     <rect x="1" y="6" width="52" height="22" rx="6" fill="var(--sand-200)" stroke="var(--ink-700)" strokeWidth="1.2" />
     {/* AI/processing node */}
@@ -38,7 +38,7 @@ const AssessSVG = () => (
 
 // 02 EDUCATE — branching diagram
 const EducateSVG = () => (
-  <svg width="200" viewBox="0 0 180 102" fill="none" role="img" aria-label="Team training branching into role-specific tracks">
+  <svg width="100%" viewBox="0 0 180 102" fill="none" style={{ display: "block" }} role="img" aria-label="Team training branching into role-specific tracks">
     {/* Input node */}
     <rect x="65" y="2" width="50" height="22" rx="6" fill="var(--sand-200)" stroke="var(--ink-700)" strokeWidth="1.2" />
     <text x="90" y="16" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">Your Workflows</text>
@@ -76,7 +76,7 @@ const EducateSVG = () => (
 
 // 03 GUIDE — 2x2 priority matrix
 const GuideSVG = () => (
-  <svg width="220" viewBox="0 0 180 162" fill="none" role="img" aria-label="Use-case prioritization matrix: impact vs feasibility">
+  <svg width="100%" viewBox="0 0 180 162" fill="none" style={{ display: "block" }} role="img" aria-label="Use-case prioritization matrix: impact vs feasibility">
     {/* Quadrant fills */}
     <rect x="28" y="8" width="72" height="64" fill="var(--sand-200)" fillOpacity="0.55" />
     <rect x="100" y="8" width="72" height="64" fill="var(--amber-400)" fillOpacity="0.15" />
@@ -113,7 +113,7 @@ const GuideSVG = () => (
 
 // 04 BUILD — n8n-style workflow
 const BuildSVG = () => (
-  <svg width="200" viewBox="0 0 180 146" fill="none" role="img" aria-label="Order processing automation: trigger → AI classifier → auto-process or flag for review">
+  <svg width="100%" viewBox="0 0 180 146" fill="none" style={{ display: "block" }} role="img" aria-label="Order processing automation: trigger → AI classifier → auto-process or flag for review">
     {/* Row 1: Trigger */}
     <rect x="63" y="2" width="54" height="24" rx="6" fill="var(--sand-200)" stroke="var(--ink-700)" strokeWidth="1.2" />
     <text x="90" y="12" textAnchor="middle" fontSize="6.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui" fontWeight="500" letterSpacing="0.08em">TRIGGER</text>
@@ -165,7 +165,7 @@ const BuildSVG = () => (
 
 // 05 ENABLE — adoption curve line chart
 const EnableSVG = () => (
-  <svg width="200" viewBox="0 0 180 104" fill="none" role="img" aria-label="Team adoption curve: Blueprint Labs reaches 80% by week 24, industry average plateaus at 30%">
+  <svg width="100%" viewBox="0 0 180 104" fill="none" style={{ display: "block" }} role="img" aria-label="Team adoption curve: Blueprint Labs reaches 80% by week 24, industry average plateaus at 30%">
     {/* Axes */}
     <line x1="32" y1="10" x2="32" y2="80" stroke="var(--ink-700)" strokeWidth="0.8" />
     <line x1="32" y1="80" x2="172" y2="80" stroke="var(--ink-700)" strokeWidth="0.8" />
@@ -260,9 +260,9 @@ function ServiceItem({
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 28 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, x: index % 2 === 0 ? -32 : 32, y: 12 }}
+      animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
+      transition={{ duration: 0.8, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
       className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-12 md:py-16 group"
       style={{ borderLeft: "1px solid var(--ink-200)", paddingLeft: 0 }}
     >
@@ -298,7 +298,7 @@ function ServiceItem({
       </div>
 
       {/* Description + Tags + SVG */}
-      <div className="md:col-span-7 pl-6 md:pl-0 flex gap-8 items-start">
+      <div className="md:col-span-7 pl-6 md:pl-0 flex gap-12 items-center">
         <div className="flex-1">
           <p
             className="font-sans font-light text-[15px] leading-[1.7] mb-5"
@@ -322,7 +322,7 @@ function ServiceItem({
             ))}
           </div>
         </div>
-        <div className="hidden md:block flex-shrink-0 opacity-70 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="hidden md:block opacity-80 group-hover:opacity-100 transition-opacity duration-300 w-full max-w-[420px]">
           <SVG />
         </div>
       </div>

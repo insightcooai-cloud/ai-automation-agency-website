@@ -4,11 +4,35 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import PullQuote from "./PullQuote";
 
-const pills = [
-  "Business Intelligence",
-  "Program Management",
-  "Business Operations",
-  "AI Enablement",
+const careerItems = [
+  {
+    period: "2025 — Present",
+    role: "Founder",
+    org: "Blueprint Labs",
+    desc: "AI readiness audits, team training, and adoption strategy for SMBs across Austin and Dallas.",
+    accent: true,
+  },
+  {
+    period: "2022 — Present",
+    role: "Senior Program Manager",
+    org: "Amazon",
+    desc: "Data, operations, and product at scale. Cross-functional execution across BI systems and operational infrastructure.",
+    accent: false,
+  },
+  {
+    period: "2015 — 2022",
+    role: "Business Intelligence & Operations",
+    org: "Fortune 500",
+    desc: "Built BI systems, dashboards, and workflow automation across sales ops, business ops, and data storytelling.",
+    accent: false,
+  },
+  {
+    period: "2014 — Present",
+    role: "AI Enablement Practice",
+    org: "Independent Research & Consulting",
+    desc: "AI readiness frameworks, prompt engineering curriculum, and adoption strategy — before it was called AI enablement.",
+    accent: false,
+  },
 ];
 
 export default function About() {
@@ -120,7 +144,7 @@ export default function About() {
             </motion.blockquote>
           </motion.div>
 
-          {/* Right — skill bars */}
+          {/* Right — career timeline */}
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -128,42 +152,90 @@ export default function About() {
             className="lg:col-span-6"
           >
             <p
-              className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5"
+              className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-8"
               style={{ color: "var(--ink-400)" }}
             >
-              Core Expertise
+              Career Arc
             </p>
-            <p
-              className="font-sans font-medium text-[12px] uppercase mb-5"
-              style={{ color: "var(--ink-400)", letterSpacing: "0.12em" }}
-            >
-              10+ Years Across All Disciplines
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 0 }}>
-              {pills.map((pill) => (
-                <span
-                  key={pill}
-                  className="font-sans font-medium text-[12px]"
+
+            <div className="relative" style={{ paddingLeft: 24 }}>
+              {/* Vertical connecting line */}
+              <div
+                className="absolute top-1 bottom-0"
+                style={{
+                  left: 3,
+                  width: 2,
+                  background: "var(--sand-300)",
+                }}
+                aria-hidden="true"
+              />
+
+              {careerItems.map((item, i) => (
+                <motion.div
+                  key={item.period}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.3 + i * 0.1,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="relative"
                   style={{
-                    background: "var(--sand-200)",
-                    borderRadius: "2px",
-                    padding: "8px 16px",
-                    color: "var(--ink-700)",
-                    letterSpacing: "0.04em",
-                    display: "inline-block",
-                    margin: "4px",
+                    paddingBottom: i < careerItems.length - 1 ? 32 : 0,
                   }}
                 >
-                  {pill}
-                </span>
+                  {/* Dot on the line */}
+                  <div
+                    className="absolute w-2 h-2 rounded-full"
+                    style={{
+                      left: -24 + 3 - 3,
+                      top: 5,
+                      background: item.accent
+                        ? "var(--amber-400)"
+                        : "var(--sage-500)",
+                    }}
+                  />
+
+                  <p
+                    className="font-sans tracking-[0.06em] uppercase mb-1"
+                    style={{
+                      fontSize: 11,
+                      color: "var(--ink-400)",
+                    }}
+                  >
+                    {item.period}
+                  </p>
+                  <p
+                    className="font-serif leading-tight mb-0.5"
+                    style={{
+                      fontSize: 18,
+                      color: "var(--ink-900)",
+                    }}
+                  >
+                    {item.role}
+                  </p>
+                  <p
+                    className="font-sans font-medium mb-2"
+                    style={{
+                      fontSize: 12,
+                      color: "var(--amber-400)",
+                    }}
+                  >
+                    {item.org}
+                  </p>
+                  <p
+                    className="font-sans font-light leading-relaxed"
+                    style={{
+                      fontSize: 13,
+                      color: "var(--ink-400)",
+                    }}
+                  >
+                    {item.desc}
+                  </p>
+                </motion.div>
               ))}
             </div>
-            <p
-              className="font-sans font-light text-[13px] italic mt-6"
-              style={{ color: "var(--ink-400)", lineHeight: 1.7 }}
-            >
-              BI systems, operations design, cross-functional execution, and AI adoption strategy — built across a decade at Amazon and Fortune 500 environments.
-            </p>
           </motion.div>
         </div>
       </div>

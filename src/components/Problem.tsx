@@ -62,7 +62,7 @@ function StatCard({
       ref={ref}
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.6, delay: index * 0.18, ease: [0.16, 1, 0.3, 1] }}
       className="relative bg-white rounded-[2px] p-8"
       style={{
         boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04)",
@@ -97,75 +97,6 @@ function StatCard({
   );
 }
 
-/* ── 5 Barriers Table ── */
-const BARRIERS = [
-  { barrier: "Don't know where to start",        service: "AI Readiness Audit" },
-  { barrier: "No training budget or time",        service: "Team Training & Workshops" },
-  { barrier: "Can't prioritize what to build",    service: "Strategy & Roadmap" },
-  { barrier: "Data silos and integration issues", service: "Custom Implementations" },
-  { barrier: "Can't measure if it's working",     service: "Adoption & Ongoing Support" },
-];
-
-function BarrierTable() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="reveal max-w-2xl mb-16"
-    >
-      <p
-        className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5"
-        style={{ color: "var(--amber-400)" }}
-      >
-        The 5 Barriers We Solve
-      </p>
-      <div>
-        {BARRIERS.map(({ barrier, service }, i) => (
-          <div
-            key={i}
-            className="grid items-center gap-3"
-            style={{
-              gridTemplateColumns: "1fr auto 1fr",
-              borderBottom: i < BARRIERS.length - 1 ? "1px solid var(--sand-300)" : "none",
-              padding: "10px 0",
-            }}
-          >
-            <span
-              className="font-sans font-light text-[13px]"
-              style={{ color: "var(--ink-400)" }}
-            >
-              {barrier}
-            </span>
-            <span
-              className="font-sans text-[13px] select-none"
-              style={{ color: "var(--amber-400)" }}
-            >
-              →
-            </span>
-            <span
-              className="font-sans font-medium text-[13px]"
-              style={{ color: "var(--ink-900)" }}
-            >
-              {service}
-            </span>
-          </div>
-        ))}
-      </div>
-      <p
-        className="font-sans font-light text-[11px] italic mt-4"
-        style={{ color: "var(--ink-400)" }}
-      >
-        The 5 most common SMB AI adoption barriers, per Gartner, McKinsey, and BCG research.
-      </p>
-    </motion.div>
-  );
-}
-
 /* ── Adoption Gap Chart — two-state scrollytelling ── */
 const SEGMENTS = [
   { label: "Tool, not workflow focus", pct: "33%", height: "35.9%", bg: "var(--sage-500)" },
@@ -191,9 +122,9 @@ function AdoptionGapChart() {
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="bg-white rounded-[2px] p-6 mx-auto"
+      className="bg-white rounded-[2px] p-8 mx-auto"
       style={{
-        maxWidth: 620,
+        maxWidth: 900,
         boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04)",
       }}
     >
@@ -219,7 +150,7 @@ function AdoptionGapChart() {
       </div>
 
       {/* Chart area */}
-      <div className="flex items-end gap-10 justify-center" style={{ height: 240 }}>
+      <div className="flex items-end gap-10 justify-center" style={{ height: 320 }}>
         {/* Y-axis labels */}
         <div className="flex flex-col justify-between items-end h-full pb-6" style={{ minWidth: 32 }}>
           {["100%", "50%", "0%"].map((l) => (
@@ -231,7 +162,7 @@ function AdoptionGapChart() {
         <div className="flex flex-col items-center gap-2" style={{ flex: 1 }}>
           <div
             className="w-full relative"
-            style={{ height: 187, background: "var(--sand-100)", borderRadius: "2px 2px 0 0" }}
+            style={{ height: 250, background: "var(--sand-100)", borderRadius: "2px 2px 0 0" }}
           >
             <AnimatePresence mode="wait">
               {chartState === 0 ? (
@@ -283,7 +214,7 @@ function AdoptionGapChart() {
         </div>
 
         {/* Gap annotation */}
-        <div className="flex flex-col items-center justify-start" style={{ height: 187, paddingTop: 4 }}>
+        <div className="flex flex-col items-center justify-start" style={{ height: 250, paddingTop: 4 }}>
           <div className="flex flex-col items-center gap-1">
             <span className="font-sans font-medium text-[11px] tracking-[0.06em]" style={{ color: "var(--amber-400)" }}>
               78% gap
@@ -305,7 +236,7 @@ function AdoptionGapChart() {
 
         {/* Bar 2 — successful */}
         <div className="flex flex-col items-center gap-2" style={{ flex: 1 }}>
-          <div className="w-full relative" style={{ height: 187, background: "var(--sand-100)", borderRadius: "2px 2px 0 0" }}>
+          <div className="w-full relative" style={{ height: 250, background: "var(--sand-100)", borderRadius: "2px 2px 0 0" }}>
             <motion.div
               initial={{ scaleY: 0 }}
               animate={inView ? { scaleY: 1 } : {}}
@@ -396,9 +327,6 @@ export default function Problem() {
           that&apos;s exactly where we come in.
         </motion.p>
 
-        {/* Barrier → Service table */}
-        <BarrierTable />
-
         {/* Callout 1 */}
         <div className="mb-16">
           <PullQuote
@@ -413,15 +341,10 @@ export default function Problem() {
         </div>
 
         {/* Stat cards — row 1 */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-6">
-          <StatCard value={73} suffix="%" label="of AI projects fail to reach production" source="McKinsey, 2024" duration={1400} index={0} />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <StatCard value={73} suffix="%" label="of AI projects fail to reach production" source="McKinsey, 2024" duration={1800} index={0} />
           <StatCard value={14} suffix="%" label="of companies have scaled AI successfully" source="BCG" duration={1200} index={1} />
           <StatCard value="#1" label="barrier isn't technology — it's adoption" source="Harvard Business Review" index={2} />
-        </div>
-        {/* Stat cards — row 2 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          <StatCard value={5} suffix="%" label="of CFOs report actual cost savings from AI — despite 74% saying it saves time" source="Gartner CFO Survey, 2025" duration={800} index={3} />
-          <StatCard value="2–6mo" label="typical payback period for a well-scoped SMB workflow automation" source="Thryv / Leanware, 2024–2025" index={4} />
         </div>
       </div>
     </section>
