@@ -63,10 +63,18 @@ function StatCard({
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
-      className="relative bg-white rounded-[2px] p-8"
       style={{
-        boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04)",
-        borderTop: "2px solid var(--amber-400)",
+        background: "rgba(200,146,42,0.03)",
+        borderRadius: "12px",
+        padding: "5px",
+        border: "1px solid var(--sand-200)",
+      }}
+    >
+    <div
+      className="relative bg-white p-8 h-full"
+      style={{
+        borderRadius: "8px",
+        boxShadow: "inset 0 1px 1px rgba(255,255,255,0.9), 0 1px 2px rgba(0,0,0,0.04)",
       }}
     >
       <div
@@ -93,6 +101,7 @@ function StatCard({
       >
         {source}
       </p>
+    </div>
     </motion.div>
   );
 }
@@ -393,8 +402,8 @@ export default function Problem() {
           className="mb-14"
         >
           <span
-            className="font-sans font-medium text-[11px] tracking-[0.15em] uppercase"
-            style={{ color: "var(--ink-400)" }}
+            className="font-sans font-medium text-[11px] tracking-[0.15em] uppercase px-3 py-1 rounded-full inline-block"
+            style={{ color: "var(--amber-400)", background: "rgba(200,146,42,0.08)" }}
           >
             The Problem
           </span>

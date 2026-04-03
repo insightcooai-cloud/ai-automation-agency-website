@@ -61,11 +61,13 @@ export default function Contact() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5"
           >
-            <p
-              className="font-sans font-medium text-[11px] tracking-[0.15em] uppercase mb-10"
-              style={{ color: "var(--ink-400)" }}
-            >
-              Get in Touch
+            <p className="mb-10">
+              <span
+                className="font-sans font-medium text-[11px] tracking-[0.15em] uppercase px-3 py-1 rounded-full inline-block"
+                style={{ color: "var(--amber-400)", background: "rgba(200,146,42,0.12)" }}
+              >
+                Get in Touch
+              </span>
             </p>
             <h2
               className="font-serif mb-6"

@@ -107,9 +107,10 @@
 .reveal {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.85s ease, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: blur(4px);
+  transition: opacity 0.85s ease, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
 }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.visible { opacity: 1; transform: translateY(0); filter: blur(0); }
 .reveal:nth-child(2) { transition-delay: 0.1s; }
 .reveal:nth-child(3) { transition-delay: 0.2s; }
 .reveal:nth-child(4) { transition-delay: 0.3s; }
@@ -248,7 +249,7 @@ body.body--dark #cursor-dot { background: var(--sand-100); }
     transition: none !important;
     animation: none !important;
   }
-  .reveal { opacity: 1 !important; transform: none !important; }
+  .reveal { opacity: 1 !important; transform: none !important; filter: none !important; }
   .skill-bar-fill { width: var(--target-width, 90%) !important; }
   .ticker-track { animation: none !important; }
   .reading-progress-bar { display: none !important; }

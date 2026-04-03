@@ -178,8 +178,8 @@ export default function HowIWork() {
             className="mb-12"
           >
             <span
-              className="font-sans font-medium text-[11px] tracking-[0.15em] uppercase"
-              style={{ color: "var(--ink-400)" }}
+              className="font-sans font-medium text-[11px] tracking-[0.15em] uppercase px-3 py-1 rounded-full inline-block"
+              style={{ color: "var(--amber-400)", background: "rgba(200,146,42,0.08)" }}
             >
               03 — How It Works
             </span>
