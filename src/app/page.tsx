@@ -11,15 +11,13 @@ import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import SmoothScrollWrapper from "@/components/SmoothScrollWrapper";
-import CustomCursor from "@/components/CustomCursor";
 import ReadingProgress from "@/components/ReadingProgress";
 
 export default function Home() {
   return (
     <>
       <ReadingProgress />
-      <CustomCursor />
-      <Nav />
+<Nav />
       <main className="min-h-screen">
         <SmoothScrollWrapper>
           <Hero />
