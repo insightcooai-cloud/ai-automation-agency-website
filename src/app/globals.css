@@ -185,6 +185,20 @@ body.body--dark #cursor-dot { background: var(--sand-100); }
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+@keyframes progress-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+@keyframes dot-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+}
+.progress-pulse {
+  animation: progress-pulse 1.5s ease-in-out infinite;
+}
+.assessment-nav-dot:hover {
+  animation: dot-pulse 0.4s ease;
+}
 
 /* ── Data ticker ── */
 .ticker-track {

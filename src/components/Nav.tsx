@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
-const links = [
-  { href: "#services", label: "Services" },
-  { href: "#blueprint-method", label: "Approach" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" },
+const NAV_LINKS = [
+  { href: "#services",          label: "Services" },
+  { href: "#blueprint-method",  label: "Approach" },
+  { href: "#about",             label: "About" },
+  { href: "#contact",           label: "Contact" },
 ];
 
 export default function Nav() {
@@ -15,6 +16,11 @@ export default function Nav() {
   const [dark, setDark] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [lang, setLang] = useState<"en" | "kr">("en");
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  // Convert hash-only links to absolute when not on home page
+  const href = (h: string) => (isHome ? h : `/${h}`);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -53,7 +59,7 @@ export default function Nav() {
         <div className="max-w-[1400px] mx-auto h-16 px-6 flex items-center justify-between">
           {/* Wordmark */}
           <a
-            href="#"
+            href={isHome ? "#" : "/"}
             className={`text-[11px] font-medium tracking-[0.15em] uppercase cursor-pointer focus-visible:outline-none rounded-sm transition-colors duration-300 ${textColor}`}
             aria-label="Blueprint Labs home"
           >
@@ -61,15 +67,32 @@ export default function Nav() {
           </a>
 
           <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
-            {links.map((link) => (
+            {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
-                href={link.href}
+                href={href(link.href)}
                 className={`nav-link text-[11px] font-medium tracking-[0.06em] uppercase transition-colors duration-300 cursor-pointer focus-visible:outline-none rounded-sm ${linkColor}`}
               >
                 {link.label}
               </a>
             ))}
+
+            {/* Free Assessment — primary CTA in nav */}
+            <a
+              href="/assessment"
+              className={`nav-link flex items-center gap-1.5 text-[11px] font-medium tracking-[0.06em] uppercase transition-colors duration-300 cursor-pointer focus-visible:outline-none rounded-sm ${
+                pathname === "/assessment"
+                  ? "text-[#C8922A]"
+                  : linkColor
+              }`}
+            >
+              <span
+                className="assessment-nav-dot w-1 h-1 rounded-full flex-shrink-0"
+                style={{ background: "var(--amber-400)" }}
+                aria-hidden="true"
+              />
+              Free Assessment
+            </a>
 
             {/* Language toggle */}
             <div className="flex items-center gap-1" role="group" aria-label="Language selection">
@@ -100,7 +123,7 @@ export default function Nav() {
             </div>
 
             <a
-              href="#contact"
+              href={href("#contact")}
               className={`text-[11px] font-medium tracking-[0.06em] uppercase px-5 py-2.5 rounded-[2px] border transition-all duration-300 cursor-pointer min-h-[40px] flex items-center focus-visible:outline-none ml-1 ${btnStyle}`}
             >
               Work with us
@@ -133,23 +156,31 @@ export default function Nav() {
               : "bg-[rgba(253,250,245,0.97)] border-[rgba(26,24,20,0.06)]"
           }`}
         >
-          {links.map((link) => (
+          {NAV_LINKS.map((link) => (
             <a
               key={link.href}
-              href={link.href}
+              href={href(link.href)}
               onClick={() => setMenuOpen(false)}
               className={`text-[11px] font-medium tracking-[0.08em] uppercase transition-colors cursor-pointer min-h-[44px] flex items-center ${linkColor}`}
             >
               {link.label}
             </a>
           ))}
+          <a
+            href="/assessment"
+            onClick={() => setMenuOpen(false)}
+            className={`text-[11px] font-medium tracking-[0.08em] uppercase transition-colors cursor-pointer min-h-[44px] flex items-center gap-1.5 ${linkColor}`}
+          >
+            <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "var(--amber-400)" }} aria-hidden="true" />
+            Free Assessment
+          </a>
           <div className="flex items-center gap-2 py-1">
             <span className={`text-[11px] tracking-[0.08em] uppercase ${dark ? "text-white/30" : "text-[#B8B2A4]"}`}>Lang:</span>
             <button onClick={() => setLang("en")} className={`text-[11px] font-medium px-2.5 py-1 rounded cursor-pointer ${lang === "en" ? (dark ? "text-white bg-white/10" : "text-[#1A1814] bg-[#1A1814]/08") : (dark ? "text-white/30" : "text-[#B8B2A4]")}`}>EN</button>
             <button onClick={() => setLang("kr")} title="한국어 버전 준비 중" className={`text-[11px] font-medium px-2.5 py-1 rounded cursor-pointer ${lang === "kr" ? (dark ? "text-white bg-white/10" : "text-[#1A1814] bg-[#1A1814]/08") : (dark ? "text-white/30" : "text-[#B8B2A4]")}`}>한국어</button>
           </div>
           <a
-            href="#contact"
+            href={href("#contact")}
             onClick={() => setMenuOpen(false)}
             className={`text-[11px] font-medium tracking-[0.08em] uppercase px-5 py-3.5 rounded-[2px] text-center cursor-pointer min-h-[44px] flex items-center justify-center ${
               dark ? "bg-[#F7F2E8] text-[#1A1814]" : "bg-[#1A1814] text-[#FDFAF5]"
