@@ -8,7 +8,7 @@ import PullQuote from "./PullQuote";
 
 // 01 ASSESS — horizontal pipeline
 const AssessSVG = () => (
-  <svg width="180" viewBox="0 0 180 58" fill="none" role="img" aria-label="AI Readiness Audit pipeline">
+  <svg width="200" viewBox="0 0 180 58" fill="none" role="img" aria-label="AI Readiness Audit pipeline">
     {/* Trigger node */}
     <rect x="1" y="6" width="52" height="22" rx="6" fill="var(--sand-200)" stroke="var(--ink-700)" strokeWidth="1.2" />
     {/* AI/processing node */}
@@ -38,7 +38,7 @@ const AssessSVG = () => (
 
 // 02 EDUCATE — branching diagram
 const EducateSVG = () => (
-  <svg width="180" viewBox="0 0 180 102" fill="none" role="img" aria-label="Team training branching into role-specific tracks">
+  <svg width="200" viewBox="0 0 180 102" fill="none" role="img" aria-label="Team training branching into role-specific tracks">
     {/* Input node */}
     <rect x="65" y="2" width="50" height="22" rx="6" fill="var(--sand-200)" stroke="var(--ink-700)" strokeWidth="1.2" />
     <text x="90" y="16" textAnchor="middle" fontSize="8" fill="var(--ink-700)" fontFamily="DM Sans, system-ui" fontWeight="500">Your Workflows</text>
@@ -76,7 +76,7 @@ const EducateSVG = () => (
 
 // 03 GUIDE — 2x2 priority matrix
 const GuideSVG = () => (
-  <svg width="180" viewBox="0 0 180 162" fill="none" role="img" aria-label="Use-case prioritization matrix: impact vs feasibility">
+  <svg width="220" viewBox="0 0 180 162" fill="none" role="img" aria-label="Use-case prioritization matrix: impact vs feasibility">
     {/* Quadrant fills */}
     <rect x="28" y="8" width="72" height="64" fill="var(--sand-200)" fillOpacity="0.55" />
     <rect x="100" y="8" width="72" height="64" fill="var(--amber-400)" fillOpacity="0.15" />
@@ -113,7 +113,7 @@ const GuideSVG = () => (
 
 // 04 BUILD — n8n-style workflow
 const BuildSVG = () => (
-  <svg width="180" viewBox="0 0 180 146" fill="none" role="img" aria-label="Order processing automation: trigger → AI classifier → auto-process or flag for review">
+  <svg width="200" viewBox="0 0 180 146" fill="none" role="img" aria-label="Order processing automation: trigger → AI classifier → auto-process or flag for review">
     {/* Row 1: Trigger */}
     <rect x="63" y="2" width="54" height="24" rx="6" fill="var(--sand-200)" stroke="var(--ink-700)" strokeWidth="1.2" />
     <text x="90" y="12" textAnchor="middle" fontSize="6.5" fill="var(--ink-400)" fontFamily="DM Sans, system-ui" fontWeight="500" letterSpacing="0.08em">TRIGGER</text>
@@ -165,7 +165,7 @@ const BuildSVG = () => (
 
 // 05 ENABLE — adoption curve line chart
 const EnableSVG = () => (
-  <svg width="180" viewBox="0 0 180 104" fill="none" role="img" aria-label="Team adoption curve: Blueprint Labs reaches 80% by week 24, industry average plateaus at 30%">
+  <svg width="200" viewBox="0 0 180 104" fill="none" role="img" aria-label="Team adoption curve: Blueprint Labs reaches 80% by week 24, industry average plateaus at 30%">
     {/* Axes */}
     <line x1="32" y1="10" x2="32" y2="80" stroke="var(--ink-700)" strokeWidth="0.8" />
     <line x1="32" y1="80" x2="172" y2="80" stroke="var(--ink-700)" strokeWidth="0.8" />
@@ -335,7 +335,29 @@ export default function Services() {
   const headerInView = useInView(headerRef, { once: true, margin: "-10% 0px" });
 
   return (
-    <section id="services" className="py-32 md:py-44 px-6 relative">
+    <section id="services" className="py-32 md:py-44 px-6 relative overflow-hidden">
+      {/* Section watermark */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          pointerEvents: "none",
+          userSelect: "none",
+          fontFamily: "var(--font-playfair), 'Playfair Display', serif",
+          fontSize: "clamp(120px, 18vw, 220px)",
+          fontWeight: 400,
+          lineHeight: 1,
+          color: "var(--ink-900)",
+          opacity: 0.025,
+          letterSpacing: "-0.04em",
+          whiteSpace: "nowrap",
+          top: "-20px",
+          left: "-1%",
+          zIndex: 0,
+        }}
+      >
+        How
+      </div>
       <div className="max-w-[1400px] mx-auto relative z-10">
         <div ref={headerRef}>
           <motion.div

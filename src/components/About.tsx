@@ -1,66 +1,15 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { useRef } from "react";
 import PullQuote from "./PullQuote";
 
-const credentials = [
-  { label: "Business Intelligence", desc: "BI systems, dashboards, data storytelling across operations", width: 98, years: "12+ yrs" },
-  { label: "Program Management",    desc: "Amazon Sr. PM — data, ops, and product at scale",             width: 90, years: "10+ yrs" },
-  { label: "Business Operations",   desc: "Workflow design, systems thinking, operational efficiency",    width: 88, years: "10+ yrs" },
-  { label: "AI Enablement",         desc: "Assessment, training, adoption strategy, and ongoing support", width: 65, years: "4+ yrs"  },
+const pills = [
+  "Business Intelligence",
+  "Program Management",
+  "Business Operations",
+  "AI Enablement",
 ];
-
-function SkillBar({
-  label,
-  desc,
-  width,
-  years,
-  delay,
-  inView,
-}: {
-  label: string;
-  desc: string;
-  width: number;
-  years: string;
-  delay: number;
-  inView: boolean;
-}) {
-  const [animated, setAnimated] = useState(false);
-
-  useEffect(() => {
-    if (!inView) return;
-    const t = setTimeout(() => setAnimated(true), delay);
-    return () => clearTimeout(t);
-  }, [inView, delay]);
-
-  return (
-    <div className="py-5">
-      <div className="flex items-center justify-between mb-1.5">
-        <span className="font-sans font-500 text-[13px]" style={{ color: "var(--ink-700)", fontWeight: 500 }}>
-          {label}
-        </span>
-        <span className="font-sans font-600 text-[12px]" style={{ color: "var(--amber-400)", fontWeight: 600 }}>
-          {years}
-        </span>
-      </div>
-      <p className="font-sans font-light text-[12px] leading-snug mb-3" style={{ color: "var(--ink-400)" }}>
-        {desc}
-      </p>
-      {/* Bar track */}
-      <div className="w-full h-[2px] rounded-full" style={{ background: "var(--sand-200)" }}>
-        <div
-          className="h-full rounded-full transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
-          style={{
-            background: label === "AI Enablement" ? "var(--amber-400)" : "var(--sage-500)",
-            width: animated ? `${width}%` : "0%",
-            transitionDelay: "0ms",
-          }}
-        />
-      </div>
-    </div>
-  );
-}
 
 export default function About() {
   const ref = useRef(null);
@@ -68,6 +17,28 @@ export default function About() {
 
   return (
     <section id="about" className="py-32 md:py-44 px-6 relative overflow-hidden">
+      {/* Section watermark */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          pointerEvents: "none",
+          userSelect: "none",
+          fontFamily: "var(--font-playfair), 'Playfair Display', serif",
+          fontSize: "clamp(120px, 18vw, 220px)",
+          fontWeight: 400,
+          lineHeight: 1,
+          color: "var(--ink-900)",
+          opacity: 0.025,
+          letterSpacing: "-0.04em",
+          whiteSpace: "nowrap",
+          top: "-20px",
+          left: "-1%",
+          zIndex: 0,
+        }}
+      >
+        Steve
+      </div>
       <div className="relative max-w-[1400px] mx-auto z-10" ref={ref}>
         {/* Label */}
         <motion.div
@@ -179,24 +150,42 @@ export default function About() {
             className="lg:col-span-6"
           >
             <p
-              className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-2"
+              className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5"
               style={{ color: "var(--ink-400)" }}
             >
               Core Expertise
             </p>
-            <div>
-              {credentials.map((c, i) => (
-                <SkillBar
-                  key={c.label}
-                  label={c.label}
-                  desc={c.desc}
-                  width={c.width}
-                  years={c.years}
-                  delay={i * 100 + 200}
-                  inView={inView}
-                />
+            <p
+              className="font-sans font-medium text-[12px] uppercase mb-5"
+              style={{ color: "var(--ink-400)", letterSpacing: "0.12em" }}
+            >
+              10+ Years Across All Disciplines
+            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 0 }}>
+              {pills.map((pill) => (
+                <span
+                  key={pill}
+                  className="font-sans font-medium text-[12px]"
+                  style={{
+                    background: "var(--sand-200)",
+                    borderRadius: "2px",
+                    padding: "8px 16px",
+                    color: "var(--ink-700)",
+                    letterSpacing: "0.04em",
+                    display: "inline-block",
+                    margin: "4px",
+                  }}
+                >
+                  {pill}
+                </span>
               ))}
             </div>
+            <p
+              className="font-sans font-light text-[13px] italic mt-6"
+              style={{ color: "var(--ink-400)", lineHeight: 1.7 }}
+            >
+              BI systems, operations design, cross-functional execution, and AI adoption strategy — built across a decade at Amazon and Fortune 500 environments.
+            </p>
           </motion.div>
         </div>
       </div>

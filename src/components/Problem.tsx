@@ -193,7 +193,7 @@ function AdoptionGapChart() {
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       className="bg-white rounded-[2px] p-6 mx-auto"
       style={{
-        maxWidth: 480,
+        maxWidth: 620,
         boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04)",
       }}
     >
@@ -219,7 +219,7 @@ function AdoptionGapChart() {
       </div>
 
       {/* Chart area */}
-      <div className="flex items-end gap-10 justify-center" style={{ height: 180 }}>
+      <div className="flex items-end gap-10 justify-center" style={{ height: 240 }}>
         {/* Y-axis labels */}
         <div className="flex flex-col justify-between items-end h-full pb-6" style={{ minWidth: 32 }}>
           {["100%", "50%", "0%"].map((l) => (
@@ -231,7 +231,7 @@ function AdoptionGapChart() {
         <div className="flex flex-col items-center gap-2" style={{ flex: 1 }}>
           <div
             className="w-full relative"
-            style={{ height: 140, background: "var(--sand-100)", borderRadius: "2px 2px 0 0" }}
+            style={{ height: 187, background: "var(--sand-100)", borderRadius: "2px 2px 0 0" }}
           >
             <AnimatePresence mode="wait">
               {chartState === 0 ? (
@@ -283,7 +283,7 @@ function AdoptionGapChart() {
         </div>
 
         {/* Gap annotation */}
-        <div className="flex flex-col items-center justify-start" style={{ height: 140, paddingTop: 4 }}>
+        <div className="flex flex-col items-center justify-start" style={{ height: 187, paddingTop: 4 }}>
           <div className="flex flex-col items-center gap-1">
             <span className="font-sans font-medium text-[11px] tracking-[0.06em]" style={{ color: "var(--amber-400)" }}>
               78% gap
@@ -305,7 +305,7 @@ function AdoptionGapChart() {
 
         {/* Bar 2 — successful */}
         <div className="flex flex-col items-center gap-2" style={{ flex: 1 }}>
-          <div className="w-full relative" style={{ height: 140, background: "var(--sand-100)", borderRadius: "2px 2px 0 0" }}>
+          <div className="w-full relative" style={{ height: 187, background: "var(--sand-100)", borderRadius: "2px 2px 0 0" }}>
             <motion.div
               initial={{ scaleY: 0 }}
               animate={inView ? { scaleY: 1 } : {}}
@@ -361,7 +361,29 @@ export default function Problem() {
   const inView = useInView(ref, { once: true, margin: "-10% 0px" });
 
   return (
-    <section id="problem" className="py-40 md:py-56 px-6 relative z-10">
+    <section id="problem" className="py-40 md:py-56 px-6 relative z-10 overflow-hidden">
+      {/* Section watermark */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          pointerEvents: "none",
+          userSelect: "none",
+          fontFamily: "var(--font-playfair), 'Playfair Display', serif",
+          fontSize: "clamp(120px, 18vw, 220px)",
+          fontWeight: 400,
+          lineHeight: 1,
+          color: "var(--ink-900)",
+          opacity: 0.025,
+          letterSpacing: "-0.04em",
+          whiteSpace: "nowrap",
+          top: "-20px",
+          right: "-1%",
+          zIndex: 0,
+        }}
+      >
+        The Gap
+      </div>
       <div className="max-w-[1400px] mx-auto" ref={ref}>
         {/* Label */}
         <motion.div
