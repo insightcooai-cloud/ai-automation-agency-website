@@ -17,29 +17,7 @@ export default function About() {
 
   return (
     <section id="about" className="py-32 md:py-44 px-6 relative overflow-hidden">
-      {/* Section watermark */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          pointerEvents: "none",
-          userSelect: "none",
-          fontFamily: "var(--font-playfair), 'Playfair Display', serif",
-          fontSize: "clamp(120px, 18vw, 220px)",
-          fontWeight: 400,
-          lineHeight: 1,
-          color: "var(--ink-900)",
-          opacity: 0.025,
-          letterSpacing: "-0.04em",
-          whiteSpace: "nowrap",
-          top: "-20px",
-          left: "-1%",
-          zIndex: 0,
-        }}
-      >
-        Steve
-      </div>
-      <div className="relative max-w-[1400px] mx-auto z-10" ref={ref}>
+<div className="relative max-w-[1400px] mx-auto z-10" ref={ref}>
         {/* Label */}
         <motion.div
           initial={{ opacity: 0 }}

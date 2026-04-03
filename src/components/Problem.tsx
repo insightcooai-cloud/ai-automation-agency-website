@@ -362,29 +362,7 @@ export default function Problem() {
 
   return (
     <section id="problem" className="py-40 md:py-56 px-6 relative z-10 overflow-hidden">
-      {/* Section watermark */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          pointerEvents: "none",
-          userSelect: "none",
-          fontFamily: "var(--font-playfair), 'Playfair Display', serif",
-          fontSize: "clamp(120px, 18vw, 220px)",
-          fontWeight: 400,
-          lineHeight: 1,
-          color: "var(--ink-900)",
-          opacity: 0.025,
-          letterSpacing: "-0.04em",
-          whiteSpace: "nowrap",
-          top: "-20px",
-          right: "-1%",
-          zIndex: 0,
-        }}
-      >
-        The Gap
-      </div>
-      <div className="max-w-[1400px] mx-auto" ref={ref}>
+<div className="max-w-[1400px] mx-auto" ref={ref}>
         {/* Label */}
         <motion.div
           initial={{ opacity: 0 }}
