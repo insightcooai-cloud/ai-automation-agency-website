@@ -44,13 +44,19 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-12"
+            className="mb-12 flex flex-wrap items-center gap-3"
           >
             <span
               className="font-sans font-medium text-[11px] tracking-[0.15em] uppercase"
               style={{ color: "var(--ink-400)" }}
             >
               AI Enablement Partner · Austin, TX
+            </span>
+            <span
+              className="font-sans font-medium text-[11px] tracking-[0.08em] px-2.5 py-1 rounded-full"
+              style={{ color: "var(--amber-400)", background: "rgba(200,146,42,0.08)" }}
+            >
+              Led by an Amazon Sr. PM
             </span>
           </motion.div>
 
@@ -75,18 +81,27 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 0.85, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col sm:flex-row items-start sm:items-end gap-8 max-w-4xl"
           >
-            <p
-              className="font-sans font-light text-[16px] max-w-sm leading-[1.8]"
-              style={{ color: "var(--ink-700)" }}
-            >
-              We assess where you are, show your team what&apos;s possible, and
-              build the systems that make AI adoption stick — as your extended
-              partner, not a one-time vendor.
-            </p>
+            <div className="max-w-sm">
+              <p
+                className="font-sans font-light text-[16px] leading-[1.8] mb-3"
+                style={{ color: "var(--ink-700)" }}
+              >
+                We assess where you are, show your team what&apos;s possible, and
+                build the systems that make AI adoption stick — as your extended
+                partner, not a one-time vendor.
+              </p>
+              <p
+                className="font-sans font-light text-[13px] leading-snug"
+                style={{ color: "var(--ink-400)" }}
+              >
+                Specializing in Korean-owned businesses in Austin &amp; Dallas.
+              </p>
+            </div>
 
             <div className="flex flex-col sm:flex-row items-start gap-3 flex-shrink-0">
+              {/* Primary CTA */}
               <a
-                href="#blueprint-method"
+                href="#contact"
                 className="inline-flex items-center px-7 py-3.5 text-[11px] font-medium tracking-[0.08em] uppercase cursor-pointer focus-visible:outline-none min-h-[48px] transition-all duration-300"
                 style={{
                   background: "var(--ink-900)",
@@ -96,10 +111,11 @@ export default function Hero() {
                 onMouseEnter={(e) => (e.currentTarget.style.background = "var(--amber-400)")}
                 onMouseLeave={(e) => (e.currentTarget.style.background = "var(--ink-900)")}
               >
-                See how it works
+                Book a free intro call
               </a>
+              {/* Secondary CTA */}
               <a
-                href="#contact"
+                href="#blueprint-method"
                 className="inline-flex items-center px-7 py-3.5 text-[11px] font-medium tracking-[0.08em] uppercase cursor-pointer focus-visible:outline-none min-h-[48px] transition-all duration-300"
                 style={{
                   border: "1px solid var(--sand-300)",
@@ -116,7 +132,7 @@ export default function Hero() {
                   e.currentTarget.style.color = "var(--ink-700)";
                 }}
               >
-                Book a free intro call
+                See how it works
               </a>
             </div>
           </motion.div>

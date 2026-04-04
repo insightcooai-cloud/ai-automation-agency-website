@@ -78,13 +78,25 @@ export default function Contact() {
               Let&apos;s start with an honest conversation.
             </h2>
             <p
-              className="font-sans font-light text-[15px] leading-[1.8]"
+              className="font-sans font-light text-[15px] leading-[1.8] mb-6"
               style={{ color: "var(--sand-200)" }}
             >
               Tell us where you&apos;re stuck. We&apos;ll follow up within 24
               hours with honest feedback on whether we&apos;re a fit — no
               pressure, no sales pitch.
             </p>
+            <div
+              className="rounded-[2px] p-4"
+              style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
+            >
+              <p className="font-sans font-medium text-[11px] tracking-[0.1em] uppercase mb-2" style={{ color: "var(--amber-400)" }}>
+                How engagements work
+              </p>
+              <p className="font-sans font-light text-[13px] leading-[1.7]" style={{ color: "var(--sand-300)" }}>
+                We start with a <strong style={{ color: "var(--sand-100)", fontWeight: 500 }}>free readiness audit</strong> (no commitment).
+                Implementation engagements are scoped to your needs — most run 6–12 weeks. Monthly advisory retainers available after delivery.
+              </p>
+            </div>
           </motion.div>
 
           {/* Right — Form */}
@@ -197,7 +209,7 @@ export default function Contact() {
                     e.currentTarget.style.boxShadow = "none";
                   }}
                 >
-                  {sending ? "Sending…" : "Send message"}
+                  {sending ? "Sending…" : "Request a free intro call"}
                 </button>
               </form>
             )}

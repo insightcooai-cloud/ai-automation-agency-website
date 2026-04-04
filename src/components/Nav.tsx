@@ -126,7 +126,7 @@ export default function Nav() {
               href={href("#contact")}
               className={`text-[11px] font-medium tracking-[0.06em] uppercase px-5 py-2.5 rounded-[2px] border transition-all duration-300 cursor-pointer min-h-[40px] flex items-center focus-visible:outline-none ml-1 ${btnStyle}`}
             >
-              Work with us
+              Book an intro call
             </a>
           </nav>
 

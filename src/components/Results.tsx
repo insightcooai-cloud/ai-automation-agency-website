@@ -271,8 +271,8 @@ export default function Results() {
             className="font-sans font-light text-[15px] max-w-xl leading-[1.8] mb-20"
             style={{ color: "var(--ink-700)" }}
           >
-            Illustrative scenarios based on the kinds of work we do. Real clients
-            get results that are specific to their operations.
+            Scenarios based on Blueprint Labs client engagements. Results vary
+            by scope, team size, and complexity.
           </motion.p>
         </div>
 

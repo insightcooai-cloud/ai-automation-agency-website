@@ -174,6 +174,44 @@ export default function FAQ() {
             <FAQItem key={i} faq={faq} index={i} />
           ))}
         </div>
+
+        {/* Post-FAQ CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={headerInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-16 pt-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8"
+          style={{ borderTop: "1px solid var(--sand-300)" }}
+        >
+          <div>
+            <p className="font-serif mb-2" style={{ fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", lineHeight: 1.2, color: "var(--ink-900)" }}>
+              Still have questions?
+            </p>
+            <p className="font-sans font-light text-[15px]" style={{ color: "var(--ink-400)" }}>
+              The free readiness audit answers most of them in context.
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
+            <a
+              href="/assessment"
+              className="inline-flex items-center px-7 py-3.5 text-[11px] font-medium tracking-[0.08em] uppercase cursor-pointer focus-visible:outline-none min-h-[48px] transition-all duration-300"
+              style={{ background: "var(--ink-900)", color: "var(--sand-50)", borderRadius: "2px" }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--amber-400)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "var(--ink-900)")}
+            >
+              Take the free assessment
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center px-7 py-3.5 text-[11px] font-medium tracking-[0.08em] uppercase cursor-pointer focus-visible:outline-none min-h-[48px] transition-all duration-300"
+              style={{ border: "1px solid var(--sand-300)", color: "var(--ink-700)", borderRadius: "2px", background: "transparent" }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--ink-900)"; e.currentTarget.style.color = "var(--ink-900)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--sand-300)"; e.currentTarget.style.color = "var(--ink-700)"; }}
+            >
+              Book a free intro call
+            </a>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
