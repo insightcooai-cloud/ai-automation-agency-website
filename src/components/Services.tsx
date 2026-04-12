@@ -3,6 +3,8 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import PullQuote from "./PullQuote";
+import { useLanguage } from "@/lib/LanguageContext";
+import { translations, type Lang } from "@/lib/translations";
 
 /* ── Workflow diagram SVGs ── */
 
@@ -208,50 +210,16 @@ const EnableSVG = () => (
 
 const serviceSVGs = [AssessSVG, EducateSVG, GuideSVG, BuildSVG, EnableSVG];
 
-const services = [
-  {
-    n: "01",
-    title: "Assess",
-    headline: "AI Readiness Audit",
-    desc: "We evaluate your current tools, workflows, data readiness, and team capabilities. You get a clear-eyed view of where you stand — and where AI can realistically move the needle.",
-    tags: ["Current State Analysis", "Data Readiness", "Capability Mapping"],
-  },
-  {
-    n: "02",
-    title: "Educate",
-    headline: "Team Training & Workshops",
-    desc: "Hands-on training tailored to your team's actual workflows — not generic prompt tutorials. From leadership buy-in sessions to department-specific enablement.",
-    tags: ["Workshops", "Prompt Engineering", "Change Management"],
-  },
-  {
-    n: "03",
-    title: "Guide",
-    headline: "Strategy & Roadmap",
-    desc: "We prioritize use cases by impact and feasibility. You get a phased roadmap grounded in your real constraints — budget, data, and team readiness.",
-    tags: ["Use Case Prioritization", "ROI Modeling", "Phased Roadmap"],
-  },
-  {
-    n: "04",
-    title: "Build",
-    headline: "Custom Implementations",
-    desc: "Agents, automations, dashboards, and integrations designed for your specific operations. No generic templates. Built on resilient tools like n8n and Make.",
-    tags: ["AI Agents", "Workflow Automation", "Integrations"],
-  },
-  {
-    n: "05",
-    title: "Enable",
-    headline: "Adoption & Ongoing Support",
-    desc: "SOPs, documentation, team training, and monthly advisory retainers. We don't disappear after handoff — we ensure AI usage sticks on day 90 and beyond.",
-    tags: ["SOPs", "Documentation", "Monthly Retainer"],
-  },
-];
+type ServiceData = (typeof translations.services.items)[0];
 
 function ServiceItem({
   service,
   index,
+  lang,
 }: {
-  service: (typeof services)[0];
+  service: ServiceData;
   index: number;
+  lang: Lang;
 }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-8% 0px" });
@@ -282,7 +250,7 @@ function ServiceItem({
           className="font-sans font-medium text-[11px] tracking-[0.1em] uppercase mb-3"
           style={{ color: "var(--ink-400)" }}
         >
-          {service.title}
+          {service.title[lang]}
         </div>
         <h3
           className="font-serif mb-0 transition-transform duration-300 group-hover:translate-x-1"
@@ -293,7 +261,7 @@ function ServiceItem({
             color: "var(--ink-900)",
           }}
         >
-          {service.headline}
+          {service.headline[lang]}
         </h3>
       </div>
 
@@ -304,10 +272,10 @@ function ServiceItem({
             className="font-sans font-light text-[15px] leading-[1.7] mb-5"
             style={{ color: "var(--ink-700)" }}
           >
-            {service.desc}
+            {service.desc[lang]}
           </p>
           <div className="flex flex-wrap gap-2">
-            {service.tags.map((tag) => (
+            {service.tags[lang].map((tag) => (
               <span
                 key={tag}
                 className="font-sans font-medium text-[10px] tracking-[0.06em] uppercase px-3 py-1.5"
@@ -331,6 +299,8 @@ function ServiceItem({
 }
 
 export default function Services() {
+  const { lang } = useLanguage();
+  const t = translations.services;
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-10% 0px" });
 
@@ -348,7 +318,7 @@ export default function Services() {
               className="font-sans font-medium text-[11px] tracking-[0.15em] uppercase"
               style={{ color: "var(--ink-400)" }}
             >
-              02 — What We Do
+              {t.sectionLabel[lang]}
             </span>
           </motion.div>
 
@@ -364,21 +334,40 @@ export default function Services() {
               color: "var(--ink-900)",
             }}
           >
-            From assessment to adoption — everything your team needs to make AI work.
+            {t.headline[lang]}
           </motion.h2>
         </div>
 
         {/* Callout 2 */}
         <div className="mb-16">
           <PullQuote
-            quote="Generic one-size-fits-all AI training fails to deliver results because workforce needs and AI use cases are diverse and constantly evolving."
-            attribution="— Gartner CIO Perspectives, December 2025"
+            quote={t.pullQuote[lang]}
+            attribution={t.pullQuoteAttribution[lang]}
           />
         </div>
 
+        {/* Mid-page CTA */}
+        <div
+          className="mb-12 px-8 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-[2px]"
+          style={{ background: "var(--sand-100)", border: "1px solid var(--sand-300)" }}
+        >
+          <p className="font-sans font-light text-[14px]" style={{ color: "var(--ink-700)" }}>
+            {t.midCta[lang]}
+          </p>
+          <a
+            href="/assessment"
+            className="font-sans font-medium text-[11px] tracking-[0.06em] uppercase flex-shrink-0 cursor-pointer transition-colors duration-200"
+            style={{ color: "var(--amber-400)" }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--ink-900)")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--amber-400)")}
+          >
+            {t.midCtaBtn[lang]}
+          </a>
+        </div>
+
         <div className="flex flex-col">
-          {services.map((s, i) => (
-            <ServiceItem key={s.n} service={s} index={i} />
+          {t.items.map((s, i) => (
+            <ServiceItem key={s.n} service={s} index={i} lang={lang} />
           ))}
         </div>
       </div>

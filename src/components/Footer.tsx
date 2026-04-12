@@ -1,8 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/lib/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export default function Footer() {
+  const { lang } = useLanguage();
+  const footerLinks = translations.footer.links[lang];
   const [time, setTime] = useState<string>("");
 
   useEffect(() => {
@@ -60,12 +64,7 @@ export default function Footer() {
 
         {/* Nav links */}
         <nav className="flex items-center gap-6" aria-label="Footer navigation">
-          {[
-            ["#services", "Services"],
-            ["#blueprint-method", "Process"],
-            ["#about", "About"],
-            ["#contact", "Contact"],
-          ].map(([href, label]) => (
+          {footerLinks.map(([href, label]) => (
             <a
               key={href}
               href={href}

@@ -3,20 +3,23 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-
-const NAV_LINKS = [
-  { href: "#services",          label: "Services" },
-  { href: "#blueprint-method",  label: "Approach" },
-  { href: "#about",             label: "About" },
-  { href: "#contact",           label: "Contact" },
-];
+import { useLanguage } from "@/lib/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [dark, setDark] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [lang, setLang] = useState<"en" | "kr">("en");
+  const { lang, setLang } = useLanguage();
   const pathname = usePathname();
+  const t = translations.nav;
+
+  const NAV_LINKS = [
+    { href: "#services",         label: t.services[lang] },
+    { href: "#blueprint-method", label: t.approach[lang] },
+    { href: "#about",            label: t.about[lang] },
+    { href: "#contact",          label: t.contact[lang] },
+  ];
   const isHome = pathname === "/";
 
   // Convert hash-only links to absolute when not on home page
@@ -91,7 +94,7 @@ export default function Nav() {
                 style={{ background: "var(--amber-400)" }}
                 aria-hidden="true"
               />
-              Free Assessment
+              {t.assessment[lang]}
             </a>
 
             {/* Language toggle */}
@@ -110,7 +113,6 @@ export default function Nav() {
               <span className={`text-[10px] ${dark ? "text-white/20" : "text-[#DDD4BE]"}`}>|</span>
               <button
                 onClick={() => setLang("kr")}
-                title="한국어 버전 준비 중"
                 className={`text-[11px] font-medium tracking-[0.06em] px-2.5 py-1 rounded transition-all duration-200 cursor-pointer focus-visible:outline-none ${
                   lang === "kr"
                     ? dark ? "text-[#F7F2E8] bg-white/10" : "text-[#1A1814] bg-[#1A1814]/08"
@@ -126,7 +128,7 @@ export default function Nav() {
               href={href("#contact")}
               className={`text-[11px] font-medium tracking-[0.06em] uppercase px-5 py-2.5 rounded-[2px] border transition-all duration-300 cursor-pointer min-h-[40px] flex items-center focus-visible:outline-none ml-1 ${btnStyle}`}
             >
-              Book an intro call
+              {t.cta[lang]}
             </a>
           </nav>
 
@@ -172,12 +174,12 @@ export default function Nav() {
             className={`text-[11px] font-medium tracking-[0.08em] uppercase transition-colors cursor-pointer min-h-[44px] flex items-center gap-1.5 ${linkColor}`}
           >
             <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "var(--amber-400)" }} aria-hidden="true" />
-            Free Assessment
+            {t.assessment[lang]}
           </a>
           <div className="flex items-center gap-2 py-1">
-            <span className={`text-[11px] tracking-[0.08em] uppercase ${dark ? "text-white/30" : "text-[#B8B2A4]"}`}>Lang:</span>
+            <span className={`text-[11px] tracking-[0.08em] uppercase ${dark ? "text-white/30" : "text-[#B8B2A4]"}`}>{t.langLabel[lang]}</span>
             <button onClick={() => setLang("en")} className={`text-[11px] font-medium px-2.5 py-1 rounded cursor-pointer ${lang === "en" ? (dark ? "text-white bg-white/10" : "text-[#1A1814] bg-[#1A1814]/08") : (dark ? "text-white/30" : "text-[#B8B2A4]")}`}>EN</button>
-            <button onClick={() => setLang("kr")} title="한국어 버전 준비 중" className={`text-[11px] font-medium px-2.5 py-1 rounded cursor-pointer ${lang === "kr" ? (dark ? "text-white bg-white/10" : "text-[#1A1814] bg-[#1A1814]/08") : (dark ? "text-white/30" : "text-[#B8B2A4]")}`}>한국어</button>
+            <button onClick={() => setLang("kr")} className={`text-[11px] font-medium px-2.5 py-1 rounded cursor-pointer ${lang === "kr" ? (dark ? "text-white bg-white/10" : "text-[#1A1814] bg-[#1A1814]/08") : (dark ? "text-white/30" : "text-[#B8B2A4]")}`}>한국어</button>
           </div>
           <a
             href={href("#contact")}
@@ -186,7 +188,7 @@ export default function Nav() {
               dark ? "bg-[#F7F2E8] text-[#1A1814]" : "bg-[#1A1814] text-[#FDFAF5]"
             }`}
           >
-            Work with us
+            {t.mobileWork[lang]}
           </a>
         </motion.div>
       )}

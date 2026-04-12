@@ -3,6 +3,8 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import PullQuote from "./PullQuote";
+import { useLanguage } from "@/lib/LanguageContext";
+import { translations } from "@/lib/translations";
 
 /* ── Easing ── */
 const easeOutExpo = (t: number) =>
@@ -105,6 +107,8 @@ const SEGMENTS = [
 ];
 
 function AdoptionGapChart() {
+  const { lang } = useLanguage();
+  const t = translations.problem;
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const [chartState, setChartState] = useState<0 | 1>(0);
@@ -134,7 +138,7 @@ function AdoptionGapChart() {
           className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase"
           style={{ color: "var(--amber-400)" }}
         >
-          {chartState === 0 ? "The AI Adoption Gap" : "Where the gap comes from"}
+          {chartState === 0 ? t.chartLabel0[lang] : t.chartLabel1[lang]}
         </p>
         {chartState === 1 && (
           <motion.p
@@ -144,7 +148,7 @@ function AdoptionGapChart() {
             className="font-sans text-[9px]"
             style={{ color: "var(--ink-400)" }}
           >
-            Source: Gartner CIO Survey 2025
+            {t.chartSource[lang]}
           </motion.p>
         )}
       </div>
@@ -209,7 +213,7 @@ function AdoptionGapChart() {
             </AnimatePresence>
           </div>
           <span className="font-sans font-light text-[10px] text-center leading-tight" style={{ color: "var(--ink-400)", maxWidth: 80 }}>
-            {chartState === 0 ? "Investing in AI tools" : "Adoption barriers"}
+            {chartState === 0 ? t.chartBar1_0[lang] : t.chartBar1_1[lang]}
           </span>
         </div>
 
@@ -217,7 +221,7 @@ function AdoptionGapChart() {
         <div className="flex flex-col items-center justify-start" style={{ height: 250, paddingTop: 4 }}>
           <div className="flex flex-col items-center gap-1">
             <span className="font-sans font-medium text-[11px] tracking-[0.06em]" style={{ color: "var(--amber-400)" }}>
-              78% gap
+              {t.chartGap[lang]}
             </span>
             <svg width="16" height="20" viewBox="0 0 16 20" fill="none" aria-hidden="true">
               <motion.path
@@ -246,7 +250,7 @@ function AdoptionGapChart() {
             />
           </div>
           <span className="font-sans font-light text-[10px] text-center leading-tight" style={{ color: "var(--ink-400)", maxWidth: 80 }}>
-            Successful adoption
+            {t.chartBar2[lang]}
           </span>
         </div>
       </div>
@@ -265,7 +269,7 @@ function AdoptionGapChart() {
             padding: "4px 8px",
           }}
         >
-          ← Overview
+          {t.chartToggle0[lang]}
         </button>
         <span style={{ color: "var(--sand-300)", fontSize: 10, userSelect: "none" }}>|</span>
         <button
@@ -280,7 +284,7 @@ function AdoptionGapChart() {
             padding: "4px 8px",
           }}
         >
-          Root causes →
+          {t.chartToggle1[lang]}
         </button>
       </div>
     </motion.div>
@@ -288,6 +292,8 @@ function AdoptionGapChart() {
 }
 
 export default function Problem() {
+  const { lang } = useLanguage();
+  const t = translations.problem;
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-10% 0px" });
 
@@ -305,7 +311,7 @@ export default function Problem() {
             className="font-sans font-medium text-[11px] tracking-[0.15em] uppercase"
             style={{ color: "var(--ink-400)" }}
           >
-            The Problem
+            {t.sectionLabel[lang]}
           </span>
         </motion.div>
 
@@ -322,16 +328,14 @@ export default function Problem() {
             color: "var(--ink-900)",
           }}
         >
-          Every company says &ldquo;use AI.&rdquo; Almost none show their teams{" "}
-          <em className="italic">how</em>. That&apos;s the real gap — and
-          that&apos;s exactly where we come in.
+          {t.bigQuote[lang]}
         </motion.p>
 
         {/* Callout 1 */}
         <div className="mb-16">
           <PullQuote
-            quote="74% of CFOs say AI saves time. Only 5% report actual cost savings."
-            attribution="— Gartner CFO Leadership Series, 2025"
+            quote={t.pullQuote[lang]}
+            attribution={t.pullQuoteAttribution[lang]}
           />
         </div>
 
@@ -342,9 +346,9 @@ export default function Problem() {
 
         {/* Stat cards — row 1 */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          <StatCard value={73} suffix="%" label="of AI projects fail to reach production" source="McKinsey, 2024" duration={1800} index={0} />
-          <StatCard value={14} suffix="%" label="of companies have scaled AI successfully" source="BCG" duration={1200} index={1} />
-          <StatCard value="#1" label="barrier isn't technology — it's adoption" source="Harvard Business Review" index={2} />
+          <StatCard value={73} suffix="%" label={t.stat1Label[lang]} source={t.stat1Source[lang]} duration={1800} index={0} />
+          <StatCard value={14} suffix="%" label={t.stat2Label[lang]} source={t.stat2Source[lang]} duration={1200} index={1} />
+          <StatCard value="#1" label={t.stat3Label[lang]} source={t.stat3Source[lang]} index={2} />
         </div>
       </div>
     </section>

@@ -1,18 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-const ITEMS = [
-  "74% of companies struggle to scale AI value — even after significant investment (BCG, 2024)",
-  "Only 5% of CFOs see actual cost savings from AI (Gartner, 2025)",
-  "48% of employees are not ready to derive value from AI",
-  "AI adoption is employee-driven in 60% of SMBs — without a system",
-  "Well-scoped SMB automations typically pay back in 2–6 months",
-  "51% of CIOs say AI skills gaps will impede 2026 objectives",
-  "66% of AI-using SMBs save $500–$2,000 per month",
-];
+import { useLanguage } from "@/lib/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export default function DataTicker() {
+  const { lang } = useLanguage();
+  const t = translations.ticker;
+  const ITEMS = t.items[lang];
   const [reducedMotion, setReducedMotion] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -38,7 +33,7 @@ export default function DataTicker() {
     return (
       <section
         id="data-ticker"
-        aria-label="AI adoption statistics"
+        aria-label={t.ariaLabel[lang]}
         className="relative flex items-center justify-center overflow-hidden px-4"
         style={sectionStyle}
       >
@@ -46,13 +41,13 @@ export default function DataTicker() {
           className="font-sans text-center"
           style={{ fontSize: 12, color: "var(--ink-700)", letterSpacing: "0.04em" }}
         >
-          73% of AI projects never reach production
+          {t.reducedMotion[lang]}
         </p>
         <span
           className="absolute right-4 top-1/2 -translate-y-1/2"
           style={{ fontSize: 9, color: "var(--ink-400)" }}
         >
-          Source: Gartner, McKinsey, BCG
+          {t.source[lang]}
         </span>
       </section>
     );
@@ -61,7 +56,7 @@ export default function DataTicker() {
   return (
     <section
       id="data-ticker"
-      aria-label="AI adoption statistics — scroll of industry statistics"
+      aria-label={t.ariaLabel[lang]}
       className="relative overflow-hidden flex items-center"
       style={sectionStyle}
     >
@@ -100,7 +95,7 @@ export default function DataTicker() {
           zIndex: 1,
         }}
       >
-        Source: Gartner, McKinsey, BCG
+        {t.source[lang]}
       </span>
     </section>
   );

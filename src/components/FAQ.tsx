@@ -2,35 +2,12 @@
 
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
+import { useLanguage } from "@/lib/LanguageContext";
+import { translations, type Lang } from "@/lib/translations";
 
-const faqs = [
-  {
-    q: "How long does a typical engagement take?",
-    a: "The readiness audit takes 1–2 weeks. A full assess → guide → build → enable engagement typically runs 6–12 weeks, depending on scope. We work in focused sprints so you see results quickly — not months of consulting before anything happens.",
-  },
-  {
-    q: "How is this different from an AI consulting firm?",
-    a: "Most AI consultants deliver strategy decks. The most common complaint SMBs have — backed by multiple independent surveys — is that engagements produce slide decks without working automations, and disappear after delivery without training or change management support.\n\nBlueprint Labs is built differently: we start with a free readiness audit, build working automations and agents (not presentations), train your team on how to use them, and stay as an ongoing partner through adoption. Every engagement is founder-led — you work with Steve directly, not handed off to a junior team.",
-  },
-  {
-    q: "Do you work with our existing tools?",
-    a: "Absolutely. We start by evaluating what you already have — most teams don't need new tools, they need their current tools configured properly and their workflows redesigned to actually use them. We optimize what exists before recommending anything new.",
-  },
-  {
-    q: "What if we don't know where to start?",
-    a: "That's exactly what the readiness audit is designed for. You don't need to have an AI strategy before reaching out. We'll assess your current state, show you what's possible, and help you prioritize by impact and feasibility. No commitment required — just an honest conversation about where AI can realistically help your business.",
-  },
-  {
-    q: "What happens after handoff?",
-    a: "We don't disappear. Every engagement includes team training, documentation, and SOPs. For ongoing support, we offer monthly advisory retainers — adoption monitoring, optimization, and scaling guidance as your AI maturity grows.",
-  },
-  {
-    q: "What does the free AI readiness audit include?",
-    a: "A focused diagnostic covering your current AI usage, data readiness, workflow pain points, and team capabilities. You'll walk away with a clear picture of where you stand and the 2–3 highest-impact opportunities specific to your business — not a generic report, but an honest assessment of what's realistic for your team. Most importantly, you'll walk away knowing your top 2–3 highest-ROI workflow opportunities — the ones most likely to pay back within 90 days.",
-  },
-];
+type FAQData = { q: { en: string; kr: string }; a: { en: string; kr: string } };
 
-function FAQItem({ faq, index }: { faq: (typeof faqs)[0]; index: number }) {
+function FAQItem({ faq, index, lang }: { faq: FAQData; index: number; lang: Lang }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
@@ -52,7 +29,7 @@ function FAQItem({ faq, index }: { faq: (typeof faqs)[0]; index: number }) {
           className="font-serif text-lg md:text-xl leading-snug transition-colors duration-300"
           style={{ color: open ? "var(--amber-400)" : "var(--ink-900)" }}
         >
-          {faq.q}
+          {faq.q[lang]}
         </span>
         <span
           className="flex-shrink-0 mt-1 w-5 h-5 flex items-center justify-center transition-all duration-300"
@@ -77,7 +54,7 @@ function FAQItem({ faq, index }: { faq: (typeof faqs)[0]; index: number }) {
             className="overflow-hidden"
           >
             <div className="pb-7 max-w-2xl flex flex-col gap-4">
-              {faq.a.split("\n\n").map((para, i) => (
+              {faq.a[lang].split("\n\n").map((para, i) => (
                 <p
                   key={i}
                   className="font-sans font-light text-[15px] leading-[1.8]"
@@ -95,6 +72,8 @@ function FAQItem({ faq, index }: { faq: (typeof faqs)[0]; index: number }) {
 }
 
 export default function FAQ() {
+  const { lang } = useLanguage();
+  const t = translations.faq;
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
 
@@ -112,7 +91,7 @@ export default function FAQ() {
               className="font-sans font-medium text-[11px] tracking-[0.15em] uppercase"
               style={{ color: "var(--ink-400)" }}
             >
-              FAQ
+              {t.sectionLabel[lang]}
             </span>
           </motion.div>
 
@@ -128,7 +107,7 @@ export default function FAQ() {
               color: "var(--ink-900)",
             }}
           >
-            Common questions.
+            {t.headline[lang]}
           </motion.h2>
         </div>
 
@@ -148,30 +127,25 @@ export default function FAQ() {
             className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-4"
             style={{ color: "var(--amber-400)" }}
           >
-            Who is this for?
+            {t.whoLabel[lang]}
           </div>
           <p
             className="font-sans font-light text-[16px] leading-[1.8] max-w-2xl"
             style={{ color: "var(--ink-900)" }}
           >
-            Companies that have invested in AI tools but aren&apos;t seeing real
-            adoption. If your team has ChatGPT licenses, Copilot seats, or other
-            AI tools collecting dust — or if leadership keeps saying &ldquo;use
-            AI&rdquo; without a plan for how — that&apos;s exactly where we come
-            in.
+            {t.whoBody[lang]}
           </p>
           <p
             className="font-sans font-light text-[14px] leading-[1.7] mt-4 max-w-2xl"
             style={{ color: "var(--ink-700)" }}
           >
-            Particularly strong fit for mid-size businesses (10–500 employees)
-            where every workflow improvement is felt immediately across the whole team.
+            {t.whoFit[lang]}
           </p>
         </motion.div>
 
         <div>
-          {faqs.map((faq, i) => (
-            <FAQItem key={i} faq={faq} index={i} />
+          {t.items.map((faq, i) => (
+            <FAQItem key={i} faq={faq} index={i} lang={lang} />
           ))}
         </div>
 
@@ -185,10 +159,10 @@ export default function FAQ() {
         >
           <div>
             <p className="font-serif mb-2" style={{ fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", lineHeight: 1.2, color: "var(--ink-900)" }}>
-              Still have questions?
+              {t.stillQuestions[lang]}
             </p>
             <p className="font-sans font-light text-[15px]" style={{ color: "var(--ink-400)" }}>
-              The free readiness audit answers most of them in context.
+              {t.stillSubtext[lang]}
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
@@ -199,7 +173,7 @@ export default function FAQ() {
               onMouseEnter={(e) => (e.currentTarget.style.background = "var(--amber-400)")}
               onMouseLeave={(e) => (e.currentTarget.style.background = "var(--ink-900)")}
             >
-              Take the free assessment
+              {t.cta1[lang]}
             </a>
             <a
               href="#contact"
@@ -208,7 +182,7 @@ export default function FAQ() {
               onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--ink-900)"; e.currentTarget.style.color = "var(--ink-900)"; }}
               onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--sand-300)"; e.currentTarget.style.color = "var(--ink-700)"; }}
             >
-              Book a free intro call
+              {t.cta2[lang]}
             </a>
           </div>
         </motion.div>

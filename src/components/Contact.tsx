@@ -3,19 +3,16 @@
 import { useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-
-const challenges = [
-  "Manual data entry & reporting",
-  "Customer communication & follow-up",
-  "Inventory / order management",
-  "Team training & AI adoption",
-  "Something else",
-];
+import { useLanguage } from "@/lib/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export default function Contact() {
+  const { lang } = useLanguage();
+  const t = translations.contact;
+  const challenges = t.challenges[lang];
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-  const [form, setForm] = useState({ name: "", email: "", challenge: "" });
+  const [form, setForm] = useState({ name: "", email: "", challenge: "", preferredLang: "" });
   const [sending, setSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -65,7 +62,7 @@ export default function Contact() {
               className="font-sans font-medium text-[11px] tracking-[0.15em] uppercase mb-10"
               style={{ color: "var(--ink-400)" }}
             >
-              Get in Touch
+              {t.sectionLabel[lang]}
             </p>
             <h2
               className="font-serif mb-6"
@@ -75,26 +72,23 @@ export default function Contact() {
                 letterSpacing: "-0.02em",
               }}
             >
-              Let&apos;s start with an honest conversation.
+              {t.headline[lang]}
             </h2>
             <p
               className="font-sans font-light text-[15px] leading-[1.8] mb-6"
               style={{ color: "var(--sand-200)" }}
             >
-              Tell us where you&apos;re stuck. We&apos;ll follow up within 24
-              hours with honest feedback on whether we&apos;re a fit — no
-              pressure, no sales pitch.
+              {t.subtitle[lang]}
             </p>
             <div
               className="rounded-[2px] p-4"
               style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
             >
               <p className="font-sans font-medium text-[11px] tracking-[0.1em] uppercase mb-2" style={{ color: "var(--amber-400)" }}>
-                How engagements work
+                {t.howLabel[lang]}
               </p>
               <p className="font-sans font-light text-[13px] leading-[1.7]" style={{ color: "var(--sand-300)" }}>
-                We start with a <strong style={{ color: "var(--sand-100)", fontWeight: 500 }}>free readiness audit</strong> (no commitment).
-                Implementation engagements are scoped to your needs — most run 6–12 weeks. Monthly advisory retainers available after delivery.
+                {t.howBody[lang]}
               </p>
             </div>
           </motion.div>
@@ -117,10 +111,10 @@ export default function Contact() {
                   </svg>
                 </div>
                 <p className="font-serif text-xl mb-2" style={{ color: "var(--sand-50)" }}>
-                  Message sent.
+                  {t.successTitle[lang]}
                 </p>
                 <p className="font-sans font-light text-[15px]" style={{ color: "var(--sand-200)" }}>
-                  We&apos;ll be in touch within 24 hours.
+                  {t.successSubtext[lang]}
                 </p>
               </div>
             ) : (
@@ -128,7 +122,7 @@ export default function Contact() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                   <div>
                     <label htmlFor="contact-name" className={labelClass} style={labelStyle}>
-                      Name <span style={{ color: "rgba(253,250,245,0.3)" }}>(required)</span>
+                      {t.labelName[lang]} <span style={{ color: "rgba(253,250,245,0.3)" }}>{t.labelRequired[lang]}</span>
                     </label>
                     <input
                       id="contact-name"
@@ -138,14 +132,14 @@ export default function Contact() {
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       className={inputClass}
                       style={inputStyle}
-                      placeholder="Your name"
+                      placeholder={t.placeholderName[lang]}
                       onFocus={(e) => (e.currentTarget.style.borderBottomColor = "var(--amber-400)")}
                       onBlur={(e) => (e.currentTarget.style.borderBottomColor = "rgba(255,255,255,0.2)")}
                     />
                   </div>
                   <div>
                     <label htmlFor="contact-email" className={labelClass} style={labelStyle}>
-                      Email <span style={{ color: "rgba(253,250,245,0.3)" }}>(required)</span>
+                      {t.labelEmail[lang]} <span style={{ color: "rgba(253,250,245,0.3)" }}>{t.labelRequired[lang]}</span>
                     </label>
                     <input
                       id="contact-email"
@@ -155,36 +149,62 @@ export default function Contact() {
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       className={inputClass}
                       style={inputStyle}
-                      placeholder="you@company.com"
+                      placeholder={t.placeholderEmail[lang]}
                       onFocus={(e) => (e.currentTarget.style.borderBottomColor = "var(--amber-400)")}
                       onBlur={(e) => (e.currentTarget.style.borderBottomColor = "rgba(255,255,255,0.2)")}
                     />
                   </div>
                 </div>
 
-                <div>
-                  <label htmlFor="contact-challenge" className={labelClass} style={labelStyle}>
-                    Biggest operational challenge
-                  </label>
-                  <select
-                    id="contact-challenge"
-                    value={form.challenge}
-                    onChange={(e) => setForm({ ...form, challenge: e.target.value })}
-                    className={`${inputClass} cursor-pointer appearance-none`}
-                    style={{
-                      ...inputStyle,
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B8B2A4' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "right 0 center",
-                    }}
-                    onFocus={(e) => (e.currentTarget.style.borderBottomColor = "var(--amber-400)")}
-                    onBlur={(e) => (e.currentTarget.style.borderBottomColor = "rgba(255,255,255,0.2)")}
-                  >
-                    <option value="" disabled style={{ background: "#1C1C1A" }}>Select one…</option>
-                    {challenges.map((c) => (
-                      <option key={c} value={c} style={{ background: "#1C1C1A", color: "var(--sand-50)" }}>{c}</option>
-                    ))}
-                  </select>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                  <div>
+                    <label htmlFor="contact-challenge" className={labelClass} style={labelStyle}>
+                      {t.labelChallenge[lang]}
+                    </label>
+                    <select
+                      id="contact-challenge"
+                      value={form.challenge}
+                      onChange={(e) => setForm({ ...form, challenge: e.target.value })}
+                      className={`${inputClass} cursor-pointer appearance-none`}
+                      style={{
+                        ...inputStyle,
+                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B8B2A4' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "right 0 center",
+                      }}
+                      onFocus={(e) => (e.currentTarget.style.borderBottomColor = "var(--amber-400)")}
+                      onBlur={(e) => (e.currentTarget.style.borderBottomColor = "rgba(255,255,255,0.2)")}
+                    >
+                      <option value="" disabled style={{ background: "#1C1C1A" }}>{t.placeholderSelect[lang]}</option>
+                      {challenges.map((c) => (
+                        <option key={c} value={c} style={{ background: "#1C1C1A", color: "var(--sand-50)" }}>{c}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label htmlFor="contact-lang" className={labelClass} style={labelStyle}>
+                      {t.labelLang[lang]}
+                    </label>
+                    <select
+                      id="contact-lang"
+                      value={form.preferredLang}
+                      onChange={(e) => setForm({ ...form, preferredLang: e.target.value })}
+                      className={`${inputClass} cursor-pointer appearance-none`}
+                      style={{
+                        ...inputStyle,
+                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B8B2A4' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "right 0 center",
+                      }}
+                      onFocus={(e) => (e.currentTarget.style.borderBottomColor = "var(--amber-400)")}
+                      onBlur={(e) => (e.currentTarget.style.borderBottomColor = "rgba(255,255,255,0.2)")}
+                    >
+                      <option value="" disabled style={{ background: "#1C1C1A" }}>{t.placeholderLang[lang]}</option>
+                      {t.langOptions[lang].map((o) => (
+                        <option key={o} value={o} style={{ background: "#1C1C1A", color: "var(--sand-50)" }}>{o}</option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
 
                 <button
@@ -209,7 +229,7 @@ export default function Contact() {
                     e.currentTarget.style.boxShadow = "none";
                   }}
                 >
-                  {sending ? "Sending…" : "Request a free intro call"}
+                  {sending ? t.sendingBtn[lang] : t.submitBtn[lang]}
                 </button>
               </form>
             )}

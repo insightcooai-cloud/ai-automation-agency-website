@@ -2,15 +2,12 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-
-const credentials = [
-  { value: "10+", unit: "yrs",   label: "Business intelligence & operations experience" },
-  { value: "Sr. PM", unit: "",   label: "Currently at Amazon" },
-  { value: "1:1",  unit: "",     label: "Founder-led, every engagement" },
-  { value: "Austin", unit: "TX", label: "Serving businesses locally & remotely" },
-];
+import { useLanguage } from "@/lib/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export default function SocialProof() {
+  const { lang } = useLanguage();
+  const credentials = translations.socialProof.credentials[lang];
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 

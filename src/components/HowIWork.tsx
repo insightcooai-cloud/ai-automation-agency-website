@@ -2,56 +2,19 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { useLanguage } from "@/lib/LanguageContext";
+import { translations, type Lang } from "@/lib/translations";
 
-const phases = [
-  {
-    n: "01",
-    title: "Discovery",
-    timeline: "1–2 weeks",
-    points: [
-      "Free AI readiness audit",
-      "Stakeholder interviews & workflow observation",
-      "Current state assessment & gap analysis",
-    ],
-  },
-  {
-    n: "02",
-    title: "Strategy",
-    timeline: "2–3 weeks",
-    points: [
-      "Use case prioritization by impact & feasibility",
-      "Phased roadmap design",
-      "ROI modeling & business case development",
-    ],
-  },
-  {
-    n: "03",
-    title: "Build & Train",
-    timeline: "4–8 weeks",
-    points: [
-      "Implementation sprints with your team",
-      "Hands-on workshops & prompt engineering training",
-      "Custom automations, agents, and integrations",
-    ],
-  },
-  {
-    n: "04",
-    title: "Enable & Scale",
-    timeline: "Ongoing",
-    points: [
-      "SOPs, documentation & change management",
-      "Adoption monitoring & optimization",
-      "Monthly advisory retainer for scaling guidance",
-    ],
-  },
-];
+type PhaseData = (typeof translations.howIWork.phases)[0];
 
 function PhaseCard({
   phase,
   index,
+  lang,
 }: {
-  phase: (typeof phases)[0];
+  phase: PhaseData;
   index: number;
+  lang: Lang;
 }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
@@ -99,7 +62,7 @@ function PhaseCard({
                   className="font-sans font-medium text-[10px] tracking-[0.1em] uppercase"
                   style={{ color: "var(--amber-400)" }}
                 >
-                  {phase.timeline}
+                  {phase.timeline[lang]}
                 </span>
               </div>
               <h3
@@ -109,10 +72,10 @@ function PhaseCard({
                   color: "var(--ink-900)",
                 }}
               >
-                {phase.title}
+                {phase.title[lang]}
               </h3>
               <ul className="space-y-2">
-                {phase.points.map((point) => (
+                {phase.points[lang].map((point) => (
                   <li key={point} className="flex items-start gap-3">
                     <span
                       className="w-1 h-1 rounded-full mt-[10px] flex-shrink-0"
@@ -189,7 +152,7 @@ function PhaseCard({
                   className="font-sans font-medium text-[10px] tracking-[0.1em] uppercase"
                   style={{ color: "var(--amber-400)" }}
                 >
-                  {phase.timeline}
+                  {phase.timeline[lang]}
                 </span>
               </div>
               <h3
@@ -199,10 +162,10 @@ function PhaseCard({
                   color: "var(--ink-900)",
                 }}
               >
-                {phase.title}
+                {phase.title[lang]}
               </h3>
               <ul className="space-y-2">
-                {phase.points.map((point) => (
+                {phase.points[lang].map((point) => (
                   <li key={point} className="flex items-start gap-3">
                     <span
                       className="w-1 h-1 rounded-full mt-[10px] flex-shrink-0"
@@ -269,7 +232,7 @@ function PhaseCard({
               className="font-sans font-medium text-[10px] tracking-[0.1em] uppercase"
               style={{ color: "var(--amber-400)" }}
             >
-              {phase.timeline}
+              {phase.timeline[lang]}
             </span>
           </div>
           <h3
@@ -279,10 +242,10 @@ function PhaseCard({
               color: "var(--ink-900)",
             }}
           >
-            {phase.title}
+            {phase.title[lang]}
           </h3>
           <ul className="space-y-2">
-            {phase.points.map((point) => (
+            {phase.points[lang].map((point: string) => (
               <li key={point} className="flex items-start gap-3">
                 <span
                   className="w-1 h-1 rounded-full mt-[10px] flex-shrink-0"
@@ -304,6 +267,8 @@ function PhaseCard({
 }
 
 export default function HowIWork() {
+  const { lang } = useLanguage();
+  const t = translations.howIWork;
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-10% 0px" });
 
@@ -321,7 +286,7 @@ export default function HowIWork() {
               className="font-sans font-medium text-[11px] tracking-[0.15em] uppercase"
               style={{ color: "var(--ink-400)" }}
             >
-              03 — How It Works
+              {t.sectionLabel[lang]}
             </span>
           </motion.div>
 
@@ -337,14 +302,14 @@ export default function HowIWork() {
               color: "var(--ink-900)",
             }}
           >
-            Diagnosis before prescription. Always.
+            {t.headline[lang]}
           </motion.h2>
         </div>
 
         {/* Zigzag timeline */}
         <div className="flex flex-col">
-          {phases.map((phase, i) => (
-            <PhaseCard key={phase.n} phase={phase} index={i} />
+          {t.phases.map((phase, i) => (
+            <PhaseCard key={phase.n} phase={phase} index={i} lang={lang} />
           ))}
         </div>
       </div>

@@ -3,39 +3,13 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import PullQuote from "./PullQuote";
-
-const careerItems = [
-  {
-    period: "2025 — Present",
-    role: "Founder",
-    org: "Blueprint Labs",
-    desc: "AI readiness audits, team training, and adoption strategy for SMBs across Austin and Dallas.",
-    accent: true,
-  },
-  {
-    period: "2022 — Present",
-    role: "Senior Program Manager",
-    org: "Amazon",
-    desc: "Data, operations, and product at scale. Cross-functional execution across BI systems and operational infrastructure.",
-    accent: false,
-  },
-  {
-    period: "2015 — 2022",
-    role: "Business Intelligence & Operations",
-    org: "Fortune 500",
-    desc: "Built BI systems, dashboards, and workflow automation across sales ops, business ops, and data storytelling.",
-    accent: false,
-  },
-  {
-    period: "2014 — Present",
-    role: "AI Enablement Practice",
-    org: "Independent Research & Consulting",
-    desc: "AI readiness frameworks, prompt engineering curriculum, and adoption strategy — before it was called AI enablement.",
-    accent: false,
-  },
-];
+import { useLanguage } from "@/lib/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export default function About() {
+  const { lang } = useLanguage();
+  const t = translations.about;
+  const careerItems = t.career.map((c, i) => ({ ...c, accent: i === 0 }));
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -53,7 +27,7 @@ export default function About() {
             className="font-sans font-medium text-[11px] tracking-[0.15em] uppercase"
             style={{ color: "var(--ink-400)" }}
           >
-            04 — About
+            {t.sectionLabel[lang]}
           </span>
         </motion.div>
 
@@ -74,39 +48,27 @@ export default function About() {
                 color: "var(--ink-900)",
               }}
             >
-              Built by an operator, not a consultant.
+              {t.headline[lang]}
             </h2>
             <p className="font-sans font-light text-[15px] leading-[1.8] mb-6" style={{ color: "var(--ink-700)" }}>
-              I&apos;m Steve Jun. I&apos;ve spent over a decade at the
-              intersection of data, operations, and product — building BI
-              systems, managing sales and business operations, and shipping
-              products that had to work in the real world. Today, I&apos;m a
-              Senior Program Manager at Amazon.
+              {t.bio1[lang]}
             </p>
             <p className="font-sans font-light text-[15px] leading-[1.8] mb-6" style={{ color: "var(--ink-700)" }}>
-              I started Blueprint Labs because I kept seeing the same problem:
-              companies investing in AI tools that nobody actually used. Not
-              because the tools were bad — but because nobody did the hard work
-              of teaching teams <em className="italic">how</em> to use them and
-              redesigning workflows around them.
+              {t.bio2[lang]}
             </p>
             <p className="font-sans font-light text-[15px] leading-[1.8] mb-6" style={{ color: "var(--ink-700)" }}>
-              That&apos;s what I do. I assess where you are, educate your team
-              on what&apos;s possible, and build the systems that make AI
-              adoption stick — not just on day one, but on day 90.
+              {t.bio3[lang]}
             </p>
             <p className="font-sans font-light text-[15px] leading-[1.8] mb-8" style={{ color: "var(--ink-700)" }}>
-              We work closely with Korean-owned businesses in Austin and Dallas
-              — and bring the same cultural fluency and operational depth to
-              every engagement.
+              {t.bio4[lang]}
             </p>
 
             {/* Callout 3 */}
             <div className="mb-10">
               <PullQuote
-                quote="48% of CIOs report their employees are not ready to derive value from AI."
-                attribution="— Gartner CIO Talent Planning Survey, 2026"
-                subLine="This is the exact gap Blueprint Labs was built to close."
+                quote={t.pullQuote[lang]}
+                attribution={t.pullQuoteAttribution[lang]}
+                subLine={t.pullQuoteSubLine[lang]}
               />
             </div>
 
@@ -133,13 +95,10 @@ export default function About() {
                   color: "var(--ink-900)",
                 }}
               >
-                I&apos;m not going to pitch you on AI. I&apos;m going to show
-                you where your team is stuck, what&apos;s actually possible with
-                the tools you already have, and then help you make it work.
-                Personally.
+                {t.personalQuote[lang]}
               </p>
               <footer className="font-sans font-light text-[12px] mt-4" style={{ color: "var(--ink-400)" }}>
-                — Steve Jun, Founder, Blueprint Labs
+                {t.personalQuoteAttr[lang]}
               </footer>
             </motion.blockquote>
           </motion.div>
@@ -155,7 +114,7 @@ export default function About() {
               className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-8"
               style={{ color: "var(--ink-400)" }}
             >
-              Career Arc
+              {t.careerArc[lang]}
             </p>
 
             <div className="relative" style={{ paddingLeft: 24 }}>
@@ -213,7 +172,7 @@ export default function About() {
                       color: "var(--ink-900)",
                     }}
                   >
-                    {item.role}
+                    {item.role[lang]}
                   </p>
                   <p
                     className="font-sans font-medium mb-2"
@@ -222,7 +181,7 @@ export default function About() {
                       color: "var(--amber-400)",
                     }}
                   >
-                    {item.org}
+                    {typeof item.org === "string" ? item.org : item.org[lang]}
                   </p>
                   <p
                     className="font-sans font-light leading-relaxed"
@@ -231,7 +190,7 @@ export default function About() {
                       color: "var(--ink-400)",
                     }}
                   >
-                    {item.desc}
+                    {item.desc[lang]}
                   </p>
                 </motion.div>
               ))}

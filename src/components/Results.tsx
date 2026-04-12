@@ -2,39 +2,8 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-
-const scenarios = [
-  {
-    n: "01",
-    industry: "Distribution / Operations",
-    before:
-      "A mid-size import business processing 200+ orders per week — manually re-entered across three systems by two people. 14 hours/week, every week.",
-    after:
-      "Automated sync between their ordering portal, inventory system, and accounting software using n8n. The team went from 14 hours to under 2 hours. They reinvested the rest into supplier negotiations.",
-    metric: "86%",
-    metricLabel: "reduction in manual data entry time",
-  },
-  {
-    n: "02",
-    industry: "Service Business / Customer Ops",
-    before:
-      "A service business fielding 60+ repetitive customer emails daily — quote requests, appointment confirmations, FAQ responses. Owner spending 3 hours a day just on inbox.",
-    after:
-      "AI triage + draft responses auto-generated for the most common request types. Owner reviews and sends in 20 minutes. Genuinely new customers get faster replies than before.",
-    metric: "~90%",
-    metricLabel: "reduction in email response time",
-  },
-  {
-    n: "03",
-    industry: "Sales Team / Reporting",
-    before:
-      "A sales team spending every Monday morning rebuilding the same performance dashboard in Excel. Meeting delayed until noon. Half the team showing up unprepared.",
-    after:
-      "Live dashboard auto-updates from CRM. Weekly summary email writes itself and lands in inboxes Friday at 4pm. Monday morning starts with decisions, not spreadsheets.",
-    metric: "4+ hrs",
-    metricLabel: "reclaimed per person, every week",
-  },
-];
+import { useLanguage } from "@/lib/LanguageContext";
+import { translations, type Lang } from "@/lib/translations";
 
 /* ── Hover-reveal diagrams ── */
 
@@ -133,12 +102,16 @@ const Diagram3 = () => (
 
 const diagrams = [Diagram1, Diagram2, Diagram3];
 
+type ScenarioData = (typeof translations.results.scenarios.en)[0];
+
 function ScenarioItem({
   scenario,
   index,
+  lang,
 }: {
-  scenario: (typeof scenarios)[0];
+  scenario: ScenarioData;
   index: number;
+  lang: Lang;
 }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-8% 0px" });
@@ -176,7 +149,7 @@ function ScenarioItem({
             className="font-sans font-medium text-[10px] tracking-[0.12em] uppercase mb-2"
             style={{ color: "var(--ink-400)" }}
           >
-            Before
+            {translations.results.before[lang]}
           </div>
           <p
             className="font-sans font-light text-[15px] leading-[1.7]"
@@ -190,7 +163,7 @@ function ScenarioItem({
             className="font-sans font-medium text-[10px] tracking-[0.12em] uppercase mb-2"
             style={{ color: "var(--amber-400)" }}
           >
-            After
+            {translations.results.after[lang]}
           </div>
           <p
             className="font-sans font-light text-[15px] leading-[1.7]"
@@ -228,6 +201,9 @@ function ScenarioItem({
 }
 
 export default function Results() {
+  const { lang } = useLanguage();
+  const t = translations.results;
+  const scenarios = t.scenarios[lang];
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
 
@@ -245,7 +221,7 @@ export default function Results() {
               className="font-sans font-medium text-[11px] tracking-[0.15em] uppercase"
               style={{ color: "var(--ink-400)" }}
             >
-              What This Looks Like
+              {t.sectionLabel[lang]}
             </span>
           </motion.div>
 
@@ -261,7 +237,7 @@ export default function Results() {
               color: "var(--ink-900)",
             }}
           >
-            In practice, this is what changes.
+            {t.headline[lang]}
           </motion.h2>
 
           <motion.p
@@ -271,14 +247,13 @@ export default function Results() {
             className="font-sans font-light text-[15px] max-w-xl leading-[1.8] mb-20"
             style={{ color: "var(--ink-700)" }}
           >
-            Scenarios based on Blueprint Labs client engagements. Results vary
-            by scope, team size, and complexity.
+            {t.subtext[lang]}
           </motion.p>
         </div>
 
         <div>
           {scenarios.map((s, i) => (
-            <ScenarioItem key={s.n} scenario={s} index={i} />
+            <ScenarioItem key={s.n} scenario={s} index={i} lang={lang} />
           ))}
         </div>
 
@@ -292,54 +267,30 @@ export default function Results() {
           }}
         >
           <div className="flex items-start justify-around text-center gap-6 flex-wrap">
-            <div>
-              <div
-                className="font-serif leading-none mb-2"
-                style={{ fontSize: "clamp(28px, 3vw, 36px)", color: "var(--amber-400)" }}
-              >
-                66%
+            {t.benchmarks[lang].map((b, i) => (
+              <div key={i}>
+                <div
+                  className="font-serif leading-none mb-2"
+                  style={{ fontSize: "clamp(28px, 3vw, 36px)", color: "var(--amber-400)" }}
+                >
+                  {b.metric}
+                </div>
+                <div
+                  className="font-sans font-light text-[12px] leading-snug"
+                  style={{ color: "var(--ink-700)" }}
+                >
+                  {b.label.split("\n").map((line, j) => (
+                    <span key={j}>{line}{j === 0 && <br />}</span>
+                  ))}
+                </div>
               </div>
-              <div
-                className="font-sans font-light text-[12px] leading-snug"
-                style={{ color: "var(--ink-700)" }}
-              >
-                of AI-using SMBs<br />save $500–$2K/mo
-              </div>
-            </div>
-            <div>
-              <div
-                className="font-serif leading-none mb-2"
-                style={{ fontSize: "clamp(28px, 3vw, 36px)", color: "var(--amber-400)" }}
-              >
-                20+ hrs
-              </div>
-              <div
-                className="font-sans font-light text-[12px] leading-snug"
-                style={{ color: "var(--ink-700)" }}
-              >
-                saved per month<br />by 58% of SMBs
-              </div>
-            </div>
-            <div>
-              <div
-                className="font-serif leading-none mb-2"
-                style={{ fontSize: "clamp(28px, 3vw, 36px)", color: "var(--amber-400)" }}
-              >
-                2–6 months
-              </div>
-              <div
-                className="font-sans font-light text-[12px] leading-snug"
-                style={{ color: "var(--ink-700)" }}
-              >
-                typical payback<br />for focused automations
-              </div>
-            </div>
+            ))}
           </div>
           <p
             className="text-center font-sans font-light text-[10px] mt-5"
             style={{ color: "var(--ink-400)" }}
           >
-            Industry benchmarks: Thryv AI &amp; Small Business Survey (500+ US SMBs, 2024–2025)
+            {t.benchmarkSource[lang]}
           </p>
         </div>
       </div>
